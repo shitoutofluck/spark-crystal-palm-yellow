@@ -1,0 +1,107 @@
+{
+  "id": "m-P10-window-flash",
+  "type": "Method",
+  "practice_id": "pr-P10-window-flash",
+  "practice_name": "Window / door flashing (SFR)",
+  "phase_id": "P10",
+  "building_types": [
+    "bt-sfr-new",
+    "bt-sfr-remodel",
+    "bt-adu"
+  ],
+  "tier": "A",
+  "is_habit": true,
+  "habit_or_alt": "habit",
+  "habit_scope": "CMHC Fig 130 window sequence (Canadian / confirm AHJ). Sub-sill membrane, corner reinforcement, head flashing under WRB. 2-story light wood.",
+  "alt_to": [],
+  "also_known_as": [
+    "pan flashing",
+    "sub-sill membrane",
+    "end dam"
+  ],
+  "how_it_is_done": [
+    "Store millwork inside, or off the ground under cover. AF&PA. CMHC: windows arrive just in time; store upright, dry, level, in the packaging; leave temporary bracing; pull screens and label them.",
+    "WRB from the bottom, shingle fashion. AF&PA: Type 15 felt or other water-repellent paper or film, perm ≥5; 6-in strips around openings and behind exterior trim; horizontal laps 4 in; vertical laps 6 in; start at the bottom. CMHC: building paper in 36-in rolls, each strip lapped over the one below; or housewrap in ~9-ft widths covering a storey, turned into openings. Stucco/masonry membrane laps 100 mm (4 in) named. KEEP BOTH 4-in horiz (AF&PA and CMHC stucco) and AF&PA 6-in vertical.",
+    "Housewrap extra (BD, ADU/remodel): start 6–12 in around a corner and 3 in over the foundation onto the sill; cap nails 12–18 in on stud lines; vertical seams 6–12 in; course overlap 6 in; tape seams. Cut around existing windows only when the wrap cannot go on first — that is the sourced remodel extra, not an invented occupied-site SOP.",
+    "Sub-sill slopes out. Then the water-impermeable sill membrane. Then the corners. CMHC Fig 130: (1) sub-sill slope to exterior (2) membrane below the opening (3) WI sill membrane (4) WI corner reinforcement (5) overlapping WI membrane. Fig 131: 6% slope; drip; membrane over sloped subsill or over a horizontal sill with dam. Sub-sill flashing at least 100 mm (4 in) up the sides. BD ADU: 9-in tape on the sill, 10–12 in up the jacks, 3 in onto wrap; sides then head; caulk jacks and head; leave the sill uncaulked so water can drain. Keep both. Manufacturer instructions override a guess.",
+    "Set the window plumb and level on shims. Fasten through the sides. CMHC: RO 1 in larger than the frame → min 1/2 in space. Wood screws through the sides of the frame only. Shims at jamb and sill junctions only. Spray foam or sealant in the breach after the unit is in — CMHC also warns that insulating the breach can limit drainage; in higher exposure prefer drainable fill and interior sealant. Confirm the manufacturer.",
+    "Head flashing, then lap the WRB over the head. Never reverse that. CMHC Fig 130 steps 9–11. Then furring (if used), drip, siding, backer rod, interior and exterior sealants.",
+    "Drip at the sill. CMHC Fig 131: 1 in extension beyond cladding; drip notch 1/4 in beyond cladding (or 5/8 in beyond the inner face of a masonry sill).",
+    "Doors: pre-hung manufactured units. CMHC. Forced-entry: manufactured units; site-built within 6 ft-6 in of the ground same (Canadian / confirm AHJ).",
+    "Roof-wall and openings get flashing, not caulk as the only plane. CMHC Ch 14: flashings at roof-wall, chimney, valleys, above and below windows/doors, foundation to drain the cavity. Min 6% slope. Base flashing ≥6 in up the wall; sheathing paper lapped ≥4 in over that membrane. Siding to an adjoining roof: ≥2 in space."
+  ],
+  "sequence_before": [
+    "m-P10-sheathing-paper",
+    "P09"
+  ],
+  "sequence_after": [
+    "P11"
+  ],
+  "can_overlap_with": [],
+  "trades": [
+    "named — no crew size"
+  ],
+  "crew_notes": "gap-crew-counts",
+  "tools_equipment": "Not a tool list.",
+  "inspection_hold_points": [
+    "WRB from the bottom, shingle laps; 6-in strips at openings (AF&amp;PA); sub-sill slope and WI pan; corner reinforcement / dam; head flashing under the upper WRB; sill left able to drain (BD); window plumb/level; screws in the jambs not a guess through the sill; 2 in siding-to-roof; official inspects framing including windows/doors/skylights (CMHC)."
+  ],
+  "material_classes": [
+    "water-impermeable sill membrane CLASS",
+    "head flashing CLASS",
+    "window/door millwork CLASS"
+  ],
+  "typical_duration_sfr": "unknown — not in sources",
+  "when_this_beats_habit": "This is the CMHC printed window sequence. WRB paper is m-P10-sheathing-paper.",
+  "when_this_is_a_bad_idea": "Inventing a 6-in end dam if the book said 4 in up the jambs. Caulking the sill shut if the book left it open to drain. Treating NBC egress as IRC.",
+  "why_tier1_never_learned_it": "They set windows. What they skip is pan then head flashing under the WRB.",
+  "permit_gate": "confirm with AHJ",
+  "permit_gate_notes": "Canadian / confirm AHJ. Not a stamp.",
+  "risk_if_swapped_late": "Head flashing reversed with WRB is a tear-off. No dollars named.",
+  "sophistication_needed": 2,
+  "plain_language_summary": "On the 2-story stick house the WRB is already a plane. Slope the sub-sill out, stick the pan, reinforce the corners, set the window plumb on shims, screws in the jambs, head flashing, then lap the paper over the head. Leave the sill able to drain. Canadian figures — confirm AHJ.",
+  "spanish_summary": "",
+  "scribd_sources": [],
+  "locators": [
+    "CMHC Fig 130 / 131 as quoted in bible/phases/P10-windows-wrb/research/extract.txt",
+    "AF&PA 6-in strips at openings"
+  ],
+  "confidence": "med",
+  "confidence_notes": "CMHC Canadian / confirm AHJ. Laps printed (4 in up jambs). Do not invent other laps.",
+  "open_gaps": [
+    "gap-crew-counts",
+    "gap-inspector-fail-list-unsourced",
+    "gap-P10-window-flash-unsourced",
+    "gap-P10-walkthrough-tyvek-zip-flags"
+  ],
+  "last_updated": "2026-08-30",
+  "inspector_looks_for": [
+    "WRB from the bottom, shingle laps; 6-in strips at openings (AF&amp;PA); sub-sill slope and WI pan; corner reinforcement / dam; head flashing under the upper WRB; sill left able to drain (BD); window plumb/level; screws in the jambs not a guess through the sill; 2 in siding-to-roof; official inspects framing including windows/doors/skylights (CMHC)."
+  ],
+  "inspector_fails": [],
+  "common_messups": [],
+  "do_not_cheap": [
+    "laps (4 in horiz AF&amp;PA / CMHC; 6 in vert AF&amp;PA); sub-sill membrane at least 4 in up the jambs (CMHC); pan/end-dam (named); do not reverse head flashing and WRB; do not substitute felt for specified housewrap (BD); do not invent IRC egress — CMHC basement bedroom 15 in min dimension / 3.8 sf is NBC, confirm AHJ."
+  ],
+  "smart_save": [
+    "felt vs housewrap is a spec choice, not a field save. Rainscreen furring is CMHC coastal, not a Fontana skip. Gap — book did not name a dollar save."
+  ],
+  "sop_gap_note": "inspector_fails and common_messups unsourced.",
+  "walkthroughs": [
+    {
+      "url": "https://www.youtube.com/watch?v=cVckyMUJHQI",
+      "title": "How To Make Window Flashing",
+      "channel": "Matt Risinger",
+      "platform": "youtube",
+      "duration_or_pages": "4:35",
+      "what_it_shows": "Field leak correction. Metal head flashing + named end dams. Distinct from the tar-paper WRB wrap clip (G8W654jX5h0). Do not invent IRC. Hunt cw-P10-2026-08-30.",
+      "timestamp_if_any": null,
+      "flags": [
+        "field",
+        "named end dams",
+        "head flashing",
+        "from cw-P10-2026-08-30"
+      ]
+    }
+  ]
+}

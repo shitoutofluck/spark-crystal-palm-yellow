@@ -1,0 +1,151 @@
+{
+  "id": "m-P04-full-excavation",
+  "type": "Method",
+  "practice_id": "pr-P04-excavation",
+  "practice_name": "Excavation / grading / site drainage (SFR)",
+  "phase_id": "P04",
+  "building_types": [
+    "bt-sfr-new",
+    "bt-sfr-remodel",
+    "bt-adu"
+  ],
+  "tier": "A",
+  "is_habit": true,
+  "habit_or_alt": "habit",
+  "habit_scope": "Full hole with workspace for forms, drain pipe, dampproof, exterior insulation — basement/crawl habit in cold country (Wasatch/Logan). ORNL SITEWORK / FOOTINGS; CMHC Ch6 (Canadian / NBC — confirm AHJ; not IRC). Not the P05 footing drain. Depth follows the P05 type already on the drawings. 1–2 story wood SFR.",
+  "alt_to": [],
+  "also_known_as": [
+    "basement excavation",
+    "full hole with workspace"
+  ],
+  "how_it_is_done": [
+    "Layout first. CMHC Ch2: 'Excavation for the foundations may proceed once the building layout has been completed. This can often be completed in one day depending on the type of equipment used and site conditions.' Canadian / NBC — confirm AHJ; not IRC. Do not invent a crew or a second day as SOP.",
+    "Strip topsoil already done in P01; keep going. ORNL: establish limits of excavation; precautions for stabilizing excavation; frost-heave protection for winter construction; define spoil site.",
+    "Workspace around the house. CMHC Ch6: the area to be excavated is staked out, usually 600 to 700 mm (24 to 28 in.) wider than the corners of the house — extra width for formwork, drain pipe, dampproofing, exterior insulation. Fluorescent paint may mark the perimeter. Canadian / NBC — confirm AHJ; not IRC. Do not copy 24–28 in as US habit. US: FM 'measure out as far as required from the building line' for a larger excavation when walls are wide at the bottom — no inch number printed.",
+    "Back slope on a deep hole. CMHC Ch6: 'Excavations more than 1.2 m (4 ft.) deep must have a back slope to ensure the safety of those working near the edge of the excavation.' Ch1 Construction Safety: 'Cave-ins are dangerous and common. Ensure that excavations are adequately back-sloped or shored to prevent slope failure.' Canadian / NBC — confirm AHJ; not IRC. Do not invent an OSHA 5-ft rule — not in these books.",
+    "Depth from the drawings, not from a field guess. CMHC: depth depends on street/sewer/water, lot profile, finished grade, adjoining properties, basement headroom, first-floor elevation, water table, bedrock. Poor soil: deepen until suitable soil. Do not affect adjacent foundations — call the building department. Canadian / NBC — confirm AHJ; not IRC. ORNL §1.3: water table within ~8 ft makes a basement undesirable. Bedrock near the surface: 'Expensive bedrock excavation is not required to reach frost depth nor is it economically justifiable to create basement space' — that is a type veto, not a blast-a-basement Method.",
+    "Footing subgrade. ORNL FOOTINGS: do not fill the overexcavated footing trench; do not bear footings partially on rock (sand fill); do not pour footings on frozen ground. CMHC: 'Insulate the excavation in the winter to prevent frost penetration. Building on frozen soils can cause problems that are difficult and costly to remedy.' Canadian / NBC — confirm AHJ; not IRC. AF&PA: compact fill and stripped-root zones before footings.",
+    "Granular base under a basement slab is extra depth (CMHC: excavation deep enough to accommodate the granular base). That layer is P06. Footing drain is P05, CIP/CMU only — not this phase. Site drainage here: ORNL intercepting drains upgrade of the foundation if needed; discharge roof drainage away from the foundation; CMHC surface drainage to street/catch basin, do not lead roof and driveway water into the foundation drainage system (Ch2 Site Planning). Canadian / NBC — confirm AHJ; not IRC.",
+    "Rough grade: CMHC keep rough grade at least 100 mm (4 in.) below the finished-grade line for later topsoil or paving. ORNL: define finish subgrade / base grade / rough grade / finish grade by contractor. Canadian 4 in is labeled — confirm AHJ; not IRC. Finish 5% slope away is P05/P17 (ORNL note 2: 6 in in 10 ft) — do not steal it as a P04 save."
+  ],
+  "sequence_before": [
+    "P03",
+    "m-P03-batter-boards"
+  ],
+  "sequence_after": [
+    "P05",
+    "m-P05-basement-cip-cmu",
+    "m-P05-crawl",
+    "m-P05-pwf",
+    "P06"
+  ],
+  "can_overlap_with": [],
+  "trades": [
+    "ORNL: grading contractor. CMHC: excavation often one day depending on equipment and site — not a headcount."
+  ],
+  "crew_notes": "not in sources; Gap gap-crew-counts",
+  "tools_equipment": "Named: excavation equipment (CMHC 'type of equipment used'); fluorescent paint for perimeter (CMHC). HUD §4.4 excavator bucket widths 12/16/24 in are a P05 footing-width note, not a P04 SKU.",
+  "inspection_hold_points": [
+    "ORNL: after excavation and before concrete is poured for the footings.",
+    "No frozen subgrade (ORNL FOOTINGS; CMHC winter insulation of the excavation).",
+    "Do not fill an overexcavated footing trench; do not bear half-on-rock (ORNL).",
+    "Back slope or shore a deep hole (CMHC). Canadian / NBC — confirm AHJ; not IRC.",
+    "Utility locate already done (P01). Adjacent foundations not undermined (CMHC)."
+  ],
+  "material_classes": [
+    "compacted fill CLASS",
+    "granular base CLASS"
+  ],
+  "typical_duration_sfr": "unknown — not in sources",
+  "when_this_beats_habit": "This is the cold-country basement/crawl hole. Trench-footing is the documented well-drained alt. SOG strip is the South/Fontana alt.",
+  "when_this_is_a_bad_idea": "Water table within ~8 ft (ORNL) — do not force a basement hole. Shallow bedrock (ORNL) — do not blast for frost. Copying CMHC 24–28 in as US habit. Mixing P04 site drainage with P05 drain tile.",
+  "why_tier1_never_learned_it": "They did — dig the hole. What they skip is the footing inspect before the pour, not filling an over-dig, and not pouring on frost.",
+  "permit_gate": "should be on drawings before permit",
+  "permit_gate_notes": "Excavation depth follows foundation type on the drawings. Changing basement vs slab after permit is a type change. Confirm with AHJ / engineer.",
+  "risk_if_swapped_late": "Swapping basement vs slab after the hole is open is a type change: depth, waterproofing, drain tile, floor package, stairs. Catch before permit.",
+  "sophistication_needed": 2,
+  "plain_language_summary": "This is the hole for a basement house. Layout first. Leave workspace for forms and dampproof. Slope the banks on a deep cut. Do not pour on frozen dirt. Do not fill an over-dig with loose soil. Do not sit a footing half on rock. Site water goes away from the house — the footing drain is P05. CMHC inches are Canadian; confirm the AHJ.",
+  "spanish_summary": "Este es el hueco de un sótano. Primero el replanteo. Deje espacio para formas e impermeabilización. Talude un corte hondo. No vacíe sobre tierra helada. No rellene un sobre-excavado con tierra suelta. El drenaje de zapata es P05. Las pulgadas de CMHC son canadienses.",
+  "scribd_sources": [
+    "src-ornl-bfh",
+    "src-cmhc-wood-frame",
+    "src-afpa-details",
+    "src-hud-rsdg"
+  ],
+  "locators": [
+    "ORNL BFH SITEWORK + FOOTINGS checklists (printed pp 33–34, 37): excavation limits, frozen ground, overexcavated trench, footing inspect before pour",
+    "CMHC Ch6 Excavation Size and Depth; Ch2 Stages Excavation and Footings (printed pp 20–21, 60–62)"
+  ],
+  "market_notes": [
+    "mn-wasatch",
+    "mn-logan"
+  ],
+  "constraints": [],
+  "confidence": "high",
+  "confidence_notes": "ORNL do-nots are named fails. CMHC dimensions labeled Canadian. No OSHA 5-ft invented. No crew. Drain tile stays P05.",
+  "open_gaps": [
+    "gap-crew-counts",
+    "gap-sop-labor-crew",
+    "gap-sop-walkthroughs",
+    "gap-inspector-fail-list-unsourced",
+    "gap-P04-walkthrough-excavation"
+  ],
+  "remodel_note": "Remodel extras (matching, occupied-site, shoring, demo of an existing house) are not a sequence in CMHC/ORNL/HUD/FM — Gap, do not invent remodel-only methods. Essential Guide is framing-only (opened 2026-08-30; silent on site/layout). B&D Room Additions not used as a P00–P06 sequence.",
+  "last_updated": "2026-08-30",
+  "fastener_schedule": [],
+  "tools": [
+    "excavator",
+    "fluorescent marking paint"
+  ],
+  "labor": {
+    "crew": null,
+    "certs": [],
+    "gap": "gap-crew-counts"
+  },
+  "labor_notes": "CMHC 'one day depending on equipment and site' is not a headcount. ORNL grading contractor. Crew Gap.",
+  "layering": [
+    "Strip (P01) → layout (P03) → hole with workspace → footing inspect → P05 pour. Granular under slab is P06. Footing drain is P05.",
+    "ORNL: separate surface, roof, and foundation drain systems (subdrainage checklist) — P04 keeps surface/roof off the house; P05 owns the footing drain."
+  ],
+  "build_size_alts": "not in sources",
+  "code_to_check": [
+    "Confirm with AHJ / engineer. CMHC back-slope at >4 ft is Canadian / NBC — not OSHA, not IRC. Do not invent R403 excavation numbers."
+  ],
+  "time_money": "CMHC: often one day depending on equipment and site. Reuse excavated material. Minimize rock. No dollars.",
+  "walkthroughs": [],
+  "images": [
+    {
+      "path": "kb/images/m-P04-full-excavation/cmhc-fig-30-batter-boards-excavation.png",
+      "caption": "CMHC Fig 30: excavation with back slope, workspace for trades, footing on undisturbed soil using formboards. Canadian / NBC — confirm AHJ; not IRC. Workspace width 24–28 in is CMHC Ch6 — do not copy as US habit. Footing inspect before pour is ORNL."
+    }
+  ],
+  "inspector_looks_for": [
+    "Hole open; subgrade unfrozen; overexcavation not filled with loose dirt (ORNL).",
+    "Workspace for forms/dampproof; back slope on a deep cut (CMHC — Canadian / NBC — confirm AHJ; not IRC).",
+    "Topsoil stripped; organics not in the bottom (ORNL/CMHC).",
+    "Footing inspection before pour (ORNL) — this is the P04→P05 hold."
+  ],
+  "inspector_fails": [
+    "Pouring footings on frozen ground (ORNL FOOTINGS 'Do not pour footings on frozen ground'; CMHC 'Building on frozen soils can cause problems that are difficult and costly to remedy').",
+    "Filling an overexcavated footing trench (ORNL 'Do not fill the overexcavated footing trench').",
+    "Bearing footings partially on rock (ORNL 'Do not bear footings partially on rock (sand fill)')."
+  ],
+  "common_messups": [
+    "Building on frozen soils (CMHC Ch6).",
+    "Cave-ins on an unshored / unsloped deep cut (CMHC Ch1 Construction Safety).",
+    "Leading roof and driveway water into the foundation drain (CMHC Ch2 Site Planning) — that mixing is a drainage mess-up, not a P05 tile skip."
+  ],
+  "do_not_cheap": [
+    "Footing inspection after excavation and before the pour (ORNL hold).",
+    "Do not pour on frozen ground (hold).",
+    "Do not fill an overexcavated trench (hold).",
+    "Do not bear half-on-rock (hold).",
+    "Site drainage off the house — not into the P05 footing drain (CMHC/ORNL).",
+    "Permit gate: excavation depth follows the foundation type already on the drawings."
+  ],
+  "smart_save": [
+    "CMHC: store good excavated material for backfill so you import less. Set footing elevation to minimize rock excavation. Avoid excessive foundation height. Canadian / NBC — confirm AHJ; not IRC. No dollars.",
+    "ORNL: do not blast a basement into shallow bedrock just to chase frost — change type. Late swap of basement vs slab after the hole is a type change."
+  ],
+  "sop_gap_note": "walkthroughs []. Compaction test % (Proctor) not named — ORNL says 'Determine proper compaction' without a number. Gap that number; do not invent 95%."
+}

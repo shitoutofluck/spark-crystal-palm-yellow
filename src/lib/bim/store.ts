@@ -19,12 +19,16 @@ import { kindKey } from "./tree";
 import type { BoxSpec, BuildingProgram, BuildResult, LayerId } from "./types";
 import { BUILD_SEQUENCE, LAYER_IDS } from "./types";
 
+export type WorkMode = "step" | "live";
+export type RenderStyle = "studio" | "overcast" | "dusk";
+
 export const DEFAULT_VISIBLE: Record<LayerId, boolean> = {
   site: true,
   excavation: false,
   foundation: false,
   underslab: false,
   framing: false,
+  fasteners: false,
   envelope: true,
   openings: true,
   insulation: false,
@@ -64,11 +68,10 @@ export const LAYER_PRESETS: { id: string; label: string; layers: Record<LayerId,
   {
     id: "all",
     label: "All layers",
-    layers: Object.fromEntries(LAYER_IDS.map((id) => [id, true])) as Record<LayerId, boolean>,
+    layers: Object.fromEntries(LAYER_IDS.map((id) => [id, id !== "fasteners"])) as Record<LayerId, boolean>,
   },
 ];
 
-export type RenderStyle = "studio" | "overcast" | "dusk";
 export type ViewPreset = "street" | "eye" | "iso" | "top";
 export type OverrideScope = "piece" | "kind" | "layer";
 export type GizmoMode = "translate" | "rotate" | "scale";
@@ -134,6 +137,8 @@ type Store = {
   seqT: number;
   sequenceOn: boolean;
   playing: boolean;
+  workMode: WorkMode;
+  stepIndex: number;
   brief: string;
   generating: boolean;
   via: "preset" | "model" | "fallback";
@@ -167,6 +172,11 @@ type Store = {
   playSequence: () => void;
   stopSequence: () => void;
   tickSequence: (dt: number) => void;
+  setStep: (i: number) => void;
+  nextStep: () => void;
+  prevStep: () => void;
+  enterLive: () => void;
+  enterStep: (i?: number) => void;
   loadProgram: (program: BuildingProgram, via: Store["via"]) => void;
   resetTerrace: () => void;
   refitCamera: () => void;
@@ -217,6 +227,8 @@ function createBimStore() {
   seqT: 0,
   sequenceOn: false,
   playing: false,
+  workMode: "step",
+  stepIndex: 0,
   brief: "",
   generating: false,
   via: "preset",
@@ -244,12 +256,14 @@ function createBimStore() {
   setBrief: (brief) => set({ brief }),
   toggleLayer: (id) =>
     set((s) => ({
+      workMode: "live",
       sequenceOn: false,
       playing: false,
       visible: { ...s.visible, [id]: !s.visible[id] },
     })),
   isolateLayer: (id) =>
     set({
+      workMode: "live",
       sequenceOn: false,
       playing: false,
       focusKind: null,
@@ -259,22 +273,75 @@ function createBimStore() {
   applyPreset: (id) => {
     const preset = LAYER_PRESETS.find((p) => p.id === id);
     if (!preset) return;
-    set({ visible: { ...preset.layers }, sequenceOn: false, playing: false, focusKind: null });
+    set({
+      visible: { ...preset.layers },
+      sequenceOn: false,
+      playing: false,
+      focusKind: null,
+      workMode: "live",
+      cameraEpoch: get().cameraEpoch + 1,
+    });
   },
   setExplode: (n) => set({ explode: Math.min(1, Math.max(0, n)) }),
   setSection: (n) => set({ section: Math.min(1, Math.max(0, n)) }),
-  playSequence: () => set({ sequenceOn: true, playing: true, seqT: -0.15, focusKind: null }),
+  playSequence: () =>
+    set({
+      sequenceOn: true,
+      playing: true,
+      seqT: 0,
+      workMode: "step",
+      stepIndex: 0,
+      focusKind: null,
+      cameraEpoch: get().cameraEpoch + 1,
+    }),
   stopSequence: () => set({ playing: false, sequenceOn: false }),
   tickSequence: (dt) => {
     const s = get();
     if (!s.playing) return;
-    const next = s.seqT + dt * 0.72;
+    const next = s.seqT + dt * 0.55;
     if (next >= BUILD_SEQUENCE.length) {
-      set({ seqT: BUILD_SEQUENCE.length, playing: false, sequenceOn: false });
+      get().enterLive();
       return;
     }
-    set({ seqT: next });
+    const idx = Math.max(0, Math.min(BUILD_SEQUENCE.length - 1, Math.floor(next)));
+    set({
+      seqT: next,
+      stepIndex: idx,
+      workMode: "step",
+      cameraEpoch: idx !== s.stepIndex ? s.cameraEpoch + 1 : s.cameraEpoch,
+    });
   },
+  setStep: (i) => {
+    const idx = Math.max(0, Math.min(BUILD_SEQUENCE.length - 1, Math.round(i)));
+    set((s) => ({
+      workMode: "step",
+      stepIndex: idx,
+      seqT: idx,
+      sequenceOn: true,
+      playing: false,
+      focusKind: null,
+      cameraEpoch: s.cameraEpoch + 1,
+    }));
+  },
+  nextStep: () => {
+    const s = get();
+    if (s.stepIndex >= BUILD_SEQUENCE.length - 1) {
+      s.enterLive();
+      return;
+    }
+    s.setStep(s.stepIndex + 1);
+  },
+  prevStep: () => get().setStep(get().stepIndex - 1),
+  enterLive: () =>
+    set((s) => ({
+      workMode: "live",
+      sequenceOn: false,
+      playing: false,
+      visible: { ...DEFAULT_VISIBLE },
+      focusKind: null,
+      cameraEpoch: s.cameraEpoch + 1,
+    })),
+  enterStep: (i) => get().setStep(i ?? get().stepIndex),
   loadProgram: (program, via) =>
     set((s) => {
       const keepXf = program.id === s.program.id;
@@ -533,7 +600,13 @@ const g = globalThis as unknown as { __lwBim?: BimStore };
 export const useBim: BimStore =
   typeof window === "undefined" ? createBimStore() : (g.__lwBim ??= createBimStore());
 
-export function layerIsOn(state: Pick<Store, "visible" | "sequenceOn" | "seqT">, id: LayerId): boolean {
+export function layerIsOn(
+  state: Pick<Store, "visible" | "sequenceOn" | "seqT" | "workMode" | "stepIndex">,
+  id: LayerId,
+): boolean {
+  if (state.workMode === "step") {
+    return BUILD_SEQUENCE[state.stepIndex] === id;
+  }
   if (state.sequenceOn) {
     const idx = BUILD_SEQUENCE.indexOf(id);
     return idx >= 0 && idx <= Math.floor(state.seqT);

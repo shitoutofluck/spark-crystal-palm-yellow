@@ -31,7 +31,7 @@ class Bag {
     unit?: number | Extra,
     extra?: Extra,
   ) {
-    if (w < 0.01 || h < 0.01 || d < 0.01) return;
+    if (w < 0.0014 || h < 0.0014 || d < 0.0014) return;
     let u: number | undefined;
     let ex: Extra | undefined = extra;
     if (typeof unit === "object") {
@@ -321,6 +321,7 @@ function openingsX(bag: Bag, zFace: number, holes: Hole[], inward: number, unit?
         "leaf",
         unit,
       );
+      bag.min("openings", "oak-natural", h.x, h.y - 0.012, zFace - 0.04, h.w, 0.018, 0.14, "threshold", unit);
     }
     bag.min("finishes", "mill-oat", h.x - 0.05, h.y, zFace + inward * 0.09, 0.05, h.h, 0.018, "casing", unit);
     bag.min("finishes", "mill-oat", h.x + h.w, h.y, zFace + inward * 0.09, 0.05, h.h, 0.018, "casing", unit);
@@ -414,9 +415,65 @@ function buildFoundation(bag: Bag, p: BuildingProgram, ox: number, totalW: numbe
   }
   bag.min("foundation", "timber-treated", ox - 0.12, 0, -0.04, totalW + 0.24, STUD, CAVITY, "sill-plate");
   bag.min("foundation", "timber-treated", ox - 0.12, 0, D - CAVITY + 0.04, totalW + 0.24, STUD, CAVITY, "sill-plate");
-  for (let x = ox + 0.4; x < ox + totalW; x += 1.22) {
-    bag.min("foundation", "steel-dark", x - 0.006, 0, 0.02, 0.012, 0.18, 0.012, "anchor", undefined, { geom: "cyl" });
-    bag.min("foundation", "steel-dark", x - 0.006, 0, D - 0.04, 0.012, 0.18, 0.012, "anchor", undefined, { geom: "cyl" });
+  bag.min("foundation", "gravel", ox - 0.55, fy, -0.78, totalW + 1.1, 0.16, 0.38, "drain-gravel");
+  bag.add(
+    "foundation",
+    "pvc-dwv",
+    ox + totalW / 2,
+    fy + 0.08,
+    -0.62,
+    0.1,
+    totalW + 0.8,
+    0.1,
+    "drain-tile",
+    undefined,
+    { geom: "cyl", rz: Math.PI / 2 },
+  );
+  bag.add(
+    "foundation",
+    "steel-dark",
+    ox + totalW / 2,
+    fy + 0.14,
+    -0.22,
+    0.016,
+    totalW + 0.5,
+    0.016,
+    "rebar",
+    undefined,
+    { geom: "cyl", rz: Math.PI / 2 },
+  );
+  bag.add(
+    "foundation",
+    "steel-dark",
+    ox + totalW / 2,
+    fy + 0.24,
+    -0.22,
+    0.016,
+    totalW + 0.5,
+    0.016,
+    "rebar",
+    undefined,
+    { geom: "cyl", rz: Math.PI / 2 },
+  );
+  bag.add(
+    "foundation",
+    "steel-dark",
+    ox + totalW / 2,
+    fy + 0.14,
+    D + 0.12,
+    0.016,
+    totalW + 0.5,
+    0.016,
+    "rebar",
+    undefined,
+    { geom: "cyl", rz: Math.PI / 2 },
+  );
+  bag.min("exterior", "steel-galv", ox - 0.2, 0.92, -0.08, totalW + 0.4, 0.012, 0.04, "weep-screed");
+  for (let x = ox + 0.3; x < ox + totalW; x += 1.22) {
+    nailY(bag, "fasteners", x, 0.09, 0.04, 0.22, "anchor");
+    bag.add("fasteners", "fastener-zinc", x, 0.21, 0.04, 0.022, 0.01, 0.022, "anchor-nut", undefined, { geom: "cyl" });
+    nailY(bag, "fasteners", x, 0.09, D - 0.04, 0.22, "anchor");
+    bag.add("fasteners", "fastener-zinc", x, 0.21, D - 0.04, 0.022, 0.01, 0.022, "anchor-nut", undefined, { geom: "cyl" });
   }
 }
 
@@ -454,8 +511,103 @@ function iJoists(bag: Bag, x0: number, x1: number, yTop: number, z0: number, z1:
     bag.min("framing", "timber-spf", x - fw / 2, yb, z0 + STUD, fw, fl, span - 2 * STUD, "i-flange", unit);
     bag.min("framing", "osb-716", x - tw / 2, yb + fl, z0 + STUD, tw, IJOIST - 2 * fl, span - 2 * STUD, "i-web", unit);
     bag.min("framing", "timber-spf", x - fw / 2, yb + IJOIST - fl, z0 + STUD, fw, fl, span - 2 * STUD, "i-flange", unit);
+    hangerU(bag, x, yb, z0 + STUD + 0.01, 1, unit);
+    hangerU(bag, x, yb, z1 - STUD - 0.01, -1, unit);
   }
   bag.min("framing", "timber-spf", x0 + 0.15, yb, (z0 + z1) / 2 - 0.02, x1 - x0 - 0.3, IJOIST - 0.02, 0.038, "blocking", unit);
+}
+
+function hangerU(bag: Bag, x: number, y: number, z: number, sign: number, unit?: number) {
+  const t = 0.004;
+  const w = 0.072;
+  const seat = 0.042;
+  const zh = z - sign * seat * 0.5;
+  bag.min("fasteners", "fastener-galv", x - w / 2, y, zh - t / 2, t, IJOIST, seat, "hanger", unit);
+  bag.min("fasteners", "fastener-galv", x + w / 2 - t, y, zh - t / 2, t, IJOIST, seat, "hanger", unit);
+  bag.min("fasteners", "fastener-galv", x - w / 2, y, zh - t / 2, w, t, seat, "hanger", unit);
+  nailZ(bag, "fasteners", x - w / 2 + 0.006, y + 0.05, z, 0.038, "hanger-nail", unit);
+  nailZ(bag, "fasteners", x - w / 2 + 0.006, y + IJOIST - 0.05, z, 0.038, "hanger-nail", unit);
+  nailZ(bag, "fasteners", x + w / 2 - 0.006, y + 0.05, z, 0.038, "hanger-nail", unit);
+}
+
+function nailZ(
+  bag: Bag,
+  layer: LayerId,
+  x: number,
+  y: number,
+  z: number,
+  len: number,
+  kind: string,
+  unit?: number,
+) {
+  const dia = kind === "nail-plate" ? 0.0041 : 0.0033;
+  bag.add(layer, "fastener-bright", x, y, z, dia, len, dia, kind, unit, { geom: "cyl", rx: Math.PI / 2 });
+}
+
+function nailY(bag: Bag, layer: LayerId, x: number, y: number, z: number, len: number, kind: string, unit?: number) {
+  const dia = 0.0127;
+  bag.add(layer, "fastener-zinc", x, y, z, dia, len, dia, kind, unit, { geom: "cyl" });
+}
+
+function sheathingNails(
+  bag: Bag,
+  zFace: number,
+  x0: number,
+  x1: number,
+  y0: number,
+  y1: number,
+  holes: Hole[],
+  unit?: number,
+) {
+  const edge = 0.152;
+  const field = 0.305;
+  const len = 0.064;
+  const z = zFace + (zFace < 1 ? -0.006 : 0.006);
+  for (let y = y0 + 0.04; y <= y1 - 0.03; y += y === y0 + 0.04 || y > y1 - 0.2 ? edge : field) {
+    for (let x = x0 + 0.04; x <= x1 - 0.03; x += edge) {
+      const onEdge = y < y0 + 0.12 || y > y1 - 0.12 || x < x0 + 0.12 || x > x1 - 0.12;
+      if (!onEdge && Math.abs((x - x0) % field) > 0.04 && Math.abs((x - x0) % field) < field - 0.04) {
+        /* field uses coarser step below */
+      }
+      if (!onEdge) continue;
+      if (inHole(x, holes, y - 0.04, y + 0.04)) continue;
+      nailZ(bag, "fasteners", x, y, z, len, "nail-sheathing", unit);
+    }
+  }
+  for (let y = y0 + field; y < y1 - 0.12; y += field) {
+    for (let x = x0 + field; x < x1 - 0.12; x += field) {
+      if (inHole(x, holes, y - 0.05, y + 0.05)) continue;
+      nailZ(bag, "fasteners", x, y, z, len, "nail-sheathing", unit);
+    }
+  }
+}
+
+function plateNails(bag: Bag, zC: number, x0: number, x1: number, y0: number, y1: number, holes: Hole[], unit?: number) {
+  const z = zC;
+  for (let x = x0 + OC; x < x1 - 0.05; x += OC) {
+    if (inHole(x, holes, y0 + 0.1, y1 - 0.1)) continue;
+    nailZ(bag, "fasteners", x, y0 + STUD * 0.5, z, 0.082, "nail-plate", unit);
+    nailZ(bag, "fasteners", x, y1 - STUD * 1.5, z, 0.082, "nail-plate", unit);
+  }
+}
+
+function hurricaneTies(bag: Bag, x0: number, x1: number, y1: number, zFront: number, zRear: number, unit?: number) {
+  for (let x = x0 + OC; x < x1 - 0.08; x += OC * 2) {
+    bag.min("fasteners", "fastener-galv", x - 0.02, y1 - 0.12, zFront - 0.01, 0.04, 0.11, 0.018, "hurricane-tie", unit);
+    bag.min("fasteners", "fastener-galv", x - 0.02, y1 - 0.12, zRear - 0.01, 0.04, 0.11, 0.018, "hurricane-tie", unit);
+  }
+}
+
+function cornerStraps(bag: Bag, x0: number, x1: number, y1: number, z: number, unit?: number) {
+  bag.min("fasteners", "fastener-galv", x0 + 0.02, y1 - 0.05, z, 0.42, 0.002, 0.05, "strap", unit);
+  bag.min("fasteners", "fastener-galv", x1 - 0.44, y1 - 0.05, z, 0.42, 0.002, 0.05, "strap", unit);
+}
+
+function holdDown(bag: Bag, x: number, y0: number, z: number, unit?: number) {
+  bag.min("fasteners", "fastener-galv", x, y0, z, 0.05, 0.46, 0.01, "hold-down", unit);
+  bag.min("fasteners", "fastener-galv", x, y0, z, 0.09, 0.01, 0.09, "hold-down", unit);
+  nailY(bag, "fasteners", x + 0.025, y0 + 0.12, z + 0.02, 0.08, "hold-lag", unit);
+  nailY(bag, "fasteners", x + 0.025, y0 + 0.28, z + 0.02, 0.08, "hold-lag", unit);
 }
 
 function buildStairs(bag: Bag, p: BuildingProgram, x0: number, unit: number) {
@@ -677,6 +829,7 @@ function buildRoof(bag: Bag, p: BuildingProgram, ox: number, totalW: number) {
   }
   bag.min("envelope", "osb-716", ox - 0.15, top, -0.15, totalW + 0.3, 0.05, D + 0.3, "roof-deck");
   bag.min("envelope", "membrane-charcoal", ox - 0.18, top + 0.03, -0.22, totalW + 0.36, 0.01, 0.55, "ice-barrier");
+  bag.min("envelope", "membrane-charcoal", ox - 0.16, top + 0.038, 0.28, totalW + 0.32, 0.008, D - 0.2, "felt");
   bag.min("exterior", roof, ox - 0.2, top + 0.05, -0.2, totalW + 0.4, 0.06, D + 0.4, "membrane");
   const ph = p.hasTerrace ? 0.95 : 0.45;
   bag.min("exterior", face, ox - 0.18, top, -0.18, totalW + 0.36, ph, 0.14, "parapet-n");
@@ -778,8 +931,14 @@ export function buildBuilding(p: BuildingProgram): BuildResult {
       bag.min("finishes", "oak-natural", x0 + 0.12, y0 + 0.01, 0.12, W - 0.24, 0.018, D - 0.24, "floor", i);
       if (s === 0) bag.min("finishes", "tile-limestone", x0 + 0.15, 0.014, D - 3.7, W - 0.3, 0.016, 3.4, "kitchen-tile", i);
 
-      bag.min("framing", "steel-dark", x0 + 0.08, y0, 0.08, 0.04, 0.42, 0.08, "hold-down", i);
-      bag.min("framing", "steel-dark", x1 - 0.12, y0, 0.08, 0.04, 0.42, 0.08, "hold-down", i);
+      holdDown(bag, x0 + 0.06, y0, 0.06, i);
+      holdDown(bag, x1 - 0.14, y0, 0.06, i);
+      hurricaneTies(bag, x0, x1, y1, frontFrame, rearFrame, i);
+      cornerStraps(bag, x0, x1, y1, frontFrame, i);
+      plateNails(bag, frontFrame, x0, x1, y0, y1, front, i);
+      if (i === 0 && s === 0) {
+        sheathingNails(bag, frontSheath, x0, x1, y0, y1, front, i);
+      }
     }
     wallZ(bag, "envelope", "osb-716", x0 + W, 0.05, D - 0.05, 0, p.storeys * H, 0.2, [], "party", i);
     wallZ(bag, "finishes", "paint-alabaster", x0 + 0.08, 0.1, D - 0.1, 0, p.storeys * H, GYP, [], "party-gyp", i);

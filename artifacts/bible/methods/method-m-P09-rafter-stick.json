@@ -1,0 +1,255 @@
+{
+  "id": "m-P09-rafter-stick",
+  "type": "Method",
+  "practice_id": "pr-P09-rafter",
+  "practice_name": "Stick rafter roof (SFR)",
+  "phase_id": "P09",
+  "building_types": [
+    "bt-sfr-new",
+    "bt-sfr-remodel",
+    "bt-adu"
+  ],
+  "tier": "A",
+  "is_habit": false,
+  "habit_or_alt": "alt",
+  "habit_scope": "Platform stick rafters + ceiling joists on a 1–2 story wood SFR. AF&PA Roof and Ceiling Framing / Figs 56–65. Not roof trusses (m-P09-roof-truss is the ALT). Not timber. Not I-joist rafters. Not SIP. Dry-in / ice is Gap. HUD 8d 6/12 sheathing is folded in — AF&PA silent on roof-panel pennies. ALT to volume truss habit. AF&PA conventional stick. Keep both.",
+  "alt_to": [
+    "m-P09-roof-truss"
+  ],
+  "also_known_as": [
+    "stick-framed roof",
+    "site-cut rafters",
+    "conventional rafter and ceiling joist roof",
+    "cathedral ridge-beam variant"
+  ],
+  "how_it_is_done": [
+    "Walls complete and braced. Ceiling joists before rafters on a pitched roof: CMHC — nail ceiling joists after wall framing is complete BUT before rafters, or the rafter thrust pushes the walls out. AF&PA: ceiling joists nailed to exterior plates, to rafter ends, and where they join over interior partitions. Avoid ceiling joists at right angles to rafters (AF&PA Fig 57).",
+    "Ridge: AF&PA — 1- or 2-inch thick lumber, 2 inches deeper than the rafters so the plumb cut has full bearing. Rafters opposite each other across the ridge. CMHC: offset at the ridge by not more than their thickness if ceiling joists are lapped at the center wall.",
+    "Birdsmouth / notch at the plate (AF&PA Figs 58/62; CMHC). Heel bears over the exterior wall. Toe-nail to the plate or special metal plate fastenings (CLASS, not a brand).",
+    "Collar ties DISAGREEMENT — keep both; confirm AHJ. AF&PA: nominal 1x6 or 2x4 in the upper one-third of the attic, every third pair of rafters. FM 5-426: 1x4 / 1x6 / 1x8 / 2x4; 5 ft apart or every third rafter, whichever is less; 4-8d each end of a 1-inch tie; 3-16d each end of a 2-inch tie. Technique not code. CMHC: 2x4 collar ties nailed to each pair on slopes 1:3 or more; ties >8 ft get a 1x4 continuous near center, three 3-in nails each end.",
+    "Valley: AF&PA doubled in thickness and 2 inches deeper than adjoining rafters (Fig 60). Hip: single thickness, 2 inches deeper than commons for jack bearing (Fig 61). HUD: in practice hips/valleys one to two sizes larger (e.g. 2x8 or 2x10 hip for 2x6 rafters). CMHC: hip and valley about 50 mm (2 in) deeper. Keep AF&PA doubled-valley vs HUD size-up as both sourced — do not pick a winner.",
+    "Cathedral variant (HUD 5.6.2): if ceiling joists or collar ties are eliminated, a structural ridge beam must support the ridge and stop outward thrust. Gable-end studs that do not run to the roof can hinge — not a skip of the ridge beam.",
+    "Chimney clearance: AF&PA / CMHC 2 in (50 mm) wood to masonry; CMHC may reduce to 12 mm (1/2 in) for exterior masonry chimneys. Confirm AHJ.",
+    "Roof sheathing folded here (AF&PA silent on roof-panel pennies). WSP long dimension perpendicular, continuous ≥2 spans, stamp on the panel (AF&PA). HUD §5.6.4: typically 7/16–5/8 in; nails generally 8d, 6 in o.c. edges and 12 in o.c. intermediate; also 6 in at gable-end framing. High-wind 8d ring-shank 6 in all / 4 in gable is hurricane-prone — not Wasatch/Fontana habit. Dry-in / ice is NOT this Method (gap-P09-ice-underlayment-unsourced). Logan ice barrier is the city sheet. Fontana does not get a Utah snow pack."
+  ],
+  "sequence_before": [
+    "P08",
+    "m-P08-stick-16oc-2x4",
+    "m-P08-advanced-24oc-2x6"
+  ],
+  "sequence_after": [
+    "m-P09-roof-sheathing",
+    "P10"
+  ],
+  "can_overlap_with": [
+    "m-P09-roof-sheathing"
+  ],
+  "trades": [
+    "framing subcontractors (AF&PA job foreman / inspector — no crew size)"
+  ],
+  "crew_notes": "not in sources; Gap gap-crew-counts",
+  "tools_equipment": "Named in FM: framing square for rafter layout. Not a SKU list.",
+  "inspection_hold_points": [
+    "Ceiling joists in (and tied to rafter pairs) before or as rafters go up so walls do not spread (CMHC; AF&PA).",
+    "Ridge 2 in deeper than rafters; rafters opposite (AF&PA).",
+    "Birdsmouth bearing over the wall (AF&PA; CMHC).",
+    "Collar-tie schedule is AF&PA OR FM — keep both; confirm AHJ.",
+    "Valley doubled + 2 in deeper (AF&PA); hip 2 in deeper (AF&PA).",
+    "Cathedral: structural ridge beam if ties are omitted (HUD).",
+    "2 in wood-to-masonry chimney clearance unless AHJ reduces per CMHC exterior-masonry note."
+  ],
+  "material_classes": [
+    "sawn rafters",
+    "ceiling joists",
+    "ridge board",
+    "structural ridge beam (cathedral variant)",
+    "collar ties (1x / 2x class — size per AF&PA or FM, not mixed as one schedule)",
+    "hip rafters",
+    "valley rafters",
+    "jack rafters",
+    "metal rafter-to-plate fasteners CLASS",
+    "8d nails (FM 1-in collar ties)",
+    "16d nails (FM 2-in collar ties)"
+  ],
+  "typical_duration_sfr": "unknown — not in sources",
+  "when_this_beats_habit": "This is the AF&PA conventional habit. Use it when the roof is cut up (hips, valleys, dormers) or when the job does not want a truss package. HUD: complex portions of truss roofs often still use rafter techniques. CMHC volume-truss claim is Canadian — confirm AHJ; not a flip of this US conventional habit.",
+  "when_this_is_a_bad_idea": "Skipping the ceiling-joist tie (walls spread). Cathedral without a ridge beam. Mixing AF&PA and FM collar schedules on one roof. Treating CMHC Canadian volume as a Fontana/Wasatch habit flip. Walking Utah ice onto Fontana.",
+  "why_tier1_never_learned_it": "They learned it. Volume moved to trusses. What they skip is the joist-to-rafter tie and the 2-in-deeper ridge/hip/valley.",
+  "permit_gate": "should be on drawings before permit",
+  "permit_gate_notes": "Rafter size/spacing, ridge vs ridge beam, and hip/valley on drawings. Span tables: AF&PA Appendix Item 4; CMHC Tables 29-32 Canadian. Confirm with AHJ / engineer. Do not invent IRC R802.",
+  "risk_if_swapped_late": "Stick vs truss after permit changes interior bearings, hangers, and cut list. Catch before permit.",
+  "sophistication_needed": 2,
+  "plain_language_summary": "Usual stick roof: ceiling joists tie the walls, rafters sit opposite on a ridge that is 2 inches deeper, birdsmouth on the plate, toenail or a metal plate. Valleys are doubled and 2 inches deeper; hips 2 inches deeper. Sheathing is wood panels the long way across, generally 8d at 6 and 12. Ice felt is not in the assigned US books — Logan’s ice barrier is the city sheet. Do not put a Utah snow pack on a Fontana roof.",
+  "spanish_summary": "El techo de palo de siempre: viguetas de cielo amarran las paredes, cabios frente a frente en un cumbrera 2 pulgadas más hondo, pata de pájaro en la placa. Los valleys van dobles y 2 pulgadas más hondos; los hips 2 pulgadas más hondos. El forro es panel, generalmente 8d a 6 y 12. El felt de hielo no está en los libros US asignados — en Logan es la hoja de la ciudad. No ponga un paquete de nieve de Utah en un techo de Fontana.",
+  "scribd_sources": [
+    "src-essential-guide-framing",
+    "src-cmhc-wood-frame",
+    "src-afpa-details",
+    "src-hud-rsdg",
+    "src-fm-5-426"
+  ],
+  "locators": [
+    "AF&PA Ceiling Joist and Rafter Framing / Collar / Valley and Hip (txt 752-779, Figs 56-62).",
+    "CMHC Ch11 Site Assembly of Pitched Roofs (txt 7056-7309); birdsmouth; collar 2x4; hip/valley 2 in deeper.",
+    "HUD 5.6.1-5.6.2 rafters and ceiling joists; cathedral ridge beam; hips/valleys one to two sizes larger.",
+    "FM 5-426 Ch7 collar: 5 ft or every third, 4-8d / 3-16d (txt 3327-3332). Technique not code."
+  ],
+  "market_notes": [
+    "mn-logan",
+    "mn-fontana"
+  ],
+  "constraints": [
+    "c-P09-collar-upper-vs-lower",
+    "c-P08-connector-class",
+    "gap-P09-ice-underlayment-unsourced"
+  ],
+  "confidence": "high",
+  "confidence_notes": "Sequence and 2-in-deeper ridge/hip/valley high. Collar schedule is a kept disagreement. No crew.",
+  "open_gaps": [
+    "gap-crew-counts",
+    "gap-sop-labor-crew",
+    "gap-sop-build-size-alts",
+    "gap-sop-walkthroughs",
+    "gap-sop-irc-section-numbers",
+    "gap-inspector-fail-list-unsourced",
+    "gap-P09-ice-underlayment-unsourced",
+    "gap-P09-walkthrough-rafter-stick"
+  ],
+  "remodel_note": "Tie-in to an existing roof not in these books — Gap, do not invent.",
+  "last_updated": "2026-08-30",
+  "fastener_schedule": [
+    {
+      "what": "rafter to wall plate",
+      "size": "not printed as a penny in AF&PA/CMHC (toe-nail or metal plate CLASS)",
+      "pattern": "toe-nail or special metal plate fastenings",
+      "oc": null,
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "AF&PA txt 765-766. Do not invent 16d."
+    },
+    {
+      "what": "collar tie 1-inch stock (FM variant)",
+      "size": "8d",
+      "pattern": "four nails each end",
+      "oc": "5 ft apart or every third rafter, whichever is less",
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "FM 5-426 Ch7 txt 3327-3332. Technique not code. Keep with AF&PA every-third-pair upper-third; do not mix on one roof."
+    },
+    {
+      "what": "collar tie 2-inch stock (FM variant)",
+      "size": "16d",
+      "pattern": "three nails each end",
+      "oc": "5 ft apart or every third rafter, whichever is less",
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "FM 5-426 Ch7 txt 3331-3332."
+    },
+    {
+      "what": "CMHC collar continuous 1x4 on long ties",
+      "size": "76 mm (3 in) nails",
+      "pattern": "three at each end of the 1x4 to the collar ties",
+      "oc": "near center of ties >2.4 m (8 ft)",
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "CMHC Ch11 txt 7255-7263. Canadian / confirm AHJ."
+    },
+    {
+      "what": "roof WSP to rafters",
+      "size": "8d typically (HUD)",
+      "pattern": "minimum 6 in o.c. edges, 12 in o.c. intermediate; also 6 in at gable-end framing",
+      "oc": "6 in edge / 12 in field",
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "HUD RSDG §5.6.4. AF&PA silent on roof-panel pennies — panel stamp for span/gap/thickness."
+    }
+  ],
+  "tools": [
+    "framing square (FM rafter layout)"
+  ],
+  "labor": {
+    "crew": null,
+    "certs": [
+      "PE when span tables fail"
+    ],
+    "gap": "gap-crew-counts"
+  },
+  "labor_notes": "No headcount. Special inspector not named.",
+  "layering": [
+    "Ceiling joists before rafters on pitched roofs so walls do not spread (CMHC).",
+    "Ridge 2 in deeper than rafters (AF&PA).",
+    "Valley doubled + 2 in deeper; hip 2 in deeper (AF&PA). HUD size-up is the other sourced practice.",
+    "Cathedral without joist/collar ties needs a structural ridge beam (HUD).",
+    "2 in wood-to-masonry chimney (AF&PA / CMHC)."
+  ],
+  "build_size_alts": "not in sources",
+  "code_to_check": [
+    "AF&PA Span Tables for Joists and Rafters (Appendix Item 4). Confirm with AHJ / engineer.",
+    "CMHC Tables 29-32 are Canadian NBC — confirm AHJ; not IRC. Do not invent R802.",
+    "No stamp. No skip-inspection."
+  ],
+  "time_money": "Stick vs truss is a permit-gate layout choice. No dollars in sources.",
+  "walkthroughs": [],
+  "images": [
+    {
+      "path": "kb/images/m-P09-rafter-stick/afpa-fig-56-joists-parallel-rafters.png",
+      "caption": "AF&PA Fig 56: ceiling joists parallel to rafters, nailed as a structural tie across the building so rafter thrust does not spread the walls. Ridge board; birdsmouth at the plate. Collar beams in the upper attic (text: every third pair, 1x6 or 2x4)."
+    },
+    {
+      "path": "kb/images/m-P09-rafter-stick/afpa-fig-60-valley-rafter.png",
+      "caption": "AF&PA Fig 60: valley rafter at two-roof intersection — text: doubled in thickness and two inches deeper than adjoining rafters. Jacks bear on the valley."
+    },
+    {
+      "path": "kb/images/m-P09-rafter-stick/afpa-fig-61-hip-rafter.png",
+      "caption": "AF&PA Fig 61: hip rafter single thickness, two inches deeper than common rafters so jack rafters have full bearing."
+    },
+    {
+      "path": "kb/images/m-P09-rafter-stick/afpa-fig-56-ceiling-joists-parallel.png",
+      "caption": "Ceiling joists parallel to rafters: joists nail to the double top plate beside each rafter. Collar beams in the upper third, Fig 56 prints 48 in o.c. Layer = joist + rafter both on the plate. AF&PA Fig 56."
+    },
+    {
+      "path": "kb/images/m-P09-rafter-stick/afpa-fig-62-eave.png",
+      "caption": "Eave: birdsmouth seats the rafter on the double plate; ceiling joist beside the rafter. Heel on the plate, not the toe. AF&PA Fig 62."
+    },
+    {
+      "path": "kb/images/m-P09-rafter-stick/afpa-fig-60-valley.png",
+      "caption": "Valley rafter: body says doubled AND 2 in deeper than adjoining rafters so jacks get full bearing. AF&PA Fig 60."
+    },
+    {
+      "path": "kb/images/m-P09-rafter-stick/afpa-fig-61-hip.png",
+      "caption": "Hip rafter: single thickness but 2 in deeper than commons for full jack bearing. AF&PA Fig 61."
+    },
+    {
+      "path": "kb/images/m-P09-rafter-stick/afpa-fig-65-chimney.png",
+      "caption": "Chimney opening: double trimmers and headers. 2 in airspace between chimney and framing. AF&PA Fig 65."
+    }
+  ],
+  "inspector_looks_for": [
+    "Ceiling joists tied to rafter pairs / plates (AF&PA; CMHC).",
+    "Ridge 2 in deeper; rafters opposite (AF&PA).",
+    "Valley doubled + 2 in deeper; hip 2 in deeper (AF&PA).",
+    "Collar ties: AF&PA every third pair upper-third OR FM 5 ft / every third + 4-8d / 3-16d — confirm AHJ; do not mix.",
+    "Cathedral: structural ridge beam if ties omitted (HUD).",
+    "2 in masonry clearance (AF&PA / CMHC)."
+  ],
+  "inspector_fails": [
+    "Gap — gap-inspector-fail-list-unsourced. No AHJ fail list. Not a stamp."
+  ],
+  "common_messups": [
+    "Ceiling joists perpendicular to rafters (AF&PA: to be avoided).",
+    "Skipping the ceiling-joist tie (walls spread).",
+    "Cathedral without a structural ridge (HUD)."
+  ],
+  "do_not_cheap": [
+    "Ceiling-joist (or ridge-beam) tie so walls do not spread (hold + layering).",
+    "Ridge 2 in deeper than rafters (layering).",
+    "Valley doubled + 2 in deeper; hip 2 in deeper (hold + layering).",
+    "Permit gate: rafter vs truss on drawings before permit.",
+    "No skip-inspection."
+  ],
+  "smart_save": [
+    "Stick vs truss is a permit-gate layout choice. No dollars in sources.",
+    "Late swap: stick vs truss after permit changes bearings, hangers, and cut list. Catch before permit."
+  ],
+  "sop_gap_note": "inspector_fails and common_messups unsourced. Not a stamp."
+}

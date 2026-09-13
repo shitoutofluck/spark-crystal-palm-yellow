@@ -1,0 +1,113 @@
+{
+  "id": "m-P01-geotech-dcp",
+  "type": "Method",
+  "practice_id": "pr-P01-site-prep",
+  "practice_name": "Site prep — survey, utilities, strip, test hole (SFR)",
+  "phase_id": "P01",
+  "building_types": [
+    "bt-sfr-new",
+    "bt-sfr-remodel",
+    "bt-adu"
+  ],
+  "tier": "A",
+  "is_habit": false,
+  "habit_or_alt": "alt",
+  "habit_scope": "Dynamic Cone Penetrometer as a more economical investigation alt to SPT, with equivalent accuracy as printed in HUD §4.3. Still an alt to the presumptive table. Not the default on ordinary SFR.",
+  "alt_to": [
+    "m-P01-site-prep",
+    "m-P01-geotech-spt"
+  ],
+  "also_known_as": [
+    "DCP",
+    "dynamic cone penetrometer"
+  ],
+  "how_it_is_done": [
+    "HUD §4.3: in addition to ASTM D1586, 'the Dynamic Cone Penetrometer (DCP) test (Burnham and Johnson, 1993), has gained widespread use as a more economical alternative with equivalent accuracy.'",
+    "'In this handheld test, a metal cone is driven into the ground by repeatedly striking it with a 17.6-pound (8-kilogram) weight, dropped from a distance of 2.26 feet (575 millimeters). Penetration of the cone is measured after each blow; the blow count per 1 3/4-inch penetration is approximately equivalent to the SPT blow count provided in table 4.3.'",
+    "HUD also names smaller penetrometers at lower cost, 'although such devices and methods may require an independent calibration ... and may not be able to detect deep subsurface problems.' Do not treat a small penetrometer as SPT-deep. Confirm with AHJ / engineer.",
+    "Same fork as SPT: only when a report is required or desired. Habit sitework still happens (utility locate, strip, test hole)."
+  ],
+  "sequence_before": [
+    "m-P00-drawings-before-permit",
+    "m-P01-site-prep"
+  ],
+  "sequence_after": [
+    "P02",
+    "m-P02-permit-holds",
+    "m-P03-batter-boards"
+  ],
+  "can_overlap_with": [],
+  "trades": [
+    "HUD: designer / engineer — no crew size"
+  ],
+  "crew_notes": "not in sources; Gap gap-crew-counts",
+  "tools_equipment": "Named: handheld DCP; metal cone; 17.6-pound (8 kg) weight dropped 2.26 ft (575 mm) (HUD §4.3).",
+  "inspection_hold_points": [
+    "Same R401.4 gate as SPT. DCP blow count per 1-3/4 in ≈ SPT blow count (HUD). Confirm with AHJ / engineer."
+  ],
+  "material_classes": [],
+  "typical_duration_sfr": "unknown — not in sources",
+  "when_this_beats_habit": "When you need a report and HUD's 'more economical alternative with equivalent accuracy' is the point of DCP vs SPT.",
+  "when_this_is_a_bad_idea": "Using DCP as a skip of a required report. Using an uncalibrated small penetrometer and calling it DCP. Assuming DCP sees deep problems the way SPT can (HUD: smaller devices may not detect deep subsurface problems).",
+  "why_tier1_never_learned_it": "Ordinary lots use the table. DCP is the cheaper report tool when a report is actually required.",
+  "permit_gate": "should be on drawings before permit",
+  "permit_gate_notes": "Same R401.4 gate as SPT. Confirm with AHJ / engineer. Not a stamp.",
+  "risk_if_swapped_late": "Same as SPT: bad soils after the hole is open. Catch before permit.",
+  "sophistication_needed": 1,
+  "plain_language_summary": "If you need a soils report, HUD names a handheld cone test as a cheaper equal to SPT: 17.6-pound weight, 2.26-foot drop, count blows per 1-3/4 inches. It is not a skip of the report. Confirm with the AHJ.",
+  "spanish_summary": "Si necesita informe de suelos, HUD nombra un cono de mano como igual más barato que SPT: peso de 17.6 lb, caída de 2.26 pies. No es saltarse el informe. Confirme con el AHJ.",
+  "scribd_sources": [
+    "src-hud-rsdg"
+  ],
+  "locators": [
+    "HUD RSDG §4.3 DCP (Burnham and Johnson, 1993); 17.6 lb / 2.26 ft / 1-3/4 in ≈ SPT blow count Table 4.3"
+  ],
+  "market_notes": [],
+  "constraints": [],
+  "confidence": "high",
+  "confidence_notes": "HUD names DCP equipment and the SPT equivalence. Smaller penetrometers are a separate caution, not this Method.",
+  "open_gaps": [
+    "gap-crew-counts",
+    "gap-sop-labor-crew",
+    "gap-sop-walkthroughs",
+    "gap-inspector-fail-list-unsourced",
+    "gap-P01-walkthrough-geotech-dcp"
+  ],
+  "remodel_note": "Remodel extras (matching, occupied-site, shoring, demo of an existing house) are not a sequence in CMHC/ORNL/HUD/FM — Gap, do not invent remodel-only methods. Essential Guide is framing-only (opened 2026-08-30; silent on site/layout). B&D Room Additions not used as a P00–P06 sequence.",
+  "last_updated": "2026-08-30",
+  "fastener_schedule": [],
+  "tools": [
+    "dynamic cone penetrometer",
+    "17.6-pound drop weight"
+  ],
+  "labor": {
+    "crew": null,
+    "certs": [
+      "PE / designer when a geotech report is required (HUD)"
+    ],
+    "gap": "gap-crew-counts"
+  },
+  "labor_notes": "HUD names the designer. Crew Gap.",
+  "layering": [
+    "Same as SPT: investigation before footing size is locked."
+  ],
+  "build_size_alts": "not in sources",
+  "code_to_check": [
+    "IRC R401.4 / table R401.4.1 as printed in HUD. Confirm with AHJ / engineer."
+  ],
+  "time_money": "HUD: more economical alternative with equivalent accuracy vs SPT. No dollars.",
+  "walkthroughs": [],
+  "images": [],
+  "inspector_looks_for": [
+    "Report in hand when R401.4 requires it. DCP correlation to Table 4.3 is the designer's job — confirm with AHJ / engineer."
+  ],
+  "inspector_fails": [],
+  "common_messups": [],
+  "do_not_cheap": [
+    "Geotech report when R401.4 requires it. Do not treat a small uncalibrated penetrometer as a deep-strata test (HUD)."
+  ],
+  "smart_save": [
+    "HUD names DCP as a more economical alternative with equivalent accuracy vs SPT. No dollars. Smaller penetrometers may miss deep problems — not a free skip of SPT on a deep-risk site."
+  ],
+  "sop_gap_note": "walkthroughs []. images []. Fastener_schedule []."
+}

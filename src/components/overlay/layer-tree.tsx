@@ -16,6 +16,7 @@ import {
   Trees,
   Wind,
   Zap,
+  Wrench,
 } from "lucide-react";
 import type { ComponentType, SVGProps } from "react";
 import { useMemo, useState } from "react";
@@ -32,6 +33,7 @@ const ICONS: Record<LayerId, ComponentType<SVGProps<SVGSVGElement>>> = {
   foundation: Cylinder,
   underslab: SquareStack,
   framing: LayoutGrid,
+  fasteners: Wrench,
   envelope: Box,
   openings: Square,
   insulation: Snowflake,

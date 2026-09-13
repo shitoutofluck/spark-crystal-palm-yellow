@@ -1,0 +1,285 @@
+{
+  "id": "m-P08-stairs-cut-stringer",
+  "type": "Method",
+  "practice_id": "pr-P08-stairs",
+  "practice_name": "Stair framing (SFR)",
+  "phase_id": "P08",
+  "building_types": [
+    "bt-sfr-new",
+    "bt-sfr-remodel",
+    "bt-adu"
+  ],
+  "tier": "A",
+  "is_habit": true,
+  "habit_or_alt": "habit",
+  "habit_scope": "Cut-stringer platform stair, usually 2x12, stringers first after the well and stairwell walls are framed. Glencoe ch25 §25.1–25.2. SFR interior main/service. Not housed/prefab millwork. Not cleat as the permanent main stair. Not spiral.",
+  "alt_to": [],
+  "also_known_as": [
+    "cut-stringer stairs",
+    "notched stringer / carriage / horse",
+    "platform interior stair"
+  ],
+  "how_it_is_done": [
+    "Well and stairwell first. Stair builder starts only after carpenters have framed the floor opening and the stairwell. Most stairs sit inside those framed walls. Headroom is set in framing because the header height has to clear the finished stair (ch25 §25.1; Fig 25-2).",
+    "Measure total rise on site before layout. Do not trust the plans alone. Unit rise / unit run. Pick the top bearing (Fig 25-12 A full tread against the header, B partial tread, C finish floor is the top tread) before you lay out the stringer. Plumb-bob from the header and measure total run on the floor to locate the bottom (ch25 §25.2).",
+    "Cut stringers. Main stairs usually 2x12. Third (middle) stringer when treads are thinner than 1-1/8 in or the stair is wider than 2 ft-6 in. Drop the stringer: shorten the first riser by tread thickness (or tread minus finish floor if the bottom sits on subfloor). Do not overcut the notches — finish with a handsaw or jigsaw. First stringer is the pattern. Fig 25-16 prints 3-1/2 in minimum remaining after the cuts (ch25 §25.2; Figs 25-14–18).",
+    "Skirtboard when used: nail the finished board to the wall BEFORE the stringers go in. Risers and treads later butt it (Fig 25-20).",
+    "Hang stringers first. Tack. Plumb with a level on a riser cut. Level across the tread cuts. Then nail. Stringer against a trimmer joist: at least three 16d into the joist. Bottom on subfloor: 10d toenails, four to each side if possible, into the subfloor and into a joist below if you can (ch25 Installing Stringers).",
+    "Top hardware is CLASS, not this habit. Fig 25-19 shows metal supporting strap, added nailer, ledger strip, plywood to stringer and header, metal brackets. Regional. Do not sell a brand hanger as the habit (c-P08-stair-hanger-class).",
+    "Bottom on concrete (basement): you cannot toenail into concrete. Kick plate (short framing lumber) screwed/nailed/bolted to the concrete; stringers toenail to the kick plate (Fig 25-26). Do not invent a 2x6 size — the book does not print one.",
+    "Risers and treads after the stringers, bottom up. Bottom riser: two 6d, 8d, or 10d per stringer by stock thickness. Tread 1-1/16 in: two 10d finish per stringer AND at least two 10d finish into the riser below. Tread 1-5/8 in: 12d finish, three nails per stringer, do not nail to the riser below. Hardwood: pre-drill. Set finish nails. Glue or construction adhesive CLASS on key joints to cut squeaks (ch25 Installing Risers and Treads; Tight Joints).",
+    "Landings: L-turn is two flights plus a platform of short joists and floor sheathing on framed walls; enclosed sides may nail into existing walls. Platform at least as wide as the stair. Blocking for half-newels is in the wall when that wall is framed (ch25 §25.1 / Completing the Stair).",
+    "Complete with handrail / newels / balusters (same chapter). Closed-stair handrail on adjustable metal brackets screwed to stairwell framing; chalk line; some manufacturers say brackets no more than 48 in apart. Not a crew script. Prefab/housed: manufacturer. Temporary service stairs during construction are often cleat-stringer, then pulled for this permanent stair — OSHA named, no procedure."
+  ],
+  "sequence_before": [
+    "P07",
+    "m-P07-i-joist",
+    "m-P07-sawn",
+    "m-P07-floor-truss",
+    "m-P05-slab",
+    "m-P05-basement-cip-cmu",
+    "m-P08-stick-16oc-2x4"
+  ],
+  "sequence_after": [],
+  "can_overlap_with": [],
+  "trades": [
+    "finish carpenters (Unit 6 — they pick up where framing carpenters leave off and install stairs)",
+    "framing carpenters (floor opening + stairwell before the stair builder starts)"
+  ],
+  "crew_notes": "Gap gap-crew-counts. Classroom estimating names “one worker” and 8-3/4 hours for an open stair under 12 ft / 42 in — that is NOT a field headcount. Do not invent.",
+  "tools_equipment": "Named in ch25: framing square; stair gauges; circular saw; handsaw or jigsaw; carpenter’s level; plumb bob; T-bevel; chalk line; sawhorses. Not a SKU list.",
+  "inspection_hold_points": [
+    "Well and stairwell framed before the stair builder starts (ch25 §25.1).",
+    "Measure total rise on site. Header height set in framing for finished headroom (ch25).",
+    "Stringers plumb (level on riser cut) and level with each other (level across tread cuts) before nailing (ch25 Installing Stringers).",
+    "Do not overcut stringer notches (ch25 Fig 25-18). 3-1/2 in min remaining (Fig 25-16).",
+    "Riser/tread variation no more than 3/8 in (2006 IRC as printed in ch25).",
+    "Bottom on concrete: kick plate in before the stringers toenail (Fig 25-26).",
+    "If the space under the stair is enclosed: 1/2 in drywall on those walls and on the underside of the stringers (ch25 Fire Safety)."
+  ],
+  "material_classes": [
+    "2x12 stringers",
+    "stair treads",
+    "stair risers",
+    "skirtboard",
+    "kick plate (framing lumber)",
+    "16d nails",
+    "10d nails",
+    "10d finish nails",
+    "12d finish nails",
+    "6d / 8d / 10d nails (riser by thickness)",
+    "construction adhesive CLASS",
+    "metal stringer hanger / strap / bracket CLASS",
+    "1/2 in drywall (enclosed under-stair fire)"
+  ],
+  "typical_duration_sfr": "classroom only — 8-3/4 hours open stair <12 ft long and 42 in wide (stringers + treads + risers); +3 hours turn/platform; +1 hour handrail; +2-1/2 hours newels/rails/balusters. Pre-cut: 6 hours assembly. Very rough. Not a field cycle time.",
+  "when_this_beats_habit": "This is the habit. Cleat-stringer is the book’s temporary/service alt, not a competing main-stair Method. Housed/prefab is millwork + manufacturer, not this method.",
+  "when_this_is_a_bad_idea": "Spiral as the main stair (ch25). Selling metal hangers as the habit (Fig 25-19 is CLASS). Inventing stringer-to-stud nails or 1x6 spacers or ring-shank as if Ch25 printed them. Overcutting the notches. Skipping the kick plate on concrete. Treating AF&PA Figs 33–34 or HUD loads as a flight sequence.",
+  "why_tier1_never_learned_it": "They did — this is the carpentry habit. What they skip is drop-the-stringer, no-overcut, three 16d to the trimmer joist, and hangers-as-CLASS not as the buy.",
+  "permit_gate": "should be on drawings before permit",
+  "permit_gate_notes": "Well size, header height/headroom, width, rise/run, and landing width are permit-gate. 2006 IRC numbers as printed in ch25 — confirm with AHJ / engineer. Do not invent R-section numbers.",
+  "risk_if_swapped_late": "Changing rise/run or well length after the floor is in moves the header and the landing. Catch before the well is cut. Swapping hangers-without-bearing for the three-16d / kick-plate habit after the stringers are hung is a callback, not a save.",
+  "sophistication_needed": 2,
+  "plain_language_summary": "Usual house stair: 2x12s notched for the treads. The well and the stairwell walls are already framed. Skirtboard on the wall first if you are using one, then the stringers, then risers and treads from the bottom up. Three 16d into the trimmer joist. Bottom on wood gets 10d toenails; bottom on concrete gets a kick plate. Metal hangers are a class, not the habit.",
+  "spanish_summary": "La escalera de siempre: 2x12 con muescas para los peldaños. El hueco y las paredes del hueco ya están armados. Si hay zócalo, va a la pared antes que los largueros. Luego largueros, luego contrapasos y peldaños de abajo hacia arriba. Tres clavos 16d al vigueta trimmer. En madera, 10d al piso; en concreto, un kick plate. Los hangers son clase, no el hábito.",
+  "scribd_sources": [
+    "src-glencoe-ch25"
+  ],
+  "locators": [
+    "Glencoe ch25 §25.1 Types / Fig 25-2 well+stairwell already framed; Fig 25-4 cut-stringer",
+    "Glencoe ch25 §25.2 Installing Stringers: 3-16d to trimmer joist; 10d toenail four/side on subfloor; Figs 25-12, 25-19 CLASS",
+    "Glencoe ch25 Fig 25-20 skirtboard before stringers; Fig 25-26 kick plate on concrete; 1-1/8 in / 2 ft-6 in third-stringer rule"
+  ],
+  "constraints": [
+    "c-P08-stair-hanger-class"
+  ],
+  "confidence": "high",
+  "confidence_notes": "ch25 numbered install + printed nail counts high. Hangers CLASS. No crew count. No stringer-to-stud schedule. No IRC R-numbers on the page.",
+  "open_gaps": [
+    "gap-crew-counts",
+    "gap-sop-labor-crew",
+    "gap-sop-build-size-alts",
+    "gap-sop-irc-section-numbers",
+    "gap-inspector-fail-list-unsourced",
+    "Gap — book did not name a fail item"
+  ],
+  "remodel_note": "ch25 is new-house / finish-stair carpentry. No remodel opening-existing-stair procedure. Gap, do not invent.",
+  "last_updated": "2026-08-30",
+  "fastener_schedule": [
+    {
+      "what": "stringer to trimmer joist (stringer lies against the joist)",
+      "size": "16d",
+      "pattern": "at least three nails",
+      "oc": null,
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "ch25 Installing Stringers, printed 739"
+    },
+    {
+      "what": "stringer bottom to subfloor (and into a joist below if possible)",
+      "size": "10d",
+      "pattern": "toenail, four to each side if possible",
+      "oc": null,
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "ch25 Installing Stringers, printed 739"
+    },
+    {
+      "what": "bottom riser to each stringer",
+      "size": "6d, 8d, or 10d depending on stock thickness",
+      "pattern": "two nails",
+      "oc": null,
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "ch25 Installing Risers and Treads, printed 739"
+    },
+    {
+      "what": "tread 1-1/16 in to each stringer",
+      "size": "10d finish",
+      "pattern": "two nails",
+      "oc": null,
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "ch25 Installing Risers and Treads, printed 739"
+    },
+    {
+      "what": "tread 1-1/16 in to riser below",
+      "size": "10d finish",
+      "pattern": "at least two nails",
+      "oc": null,
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "ch25 Installing Risers and Treads, printed 739"
+    },
+    {
+      "what": "tread 1-5/8 in to each stringer",
+      "size": "12d finish (may be required)",
+      "pattern": "three nails at each stringer; do not nail to the riser below",
+      "oc": null,
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "ch25 Installing Risers and Treads, printed 739"
+    },
+    {
+      "what": "stringer bottom to kick plate on concrete",
+      "size": "not printed (toenail named; kick plate itself screwed, nailed, or bolted to concrete)",
+      "pattern": "toenail stringer to kick plate after the plate is in",
+      "oc": null,
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "ch25 Fig 25-26 / basement stairs, printed 744–745"
+    },
+    {
+      "what": "key joints (squeak control)",
+      "size": "construction adhesive CLASS / woodworking glue",
+      "pattern": "secure key parts; not a nail count",
+      "oc": null,
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "ch25 Tight Joints, printed 733"
+    }
+  ],
+  "tools": [
+    "framing square",
+    "stair gauges",
+    "circular saw",
+    "handsaw or jigsaw",
+    "carpenter’s level",
+    "plumb bob",
+    "T-bevel",
+    "chalk line",
+    "sawhorses"
+  ],
+  "labor": {
+    "crew": null,
+    "certs": [],
+    "gap": "gap-crew-counts",
+    "named_not_headcount": "classroom estimating “one worker” for 8-3/4 hours on an open stair <12 ft / 42 in — not a field headcount"
+  },
+  "labor_notes": "Do not invent crew counts. Finish carpenter vs framing carpenter is a trade split, not a headcount. 8-3/4 / 6 / +3 / +1 / +2-1/2 hours are textbook rough approximations (printed 742).",
+  "layering": [
+    "Skirtboard (when used) nails to the wall before the stringers. Treads/risers butt the skirtboard (Fig 25-20).",
+    "Third stringer when treads < 1-1/8 in or stair > 2 ft-6 in wide (printed 736).",
+    "Drop first riser by tread thickness (or tread minus finish floor on subfloor) so unit rise stays uniform (Fig 25-15).",
+    "Fig 25-16: 3-1/2 in minimum remaining in the stringer after the cuts.",
+    "Do not overcut intersecting cuts (Fig 25-18).",
+    "Riser/tread variation ≤ 3/8 in (2006 IRC as printed).",
+    "Landing/platform at least as wide as the stair; enclosed sides may nail into existing walls.",
+    "Enclosed under-stair: 1/2 in drywall on those walls and on the underside of the stringers.",
+    "Kick plate on concrete; stringer toenails to the plate, not into the slab (Fig 25-26)."
+  ],
+  "build_size_alts": "not in sources beyond: third stringer at 2 ft-6 in width or thin treads; four stringers on unusually wide main stairs; classroom hour-adds for a turn/platform. No other build-size table.",
+  "code_to_check": [
+    "2006 IRC dimensions as printed in ch25 (no R-section numbers on the page — do not invent them): headroom 6 ft-8 in min; stair width 36 in min between finished walls; riser max 7-3/4 in; tread min 10 in; 3/8 in uniformity; handrail 34–38 in on flights with four or more risers; 4 in sphere at balusters. Confirm with AHJ / engineer.",
+    "Temporary access stairs: OSHA (named in ch25; no procedure printed). Confirm with AHJ / engineer.",
+    "1/2 in drywall under enclosed stairs / on those walls (ch25 Fire Safety). Confirm with AHJ / engineer."
+  ],
+  "time_money": "Classroom only: 8-3/4 hours open stair <12 ft / 42 in (stringers+treads+risers); +3 hours turn/platform; +1 hour handrail; +2-1/2 hours newels/rails/balusters. Pre-cut 6 hours assembly. Very rough approximations. No material dollars on the page. Do not shop a textbook wage.",
+  "walkthroughs": [
+    {
+      "url": "https://www.youtube.com/watch?v=EQEOrEKBdiA",
+      "title": "How to Build Stairs from Start to Finish",
+      "channel": "Level Up Framing",
+      "platform": "youtube",
+      "duration_or_pages": "36:11",
+      "what_it_shows": "Field 2x12 cut-stringer, walls + floor already up, straight flight to concrete. Book-supported: well/walls up first, stringers first, 2x12, glue CLASS, bottom on concrete. Hangers and 1x6 drywall spacers in this video are CLASS, not this habit. Kick plate on concrete stays.",
+      "timestamp_if_any": "00:15 rise; 05:22 mark stringer; 16:35 cut; 22:41 sheetrock spacers; 25:04 install",
+      "flags": [
+        "field",
+        "2x12 cut-stringer",
+        "hangers CLASS not habit",
+        "1x6 spacers CLASS not habit",
+        "kick plate on concrete stays",
+        "no landing this cut"
+      ]
+    }
+  ],
+  "images": [
+    {
+      "path": "kb/images/m-P08-stairs-cut-stringer/ch25-fig-25-4-cut-stringer.png",
+      "caption": "Cut-stringer habit: treads and risers sit in notches on (typically three) stringers; stringer bears to the stairwell header; unit rise is tread-top to tread-top, unit run is riser-face to riser-face, nosing overlaps the riser (Carpentry Fig 25-4, printed p 727 / PDF p 8)."
+    },
+    {
+      "path": "kb/images/m-P08-stairs-cut-stringer/ch25-fig-25-19-stringer-anchor-class.png",
+      "caption": "Top of stringer is CLASS not habit: metal supporting strap, added nailer, ledger strip, plywood to stringer and stairwell header, metal brackets. Regional. Do not sell a brand hanger as the habit (Carpentry Fig 25-19, printed p 739 / PDF p 20). Body on the same page: 3-16d to trimmer joist; 10d toenail four/side on subfloor."
+    },
+    {
+      "path": "kb/images/m-P08-stairs-cut-stringer/ch25-fig-25-20-skirtboard.png",
+      "caption": "Skirtboard nails to the wall BEFORE the stringers. Rough stringer behind; treads and risers butt the skirtboard; tread overlaps the riser (Carpentry Fig 25-20, printed p 740 / PDF p 21). Finish analog of a drywall spacer — do not file 1x6 as book SOP."
+    },
+    {
+      "path": "kb/images/m-P08-stairs-cut-stringer/ch25-fig-25-26-kick-plate.png",
+      "caption": "Basement / concrete bottom: kick plate (short framing lumber) bolted or nailed to the slab; stringer notched to it and toenailed to the plate, not into the concrete. Plate sits on the slab, behind the first riser (Carpentry Fig 25-26, printed p 745 / PDF p 26). Size not printed — do not invent 2x6."
+    }
+  ],
+  "inspector_looks_for": [
+    "Well and stairwell framed before the stair builder starts (ch25 §25.1).",
+    "Measure total rise on site. Header height set in framing for finished headroom (ch25).",
+    "Stringers plumb (level on riser cut) and level with each other (level across tread cuts) before nailing (ch25 Installing Stringers).",
+    "Do not overcut stringer notches (ch25 Fig 25-18). 3-1/2 in min remaining (Fig 25-16).",
+    "Riser/tread variation no more than 3/8 in (2006 IRC as printed in ch25).",
+    "Bottom on concrete: kick plate in before the stringers toenail (Fig 25-26).",
+    "If the space under the stair is enclosed: 1/2 in drywall on those walls and on the underside of the stringers (ch25 Fire Safety).",
+    "Fasteners named: stringer to trimmer joist at least three 16d; bottom to subfloor 10d toenail four to each side if possible; bottom riser two 6d/8d/10d per stringer by thickness; treads per ch25. Kick-plate toenail size not printed."
+  ],
+  "inspector_fails": [],
+  "common_messups": [],
+  "do_not_cheap": [
+    "Three 16d into the trimmer joist (hold / fastener / SOP).",
+    "Kick plate on basement concrete — not a hanger (hold + layering + SOP). Stringer toenails to the plate, not into the slab. Plate size not printed — do not invent 2x6.",
+    "3-1/2 in minimum remaining in the stringer after the cuts (hold + layering + SOP).",
+    "Do not overcut intersecting cuts (hold + layering).",
+    "1/2 in drywall on enclosed under-stair walls and underside of stringers (hold + layering + SOP).",
+    "Skirtboard (when used) nails to the wall before the stringers (layering).",
+    "Third stringer when treads < 1-1/8 in or stair > 2 ft-6 in wide (layering).",
+    "Drop first riser by tread thickness so unit rise stays uniform (layering).",
+    "Riser/tread variation ≤ 3/8 in (hold + layering).",
+    "Top hardware (straps, brackets, ledgers, plywood gussets) is CLASS, not this habit (layering / constraint).",
+    "Permit gate: well size, header height/headroom, width, rise/run, landing width on drawings."
+  ],
+  "smart_save": [
+    "Classroom only: 8-3/4 hours open stair <12 ft / 42 in (stringers+treads+risers); +3 hours turn/platform; +1 hour handrail; +2-1/2 hours newels/rails/balusters. Pre-cut 6 hours assembly. Very rough approximations. No material dollars on the page. Do not shop a textbook wage.",
+    "Late swap: changing rise/run or well length after the floor is in moves the header and the landing. Catch before the well is cut. Swapping hangers-without-bearing for the three-16d / kick-plate habit after the stringers are hung is a callback, not a save."
+  ],
+  "sop_gap_note": "inspector_fails and common_messups unsourced. bible/inspectors.html is book hold points, not a stamp. See gap-inspector-fail-list-unsourced. Do not invent correction-notice language."
+}

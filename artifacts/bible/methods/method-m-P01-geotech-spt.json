@@ -1,0 +1,118 @@
+{
+  "id": "m-P01-geotech-spt",
+  "type": "Method",
+  "practice_id": "pr-P01-site-prep",
+  "practice_name": "Site prep — survey, utilities, strip, test hole (SFR)",
+  "phase_id": "P01",
+  "building_types": [
+    "bt-sfr-new",
+    "bt-sfr-remodel",
+    "bt-adu"
+  ],
+  "tier": "A",
+  "is_habit": false,
+  "habit_or_alt": "alt",
+  "habit_scope": "ASTM D1586 Standard Penetration Test when a geotech report is required or desired. HUD RSDG §4.3. Alt to presumptive table R401.4.1 (the habit inside m-P01-site-prep) and to DCP (m-P01-geotech-dcp). Not the default on ordinary SFR.",
+  "alt_to": [
+    "m-P01-site-prep"
+  ],
+  "also_known_as": [
+    "SPT",
+    "blow-count soils test",
+    "split-barrel sampling"
+  ],
+  "how_it_is_done": [
+    "HUD §4.3: 'Soil-bearing investigations rarely are required for residential construction except when a history of local problems provides evidence of known risks (for example, organic deposits, landfills, expansive soils, and seismic risk).'",
+    "Use the presumptive table only when the building codes do not require geotechnical investigation reports (HUD: table R401.4.1 in the IRC; section R401.4 IRC). Confirm with AHJ / engineer.",
+    "When a soil-bearing investigation is desired to determine more accurate and economical footing requirements, the designer commonly turns to ASTM D1586, Standard Penetration Test (SPT) and Split-Barrel Sampling of Soils. 'This test relies on a 2-inch-diameter device driven into the ground with a 140-pound hammer dropped from a distance of 30 inches. The number of hammer drops or blows needed to create a 1-foot penetration (blow count) yields values that can be roughly correlated to soil-bearing values.'",
+    "HUD: 'The instrumentation and cost of conducting the SPT usually are not warranted for typical residential applications. Nonetheless, the SPT method provides information on deeper soil strata and thus can offer valuable guidance for foundation design and building location, particularly when subsurface conditions threaten to be problematic.'",
+    "Do not invent a blow-count-to-psf chart here — HUD Table 4.3 exists in the book; the designer interprets it. Confirm with AHJ / engineer.",
+    "Still do the habit sitework: utility locate, survey stakes, strip topsoil, test hole (ORNL). This Method is the soils-report fork, not a skip of P01 habit."
+  ],
+  "sequence_before": [
+    "m-P00-drawings-before-permit",
+    "m-P01-site-prep"
+  ],
+  "sequence_after": [
+    "P02",
+    "m-P02-permit-holds",
+    "m-P03-batter-boards"
+  ],
+  "can_overlap_with": [],
+  "trades": [
+    "HUD: designer / engineer using ASTM D1586 — no crew size"
+  ],
+  "crew_notes": "not in sources; Gap gap-crew-counts",
+  "tools_equipment": "Named: 2-inch-diameter SPT device; 140-pound hammer dropped 30 inches (HUD §4.3). Not a SKU list.",
+  "inspection_hold_points": [
+    "Geotech report required when IRC R401.4 says so or when local problems are known (HUD §4.3). Confirm with AHJ / engineer.",
+    "Do not use the presumptive table as a skip when the code requires a report (HUD)."
+  ],
+  "material_classes": [],
+  "typical_duration_sfr": "unknown — not in sources",
+  "when_this_beats_habit": "When IRC R401.4 requires a report, or known risks (organic, landfill, expansive, seismic), or you want deeper strata before you pick the house location (HUD).",
+  "when_this_is_a_bad_idea": "Ordering SPT as a default on ordinary SFR — HUD says it is usually not warranted. Using Table 4.3 without an engineer. Treating piles as the inland habit (c-P05-piles-not-inland-habit).",
+  "why_tier1_never_learned_it": "Ordinary lots use the table. SPT shows up when the dirt is a problem.",
+  "permit_gate": "should be on drawings before permit",
+  "permit_gate_notes": "When R401.4 requires a geotech report, the report belongs with the permit set. Confirm with AHJ / engineer. Not a stamp.",
+  "risk_if_swapped_late": "Skipping a required report and finding bad soils in the hole changes footing size or type. Catch before permit.",
+  "sophistication_needed": 1,
+  "plain_language_summary": "Most houses do not get a full soils report. When the code or a bad-dirt history says you do, SPT is the common test: 2-inch sampler, 140-pound hammer, 30-inch drop, blow count per foot. The designer reads the table. Confirm with the AHJ.",
+  "spanish_summary": "La mayoría de casas no llevan informe de suelos. Cuando el código o un historial de mal terreno lo pide, SPT es la prueba común: muestreador de 2 pulgadas, mazo de 140 lb, caída de 30 pulgadas. El diseñador lee la tabla. Confirme con el AHJ.",
+  "scribd_sources": [
+    "src-hud-rsdg"
+  ],
+  "locators": [
+    "HUD RSDG §4.3 Soil-Bearing Capacity and Footing Size (printed p 4-9); IRC R401.4 / table R401.4.1 as printed; ASTM D1586 SPT"
+  ],
+  "market_notes": [],
+  "constraints": [],
+  "confidence": "high",
+  "confidence_notes": "HUD names SPT equipment and when investigations are rare vs required. No crew. No invented bearing numbers beyond pointing at Table 4.2/4.3.",
+  "open_gaps": [
+    "gap-crew-counts",
+    "gap-sop-labor-crew",
+    "gap-sop-walkthroughs",
+    "gap-inspector-fail-list-unsourced",
+    "gap-P01-walkthrough-geotech-spt"
+  ],
+  "remodel_note": "Remodel extras (matching, occupied-site, shoring, demo of an existing house) are not a sequence in CMHC/ORNL/HUD/FM — Gap, do not invent remodel-only methods. Essential Guide is framing-only (opened 2026-08-30; silent on site/layout). B&D Room Additions not used as a P00–P06 sequence.",
+  "last_updated": "2026-08-30",
+  "fastener_schedule": [],
+  "tools": [
+    "SPT split-barrel sampler (2 in)",
+    "140-pound hammer"
+  ],
+  "labor": {
+    "crew": null,
+    "certs": [
+      "PE / designer when a geotech report is required (HUD)"
+    ],
+    "gap": "gap-crew-counts"
+  },
+  "labor_notes": "HUD names the designer. Special inspector not named. Crew Gap.",
+  "layering": [
+    "Investigation before footing size is locked on the drawings. Catch before permit."
+  ],
+  "build_size_alts": "not in sources",
+  "code_to_check": [
+    "IRC R401.4 and table R401.4.1 as printed in HUD RSDG. Confirm with AHJ / engineer. ASTM D1586."
+  ],
+  "time_money": "HUD: SPT instrumentation and cost usually not warranted for typical residential. Can justify smaller footings on stronger soils. No dollars.",
+  "walkthroughs": [],
+  "images": [],
+  "inspector_looks_for": [
+    "Report in hand when R401.4 requires it (HUD). Confirm with AHJ / engineer.",
+    "SPT blow counts correlated to bearing — designer interprets Table 4.3 (HUD). Not a field guess."
+  ],
+  "inspector_fails": [],
+  "common_messups": [],
+  "do_not_cheap": [
+    "Geotech report when IRC R401.4 requires it (permit gate). Do not substitute the presumptive table as a skip."
+  ],
+  "smart_save": [
+    "HUD: SPT usually not warranted for typical residential. Tests on stronger-than-average soils can justify smaller footings. No dollars.",
+    "DCP is the documented more-economical investigation alt (m-P01-geotech-dcp)."
+  ],
+  "sop_gap_note": "walkthroughs []. images []. Fastener_schedule []. inspector_fails not a named fail list — Gap beyond the R401.4 require-vs-table fork."
+}

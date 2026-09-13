@@ -1,0 +1,136 @@
+{
+  "id": "m-P00-drawings-before-permit",
+  "type": "Method",
+  "practice_id": "pr-P00-intake",
+  "practice_name": "Intake / drawings / contract / permit path (SFR)",
+  "phase_id": "P00",
+  "building_types": [
+    "bt-sfr-new",
+    "bt-sfr-remodel",
+    "bt-adu"
+  ],
+  "tier": "A",
+  "is_habit": true,
+  "habit_or_alt": "habit",
+  "habit_scope": "Conventional drawings + specs before permit, then a bid/contract that references those drawings. ORNL BFH PLANS, CONTRACTS, AND BUILDING PERMITS; CMHC Ch2 Approvals, Permits and Inspections (Canadian / NBC — confirm AHJ; not IRC). 1–2 story wood SFR. Not a delivery-method catalog.",
+  "alt_to": [],
+  "also_known_as": [
+    "drawings before permit",
+    "plans specs bid contract permit",
+    "pre-construction"
+  ],
+  "how_it_is_done": [
+    "Zoning first. CMHC Ch2: 'It is important to ensure that the property is zoned for the intended use before proceeding with house planning. Some properties may have development regulations, covenants or restrictions governing the size, location and exterior finishes of the house.' Canadian / NBC — confirm AHJ; not IRC.",
+    "Drawings before permit. CMHC Ch2: 'Drawings should be to scale and provide sufficient detail to enable a plans examiner to determine whether the proposed house is Code compliant. ... A competent designer should prepare a complete set of drawings and specifications.' Canadian / NBC — confirm AHJ; not IRC.",
+    "ORNL BFH checklist PLANS, CONTRACTS, AND BUILDING PERMITS: 'Complete plans and specifications; Complete bid package; Establish contractual arrangements (describe principals, describe the work by referencing the blueprints and specs, state the start/completion dates, price, payment schedule, handling of change orders, handling of disputes, excavation allowance, and procedure for firing); Acquire building permits.' This is the conventional bid/contract habit. The book does not name 'GC' as a job title.",
+    "Time for design, estimate, financing, and the permit. CMHC Ch2 Drawings, Financing and Permits: 'Plan for the time required to complete the design and drawings; and to estimate costs, arrange for financing and obtain a building permit.' Also: 'Arrange for access to the site and temporary power during this stage.' Canadian / NBC — confirm AHJ; not IRC. Duration is variable (CMHC Fig 4 footnote). Do not invent days.",
+    "Talk to the building department while the design is still moving. CMHC Ch2: consultations with municipal building officials during design, plan approval and construction are strongly recommended. Canadian / NBC — confirm AHJ; not IRC.",
+    "Foundation type, radon stub, and services through the wall belong on the drawings now. CMHC Ch2 planning already names water conditions and drainage, foundation wall thickness, pipes through the foundation, and 'Provide the required pipe stub connection for future radon removal, should radon prove to be a problem after the house is occupied.' Canadian / NBC — confirm AHJ; not IRC.",
+    "Do not treat delivery method (custom vs spec vs ADU vs design-build vs owner-builder) as a competing Method. Books silent. Gap gap-P00-delivery-method-alts."
+  ],
+  "sequence_before": [],
+  "sequence_after": [
+    "P01",
+    "P02",
+    "m-P01-site-prep",
+    "m-P02-permit-holds"
+  ],
+  "can_overlap_with": [
+    "m-P01-site-prep"
+  ],
+  "trades": [
+    "ORNL: contractual principals / bid package — no crew size",
+    "CMHC: competent designer; municipal building officials; plans examiner — no crew size. Canadian / NBC — confirm AHJ; not IRC."
+  ],
+  "crew_notes": "not in sources; Gap gap-crew-counts",
+  "tools_equipment": "Not a tool list. Named: drawings/specs/blueprints; bid package. Temporary power named as a planning item (CMHC), not a SKU.",
+  "inspection_hold_points": [
+    "Zoning / intended use confirmed before house planning (CMHC Ch2). Canadian / NBC — confirm AHJ; not IRC.",
+    "Complete plans and specifications before the bid/contract and before the building permit (ORNL PLANS, CONTRACTS, AND BUILDING PERMITS; CMHC Ch2).",
+    "Contract references the blueprints and specs; excavation allowance in the contract (ORNL).",
+    "Building permit acquired (ORNL). CMHC lists building / plumbing / heating / electrical / utility / health-unit permits — Canadian list, confirm AHJ; not IRC. Do not copy that menu as a US habit."
+  ],
+  "material_classes": [
+    "construction drawings / specifications CLASS",
+    "bid / contract documents CLASS"
+  ],
+  "typical_duration_sfr": "unknown — not in sources",
+  "when_this_beats_habit": "This is the habit. Books did not file custom vs spec vs design-build as competing Methods.",
+  "when_this_is_a_bad_idea": "Starting dirt or layout before zoning and before drawings the AHJ will accept. Treating CMHC's Canadian permit menu as IRC. Inventing a delivery-method alt the books did not print.",
+  "why_tier1_never_learned_it": "They did — this is desk work before the hole. What they skip is putting foundation type and the radon stub on the drawings before the permit.",
+  "permit_gate": "should be on drawings before permit",
+  "permit_gate_notes": "This phase IS the permit gate. Foundation type, radon path, and services through the wall belong on the drawings. Confirm with AHJ / engineer. Not a stamp. CMHC is Canadian / NBC — not IRC.",
+  "risk_if_swapped_late": "Swapping foundation type, radon, or termite path after permit is a type change: excavation depth, waterproofing, drain tile, floor package, and stairs all move. Catch on the drawings.",
+  "sophistication_needed": 1,
+  "plain_language_summary": "Do not move dirt until the lot is zoned for a house, a competent designer has drawn it, and the AHJ has a permit set. The contract should point at those drawings and leave an excavation allowance. CMHC is Canadian — confirm the AHJ; do not copy their permit menu as IRC.",
+  "spanish_summary": "No mueva tierra hasta que el lote esté zonificado, un diseñador competente haya dibujado la casa y el AHJ tenga planos para permiso. El contrato debe apuntar a esos planos y dejar una holgura de excavación. CMHC es canadiense — confirme el AHJ.",
+  "scribd_sources": [
+    "src-cmhc-wood-frame",
+    "src-ornl-bfh"
+  ],
+  "locators": [
+    "CMHC Ch2 Approvals, Permits and Inspections; Drawings, Financing and Permits; Fig 2 (printed pp 11–13)",
+    "ORNL BFH basement checklist PLANS, CONTRACTS, AND BUILDING PERMITS (printed p 37)"
+  ],
+  "market_notes": [],
+  "constraints": [],
+  "confidence": "high",
+  "confidence_notes": "Sequence agreed: drawings/specs before permit (CMHC + ORNL). Delivery-method alts silent — Gap. CMHC is Canadian / NBC; every CMHC claim labeled. No crew, no dollars, no invented IRC R-numbers.",
+  "open_gaps": [
+    "gap-crew-counts",
+    "gap-sop-labor-crew",
+    "gap-sop-walkthroughs",
+    "gap-inspector-fail-list-unsourced",
+    "gap-P00-delivery-method-alts",
+    "gap-sop-fastener-missing",
+    "gap-P00-walkthrough-drawings-before-permit"
+  ],
+  "remodel_note": "Remodel extras (matching, occupied-site, shoring, demo of an existing house) are not a sequence in CMHC/ORNL/HUD/FM — Gap, do not invent remodel-only methods. Essential Guide is framing-only. B&D Room Additions not used as a P00–P06 sequence.",
+  "last_updated": "2026-08-30",
+  "fastener_schedule": [],
+  "tools": [],
+  "labor": {
+    "crew": null,
+    "certs": [
+      "competent designer named (CMHC) — not a license number"
+    ],
+    "gap": "gap-crew-counts"
+  },
+  "labor_notes": "CMHC names a competent designer and municipal building officials / plans examiner. ORNL names contractual principals. No crew count. Special inspector not named.",
+  "layering": [
+    "Zoning → site plan / working drawings and specifications → building permit (CMHC Fig 2 pre-construction). Canadian / NBC — confirm AHJ; not IRC.",
+    "ORNL: plans and specs → bid package → contract (blueprints + specs + excavation allowance) → building permits."
+  ],
+  "build_size_alts": "not in sources",
+  "code_to_check": [
+    "CMHC is 2010 NBC / 2012 interim energy — Canadian / NBC — confirm AHJ; not IRC.",
+    "ORNL is a US foundation handbook checklist, not a code. Confirm with AHJ / engineer.",
+    "HUD RSDG prints IRC R401.4 / R401.4.1 on soils (P01), not a P00 R-number. Do not invent."
+  ],
+  "time_money": "CMHC: pre-construction duration is variable by site and house. No dollars. Do not invent days.",
+  "walkthroughs": [],
+  "images": [
+    {
+      "path": "kb/images/m-P00-drawings-before-permit/cmhc-fig-2-approvals-permits-inspections.png",
+      "caption": "CMHC Fig 2: zoning and environmental approvals → site plan, working drawings and specifications → building (and other) permits → construction inspections → certificate of occupancy. Canadian / NBC — confirm AHJ; not IRC. Do not copy the Canadian permit menu as a US habit."
+    }
+  ],
+  "inspector_looks_for": [
+    "Drawings to scale with enough detail for a plans examiner to check Code compliance (CMHC Ch2). Canadian / NBC — confirm AHJ; not IRC.",
+    "Complete plans and specifications; bid package; contract that references blueprints and specs; building permits acquired (ORNL PLANS, CONTRACTS, AND BUILDING PERMITS).",
+    "Zoning for the intended use before planning (CMHC Ch2)."
+  ],
+  "inspector_fails": [],
+  "common_messups": [],
+  "do_not_cheap": [
+    "Drawings and specs before the permit (hold + permit gate).",
+    "Contract that references the blueprints and specs, with an excavation allowance (ORNL).",
+    "Zoning confirmed before planning (CMHC Ch2). Canadian / NBC — confirm AHJ; not IRC.",
+    "Foundation type and radon stub on the drawings now — later swap is a type change."
+  ],
+  "smart_save": [
+    "CMHC: pre-construction duration is variable by site and house — do not invent a schedule. No dollars in sources.",
+    "Late swap: changing foundation type or radon/termite path after permit is a type change. Catch on the drawings."
+  ],
+  "sop_gap_note": "inspector_fails and common_messups unsourced for this desk phase. Not a stamp. Fastener_schedule [] — no nails in P00. walkthroughs []. See gap-inspector-fail-list-unsourced, gap-sop-fastener-missing, gap-sop-walkthroughs."
+}

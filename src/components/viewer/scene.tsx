@@ -1,19 +1,34 @@
 import { ContactShadows, Environment, Html, OrbitControls, Sky, SoftShadows, TransformControls } from "@react-three/drei";
 import { Canvas, useFrame, useThree, type ThreeEvent } from "@react-three/fiber";
 import { Bloom, EffectComposer, N8AO, SMAA, Vignette } from "@react-three/postprocessing";
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { Component, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import * as THREE from "three";
 import { batchBoxes, type Batch } from "@/lib/bim/build";
+import { detectLiteGpu, setLiteGpu } from "@/lib/bim/gpu";
 import { formatMm, kindMeta } from "@/lib/bim/kinds";
 import { layerIsOn, resolveBoxes, useBim } from "@/lib/bim/store";
 import { materialFor } from "@/lib/bim/triplanar";
-import { LAYER_IDS, LAYER_META, type Geom } from "@/lib/bim/types";
+import { BUILD_SEQUENCE, LAYER_IDS, LAYER_META, type Geom } from "@/lib/bim/types";
 import { CustomLayer } from "./custom";
 
 const WHITE = new THREE.Color("#ffffff");
 const DIM = new THREE.Color("#3a3c40");
 const SEL = new THREE.Color("#f2eee6");
 const HOV = new THREE.Color("#c5d0d8");
+
+function gpuIsLite(gl: THREE.WebGLRenderer) {
+  return detectLiteGpu(gl);
+}
+
+class FxGuard extends Component<{ children: ReactNode }, { dead: boolean }> {
+  state = { dead: false };
+  static getDerivedStateFromError() {
+    return { dead: true };
+  }
+  render() {
+    return this.state.dead ? null : this.props.children;
+  }
+}
 
 function SequenceDriver() {
   const playing = useBim((s) => s.playing);
@@ -27,31 +42,62 @@ function SequenceDriver() {
 function FitCamera() {
   const epoch = useBim((s) => s.cameraEpoch);
   const bounds = useBim((s) => s.result.bounds);
+  const boxes = useBim((s) => s.result.boxes);
+  const workMode = useBim((s) => s.workMode);
+  const stepIndex = useBim((s) => s.stepIndex);
   const view = useBim((s) => s.viewPreset);
   const camera = useThree((s) => s.camera);
   const controls = useThree((s) => s.controls);
   const invalidate = useThree((s) => s.invalidate);
 
   useLayoutEffect(() => {
-    const [minx, miny, minz] = bounds.min;
-    const [maxx, maxy, maxz] = bounds.max;
+    let minx = bounds.min[0],
+      miny = bounds.min[1],
+      minz = bounds.min[2],
+      maxx = bounds.max[0],
+      maxy = bounds.max[1],
+      maxz = bounds.max[2];
+    if (workMode === "step") {
+      const layer = BUILD_SEQUENCE[stepIndex];
+      const slice = boxes.filter((b) => b.layer === layer);
+      if (slice.length) {
+        minx = Infinity;
+        miny = Infinity;
+        minz = Infinity;
+        maxx = -Infinity;
+        maxy = -Infinity;
+        maxz = -Infinity;
+        for (const b of slice) {
+          minx = Math.min(minx, b.x - b.w / 2);
+          miny = Math.min(miny, b.y - b.h / 2);
+          minz = Math.min(minz, b.z - b.d / 2);
+          maxx = Math.max(maxx, b.x + b.w / 2);
+          maxy = Math.max(maxy, b.y + b.h / 2);
+          maxz = Math.max(maxz, b.z + b.d / 2);
+        }
+      }
+    }
     const cx = (minx + maxx) / 2;
     const cy = (miny + maxy) / 2;
     const cz = (minz + maxz) / 2;
-    const span = Math.max(maxx - minx, maxy - miny, maxz - minz, 10);
-    const target = new THREE.Vector3();
-    if (view === "eye") {
-      camera.position.set(cx, 1.64, minz - 9.5);
-      target.set(cx, 1.52, minz + 2.4);
-    } else if (view === "top") {
-      camera.position.set(cx, span * 1.35, cz - 0.01);
-      target.set(cx, 0.2, cz);
-    } else if (view === "iso") {
-      camera.position.set(cx + span * 0.72, maxy + span * 0.42, cz + span * 0.72);
-      target.set(cx, cy + 0.2, cz);
+    const span = Math.max(maxx - minx, maxy - miny, maxz - minz, 4);
+    const target = new THREE.Vector3(cx, cy, cz);
+    if (workMode === "live") {
+      if (view === "eye") {
+        camera.position.set(cx, 1.64, -8.2);
+        target.set(cx, 1.52, 3.2);
+      } else if (view === "top") {
+        camera.position.set(cx, 28, 5);
+        target.set(cx, 0.2, 5);
+      } else if (view === "iso") {
+        camera.position.set(cx + 14, Math.max(maxy, 6) + 6, -12);
+        target.set(cx, Math.max(maxy, 6) * 0.35, 4);
+      } else {
+        camera.position.set(cx + span * 0.35, Math.max(maxy, 4) * 0.72, -14);
+        target.set(cx, Math.max(maxy, 4) * 0.28, 3.2);
+      }
     } else {
-      camera.position.set(cx + span * 0.78, maxy + span * 0.12, minz - span * 0.92);
-      target.set(cx, cy + 0.4, minz + (maxz - minz) * 0.28);
+      camera.position.set(cx + span * 0.9, cy + span * 0.55, cz - span * 1.05);
     }
     camera.lookAt(target);
     camera.updateProjectionMatrix();
@@ -61,7 +107,7 @@ function FitCamera() {
       orbit.update();
     }
     invalidate();
-  }, [epoch, bounds, view, camera, controls, invalidate]);
+  }, [epoch, bounds, boxes, workMode, stepIndex, view, camera, controls, invalidate]);
 
   return null;
 }
@@ -316,6 +362,18 @@ function NudgeKeys() {
         st.setGizmoMode("rotate");
         return;
       }
+      if (e.key === "[" || e.key === ",") {
+        st.prevStep();
+        return;
+      }
+      if (e.key === "]" || e.key === ".") {
+        st.nextStep();
+        return;
+      }
+      if (e.key === "l" || e.key === "L") {
+        st.enterLive();
+        return;
+      }
       if (!st.selectedHex && !st.selectedCustomId) return;
 
       const step = e.shiftKey ? 0.001 : e.altKey ? 0.25 : 0.05;
@@ -368,11 +426,13 @@ function LayerTags() {
   const visible = useBim((s) => s.visible);
   const sequenceOn = useBim((s) => s.sequenceOn);
   const seqT = useBim((s) => s.seqT);
+  const workMode = useBim((s) => s.workMode);
+  const stepIndex = useBim((s) => s.stepIndex);
   const show = useBim((s) => s.showLabels);
   if (!show || explode < 0.12) return null;
   const tags = [];
   for (const id of LAYER_IDS) {
-    if (!layerIsOn({ visible, sequenceOn, seqT }, id)) continue;
+    if (!layerIsOn({ visible, sequenceOn, seqT, workMode, stepIndex }, id)) continue;
     const list = boxes.filter((b) => b.layer === id);
     if (list.length === 0) continue;
     let x = 0,
@@ -410,12 +470,44 @@ function Building({ plane }: { plane: THREE.Plane }) {
   const xforms = useBim((s) => s.xforms);
   const placeMode = useBim((s) => s.placeMode);
   const placeAt = useBim((s) => s.placeAt);
+  const workMode = useBim((s) => s.workMode);
+  const stepIndex = useBim((s) => s.stepIndex);
+  const visible = useBim((s) => s.visible);
+  const sequenceOn = useBim((s) => s.sequenceOn);
+  const seqT = useBim((s) => s.seqT);
+  const camera = useThree((s) => s.camera);
+  const camHold = useRef(new THREE.Vector3(0, 8, -12));
+  const [lod, setLod] = useState(0);
+
+  useFrame(() => {
+    if (workMode !== "live") return;
+    if (camera.position.distanceToSquared(camHold.current) < 9) return;
+    camHold.current.copy(camera.position);
+    setLod((n) => n + 1);
+  });
 
   const batches = useMemo(() => {
-    const list = batchBoxes(resolveBoxes(result.boxes, overrides, xforms));
+    let boxes = resolveBoxes(result.boxes, overrides, xforms);
+    if (workMode === "step") {
+      const layer = BUILD_SEQUENCE[stepIndex];
+      boxes = boxes.filter((b) => b.layer === layer);
+    } else {
+      boxes = boxes.filter((b) => layerIsOn({ visible, sequenceOn, seqT, workMode, stepIndex }, b.layer));
+      const c = camHold.current;
+      boxes = boxes.filter((b) => {
+        const dx = b.x - c.x;
+        const dy = b.y - c.y;
+        const dz = b.z - c.z;
+        const d2 = dx * dx + dy * dy + dz * dz;
+        if (d2 > 480 && b.w * b.h * b.d < 0.002) return false;
+        if (d2 > 720 && b.layer === "fasteners") return false;
+        return true;
+      });
+    }
+    const list = batchBoxes(boxes);
     list.sort((a, b) => b.opacity - a.opacity);
     return list;
-  }, [result, overrides, xforms]);
+  }, [result, overrides, xforms, workMode, stepIndex, visible, sequenceOn, seqT, lod, placeMode]);
 
   const onPlace = (e: ThreeEvent<MouseEvent>) => {
     if (!placeMode) return;
@@ -443,16 +535,18 @@ function Building({ plane }: { plane: THREE.Plane }) {
 function Lights() {
   const { gl, scene } = useThree();
   const style = useBim((s) => s.renderStyle);
+  const lite = detectLiteGpu(gl);
 
   useLayoutEffect(() => {
     gl.localClippingEnabled = true;
     gl.toneMapping = THREE.ACESFilmicToneMapping;
-    gl.toneMappingExposure = style === "dusk" ? 0.92 : style === "overcast" ? 1.14 : 1.08;
+    gl.toneMappingExposure = style === "dusk" ? 1.05 : style === "overcast" ? 1.22 : lite ? 1.28 : 1.16;
     gl.shadowMap.enabled = true;
-    gl.shadowMap.type = THREE.PCFSoftShadowMap;
+    gl.shadowMap.type = THREE.PCFShadowMap;
     gl.outputColorSpace = THREE.SRGBColorSpace;
-    scene.fog = new THREE.Fog(style === "dusk" ? "#1a1418" : style === "overcast" ? "#8a9198" : "#0c0d0f", 48, 140);
-    scene.background = new THREE.Color(style === "dusk" ? "#1a1418" : style === "overcast" ? "#9aa3aa" : "#0c0d0f");
+    const bg = style === "dusk" ? "#1a1418" : style === "overcast" ? "#9aa3aa" : "#6d7a84";
+    scene.fog = new THREE.Fog(bg, 28, 95);
+    scene.background = new THREE.Color(bg);
     return () => {
       scene.fog = null;
     };
@@ -463,7 +557,7 @@ function Lights() {
       ? { pos: [32, 7, 10] as const, intensity: 2.15, color: "#f0a060" }
       : style === "overcast"
         ? { pos: [6, 42, 8] as const, intensity: 0.55, color: "#d8e0e8" }
-        : { pos: [24, 36, 16] as const, intensity: 2.35, color: "#fff4e4" };
+        : { pos: [18, 22, 10] as const, intensity: lite ? 1.35 : 2.85, color: "#fff4e4" };
 
   return (
     <>
@@ -474,13 +568,13 @@ function Lights() {
             : ["#c5d0d8", "#3a322b", style === "overcast" ? 1.15 : 0.62]
         }
       />
-      <ambientLight intensity={style === "overcast" ? 0.48 : 0.18} />
+      <ambientLight intensity={style === "overcast" ? 0.62 : lite ? 0.55 : 0.32} />
       <directionalLight
         position={[...sun.pos]}
         intensity={sun.intensity}
         color={sun.color}
         castShadow
-        shadow-mapSize={[2048, 2048]}
+        shadow-mapSize={[1024, 1024]}
         shadow-bias={-0.00022}
         shadow-normalBias={0.03}
         shadow-camera-near={2}
@@ -490,15 +584,18 @@ function Lights() {
         shadow-camera-top={32}
         shadow-camera-bottom={-32}
       />
-      <directionalLight position={[-18, 12, -14]} intensity={style === "dusk" ? 0.18 : 0.42} color="#8a9aa8" />
-      <Environment preset={style === "dusk" ? "sunset" : style === "overcast" ? "warehouse" : "city"} environmentIntensity={style === "studio" ? 0.42 : 0.55} />
-      {style !== "studio" ? (
+      <directionalLight position={[-18, 12, -14]} intensity={style === "dusk" ? 0.22 : 0.55} color="#8a9aa8" />
+      <directionalLight position={[4, 2.2, 14]} intensity={0.28} color="#e8e4dc" />
+      {lite ? null : (
+        <Environment preset={style === "dusk" ? "sunset" : style === "overcast" ? "warehouse" : "city"} environmentIntensity={style === "studio" ? 0.72 : 0.62} />
+      )}
+      {style !== "studio" || lite ? (
         <Sky
-          sunPosition={style === "dusk" ? [20, 1.6, -6] : [4, 16, 10]}
-          turbidity={style === "dusk" ? 8 : 14}
-          rayleigh={style === "dusk" ? 2.6 : 0.9}
-          mieCoefficient={0.006}
-          mieDirectionalG={0.82}
+          sunPosition={style === "dusk" ? [20, 1.6, -6] : [6, 14, 8]}
+          turbidity={style === "dusk" ? 8 : 6}
+          rayleigh={style === "dusk" ? 2.6 : 0.55}
+          mieCoefficient={0.005}
+          mieDirectionalG={0.8}
         />
       ) : null}
     </>
@@ -506,12 +603,16 @@ function Lights() {
 }
 
 function Post() {
+  const gl = useThree((s) => s.gl);
+  const ctx = gl.getContext();
+  const attrs = ctx?.getContextAttributes?.() ?? null;
+  if (!ctx || !attrs) return null;
   const mobile = typeof window !== "undefined" && window.innerWidth < 720;
   return (
-    <EffectComposer multisampling={0} enableNormalPass={!mobile}>
-      {mobile ? null : <N8AO aoRadius={0.45} intensity={1.35} distanceFalloff={1.1} screenSpaceRadius />}
-      <Bloom luminanceThreshold={1.2} intensity={0.16} mipmapBlur />
-      <Vignette offset={0.28} darkness={0.46} />
+    <EffectComposer multisampling={0} enableNormalPass={false} stencilBuffer={false} autoClear>
+      {mobile ? null : <N8AO aoRadius={0.45} intensity={1.15} distanceFalloff={1.1} />}
+      <Bloom luminanceThreshold={1.15} intensity={0.14} mipmapBlur />
+      <Vignette offset={0.32} darkness={0.38} />
       <SMAA />
     </EffectComposer>
   );
@@ -524,32 +625,50 @@ export function BuildingCanvas() {
   const section = useBim((s) => s.section);
   const dragging = useBim((s) => s.gizmoDragging);
   const placeMode = useBim((s) => s.placeMode);
+  const [gpu, setGpu] = useState<"unknown" | "lite" | "full">("unknown");
   const plane = useMemo(() => new THREE.Plane(new THREE.Vector3(0, -1, 0), 80), []);
   const maxY = result.bounds.max[1];
   const minY = result.bounds.min[1];
   plane.constant = minY + section * (maxY - minY + 1.2);
+  const lite = gpu !== "full";
 
   return (
     <div className="absolute inset-0 bg-ink touch-none">
       <Canvas
         shadows
-        dpr={[1, 1.6]}
-        gl={{ antialias: false, alpha: false, powerPreference: "high-performance", stencil: false }}
+        dpr={lite ? [1, 1] : [1, 1.5]}
+        gl={{
+          antialias: lite,
+          alpha: false,
+          powerPreference: "high-performance",
+          stencil: false,
+          preserveDrawingBuffer: true,
+          failIfMajorPerformanceCaveat: false,
+        }}
         camera={{ position: [18, 10, -16], fov: 38, near: 0.12, far: 240 }}
         onCreated={({ gl }) => {
           gl.setClearColor("#0c0d0f", 1);
           gl.localClippingEnabled = true;
-          gl.shadowMap.type = THREE.PCFSoftShadowMap;
+          gl.shadowMap.type = THREE.PCFShadowMap;
+          const canvas = gl.domElement;
+          canvas.addEventListener("webglcontextlost", (e) => e.preventDefault(), false);
+          const liteNow = gpuIsLite(gl);
+          setLiteGpu(liteNow);
+          setGpu(liteNow ? "lite" : "full");
         }}
         onPointerMissed={(event) => {
           if (useBim.getState().gizmoDragging) return;
-          const target = (event.nativeEvent?.target ?? null) as HTMLElement | null;
+          const target = event.target as HTMLElement | null;
           if (target && target.tagName !== "CANVAS") return;
           selectHex(null);
           selectCustom(null);
         }}
       >
-        <SoftShadows size={22} samples={10} focus={0.45} />
+        {gpu === "full" ? (
+          <FxGuard>
+            <SoftShadows size={18} samples={8} focus={0.45} />
+          </FxGuard>
+        ) : null}
         <Lights />
         <InteriorLights />
         <SequenceDriver />
@@ -565,9 +684,16 @@ export function BuildingCanvas() {
           target={[0, 2.4, -2]}
         />
         <FitCamera />
+        <FitCamera />
         <Building plane={plane} />
-        <ContactShadows position={[0, -0.09, 0]} opacity={0.48} scale={56} blur={2.4} far={14} color="#050506" />
-        <Post />
+        {gpu === "full" ? (
+          <ContactShadows position={[0, -0.09, 0]} opacity={0.5} scale={56} blur={2.2} far={14} color="#050506" />
+        ) : null}
+        {gpu === "full" ? (
+          <FxGuard>
+            <Post />
+          </FxGuard>
+        ) : null}
       </Canvas>
     </div>
   );

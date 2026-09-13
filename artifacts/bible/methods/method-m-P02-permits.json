@@ -1,0 +1,146 @@
+{
+  "tier": "A",
+  "building_types": [
+    "bt-sfr-new",
+    "bt-sfr-remodel",
+    "bt-adu"
+  ],
+  "alt_to": [],
+  "can_overlap_with": [
+    "m-P01-site-prep"
+  ],
+  "typical_duration_sfr": "unknown — not in sources",
+  "fastener_schedule": [],
+  "walkthroughs": [],
+  "images": [],
+  "labor": {
+    "crew": null,
+    "certs": [
+      "PE when IRC/HUD tables fail"
+    ],
+    "gap": "gap-crew-counts",
+    "named_not_headcount": "AF&PA names building inspector. ORNL names the inspection ladder. HUD: builder + official can inspect without a PE until tables fail."
+  },
+  "labor_notes": "Do not invent crew counts. ORNL names grading / construction / landscape contractors. AF&PA names job foreman, subcontractors, building inspector.",
+  "build_size_alts": "not in sources",
+  "last_updated": "2026-08-30",
+  "inspector_fails": [],
+  "remodel_note": "Remodel extras (matching, occupied-site, shoring) not in these books — Gap, do not invent remodel-only methods.",
+  "id": "m-P02-permits",
+  "type": "Method",
+  "practice_id": "pr-P02-permits",
+  "practice_name": "Plans, contracts, building permits, inspection holds (SFR)",
+  "phase_id": "P02",
+  "is_habit": true,
+  "habit_or_alt": "habit",
+  "habit_scope": "ORNL PLANS, CONTRACTS, AND BUILDING PERMITS + SITE INSPECTIONS DURING CONSTRUCTION (same list on basement / crawl / slab). HUD §3.9 floodplain = local zoning. 1–2 story wood SFR / ADU. Not a trade how-to.",
+  "also_known_as": [
+    "building permit",
+    "plans and specs",
+    "inspection hold points"
+  ],
+  "how_it_is_done": [
+    "Complete plans and specifications (ORNL PLANS, CONTRACTS, AND BUILDING PERMITS). Fig 1-4 already required foundation type, termite, radon, and QC inspection procedures in those documents.",
+    "Complete the bid package (ORNL).",
+    "Establish contractual arrangements: describe principals; describe the work by referencing the blueprints and specs; state the start/completion dates, price, payment schedule, handling of change orders, handling of disputes, excavation allowance, and procedure for firing (ORNL).",
+    "Acquire building permits (ORNL). Nothing in the ground until this is real.",
+    "Floodplain lots: local zoning and/or building codes govern (HUD §3.9). Elevation of lowest living floor, foundation type, and materials below BFE are named as governed. Full floodplain regs are beyond HUD RSDG scope — do not invent a NFIP how-to.",
+    "HUD: IRC is written so builder + official can inspect without a PE; PE when tables fail (HUD RSDG crew_or_duration note / §4). Soils path R401.4 vs table R401.4.1 was decided in P00 — if a report is required, the AHJ has to accept it here.",
+    "Site inspections during construction (ORNL, dual-use design and field): (1) After excavation and before concrete is poured for the footings. (2) After the footings have been poured before foundation wall construction. (3) After foundation construction and dampproofing before rough framing. (4) After rough framing. (5) After rough plumbing and electrical. (6) After insulation installation before drywall and backfilling in case of exterior insulation. (7) Final.",
+    "HOA, impact fees, special-inspection agreement: not in ORNL / HUD RSDG / AF&PA. Gap. Do not invent."
+  ],
+  "sequence_before": [
+    "P00",
+    "m-P00-feasibility",
+    "P01",
+    "m-P01-site-prep"
+  ],
+  "sequence_after": [
+    "P03",
+    "P04",
+    "m-P04-excavation"
+  ],
+  "trades": [
+    "building inspector (AF&PA; ORNL site inspections)",
+    "construction contractor — named, not a headcount"
+  ],
+  "crew_notes": "not in sources; Gap gap-crew-counts",
+  "tools_equipment": "Not a tool list. Named: blueprints and specs; building permits.",
+  "inspection_hold_points": [
+    "Plans and specs complete; bid package complete; contract with excavation allowance (ORNL PLANS, CONTRACTS, AND BUILDING PERMITS).",
+    "Building permits acquired before dirt (ORNL).",
+    "After excavation and before concrete is poured for the footings (ORNL SITE INSPECTIONS).",
+    "After footings poured before foundation walls (ORNL).",
+    "After foundation + dampproofing before rough framing (ORNL).",
+    "After rough framing; after rough plumbing and electrical; after insulation before drywall (and before backfill if exterior insulation); Final (ORNL).",
+    "Floodplain: local zoning / BFE path if the lot is in a floodplain (HUD §3.9)."
+  ],
+  "inspector_looks_for": [
+    "Building permit in hand before the hole (ORNL acquire building permits).",
+    "After excavation, before footing concrete (ORNL first site inspection).",
+    "After footings, before walls (ORNL).",
+    "After foundation and dampproofing, before rough framing (ORNL).",
+    "Insulation inspected before drywall — and before backfill when insulation is exterior (ORNL).",
+    "Final (ORNL)."
+  ],
+  "common_messups": [
+    "Pouring footings before the after-excavation inspection (ORNL SITE INSPECTIONS first hold).",
+    "Backfilling exterior insulation before the insulation inspection (ORNL: after insulation before drywall and backfilling in case of exterior insulation).",
+    "Treating HUD floodplain text as a national how-to instead of local zoning (HUD §3.9).",
+    "Inventing HOA / impact-fee / special-inspector steps from silence."
+  ],
+  "smart_save": "Gap — book did not name a permit-fee save. HUD: IRC path lets builder + official inspect without a PE until tables fail. No dollars in sources.",
+  "do_not_cheap": [
+    "Acquire building permits (ORNL).",
+    "After-excavation-before-footing-pour inspection (ORNL).",
+    "Dampproofing inspected before rough framing (ORNL).",
+    "Excavation allowance written into the contract (ORNL contractual arrangements).",
+    "Floodplain: local zoning / BFE — do not skip because HUD did not reprint the ordinance (HUD §3.9)."
+  ],
+  "material_classes": [],
+  "when_this_beats_habit": "This is the habit: paper before dirt, then the printed inspection ladder.",
+  "when_this_is_a_bad_idea": "Starting the hole without a permit. Skipping the after-excavation hold. Inventing HOA/impact-fee SOPs.",
+  "why_tier1_never_learned_it": "They did — permit then hole. What they skip is the printed ladder (dampproofing before framing; insulation before backfill when foam is outside).",
+  "permit_gate": "must exist before dirt",
+  "permit_gate_notes": "ORNL: acquire building permits. Later P05/P07/P08 methods already say their type belongs on drawings before permit. Engineer when tables fail. Confirm with AHJ / engineer.",
+  "risk_if_swapped_late": "Changing foundation type or floodplain elevation after permit is a type change. Catch before permit.",
+  "sophistication_needed": 1,
+  "plain_language_summary": "Finish the drawings, the bid, and a contract that names the excavation allowance. Get the building permit. Do not put a shovel in the ground until that paper is real. The book then names the inspection ladder: hole before footings, footings before walls, dampproofing before framing, roughs, insulation before drywall (and before backfill if the foam is outside), then final. Floodplain is local zoning. HOA and impact fees are not in these books.",
+  "spanish_summary": "Termine planos, licitación y un contrato con allowance de excavación. Saque el permiso. No meta pala hasta que el papel sea real. Luego la escalera de inspección: hoyo antes de zapatas, zapatas antes de paredes, impermeabilizado antes de framing, roughs, aislamiento antes de yeso (y antes de relleno si el foam va afuera), final. Llanura de inundación es zonificación local. HOA y impact fees no están en estos libros.",
+  "scribd_sources": [
+    "src-ornl-bfh",
+    "src-hud-rsdg"
+  ],
+  "locators": [
+    "ORNL BFH PLANS, CONTRACTS, AND BUILDING PERMITS (basement p.37 / crawl / slab p.78–79): plans and specs; bid package; contractual arrangements including excavation allowance; acquire building permits",
+    "ORNL BFH SITE INSPECTIONS DURING CONSTRUCTION: after excavation before footing pour; after footings before walls; after foundation+dampproofing before rough framing; after rough framing; after rough plumbing and electrical; after insulation before drywall and backfilling if exterior insulation; Final",
+    "HUD RSDG §3.9 Flood Loads — floodplain regulations are local",
+    "HUD RSDG §4.3 R401.4 / table R401.4.1 (soils report accepted by AHJ when required)"
+  ],
+  "constraints": [],
+  "confidence": "high",
+  "confidence_notes": "Permit and inspection ladder printed. HOA/impact fees/special inspector silent. No crew. No dollars.",
+  "open_gaps": [
+    "gap-crew-counts",
+    "gap-sop-labor-crew",
+    "gap-sop-build-size-alts",
+    "gap-sop-walkthroughs",
+    "gap-inspector-fail-list-unsourced",
+    "gap-P03-layout-unsourced",
+    "gap-P02-walkthrough-permits"
+  ],
+  "tools": [
+    "blueprints and specs",
+    "building permits"
+  ],
+  "layering": [
+    "Contract references blueprints and specs; includes excavation allowance (ORNL).",
+    "Exterior-insulation path: insulation inspection before backfill (ORNL SITE INSPECTIONS)."
+  ],
+  "code_to_check": [
+    "Adopted building permit / inspection sequence at the AHJ — ORNL list is the book ladder, not a substitute ordinance. Confirm with AHJ.",
+    "Floodplain: local zoning and/or building codes (HUD §3.9). Confirm with AHJ.",
+    "IRC R401.4 when a geotech report is in the stack (HUD §4.3). Confirm with AHJ / engineer."
+  ],
+  "time_money": "Gap — book did not name a save. No dollars in sources."
+}

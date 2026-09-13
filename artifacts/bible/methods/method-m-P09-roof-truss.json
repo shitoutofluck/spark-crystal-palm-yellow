@@ -1,0 +1,215 @@
+{
+  "id": "m-P09-roof-truss",
+  "type": "Method",
+  "practice_id": "pr-P09-truss",
+  "practice_name": "Roof truss package (SFR)",
+  "phase_id": "P09",
+  "building_types": [
+    "bt-sfr-new",
+    "bt-sfr-remodel",
+    "bt-adu"
+  ],
+  "tier": "A",
+  "is_habit": true,
+  "habit_or_alt": "habit",
+  "habit_scope": "Light metal-plate roof trusses, generally 24 in o.c. (AF&PA Roof Trusses). ALT to stick rafters on a 1–2 story wood SFR. Gable ends still conventional common rafter + studs. Not floor trusses. Not SIP. Dry-in / ice is Gap. HUD 8d 6/12 sheathing folded in.",
+  "alt_to": [],
+  "also_known_as": [
+    "prefab roof trusses",
+    "metal-plate roof trusses",
+    "light-frame roof truss package"
+  ],
+  "how_it_is_done": [
+    "Walls plumbed and braced. Glencoe ch16: temporary wall braces stay until ceiling/roof AND exterior sheathing exist. P08 PRECEDES this method.",
+    "Shop drawings / manufacturer engineering. HUD §5.6.3: building designer gives design loads, truss profile, support locations, specials. Permanent bracing at locations designated by the truss designer or warranty void. Temporary bracing during construction is the builder's (WTCA / Metal Plate Connected Wood Truss Handbook pointed). ANSI/TPI 1 named. Confirm with AHJ / engineer.",
+    "Store on a flat, clean area (CMHC Ch11). Essential Guide: banded trusses lifted off top chords; store horizontally on blocking so plates are not loosened; peaks up (scissors different). Do not invent a blocking o.c.",
+    "Lift vertical; avoid lateral bending. CMHC: shorter than 6 m (20 ft) span usually by hand; longer need special lift. Essential: lift at balance points. Canadian lift-length is CMHC — confirm AHJ; not a crew count.",
+    "FIRST-TRUSS DISAGREEMENT — keep both; follow the truss manufacturer / TPI sheet on site. CMHC Fig 80: gable truss is placed first and braced to the ground and wall; 'Gable ends are normally sheathed prior to installation of end braces.' Essential Guide: TPI-style first truss 8–12 ft in from the end wall, then brace to the end wall; gable-end truss is difficult to brace back to the deck.",
+    "Subsequent trusses generally 24 in o.c. (CMHC 600 mm / 24 in.; AF&PA generally 24 in o.c.). CMHC: toe-nailed to the top plates. Nail SIZE to the plate: Gap (gap-P09-truss-to-plate-nail). Do not invent 16d from FM's site-built rafter-truss nails onto a metal-plate package.",
+    "Plumb and position, then permanent bracing per manufacturer (CMHC Fig 81: top-chord plane, lateral web bracing, braced bays ~6 m / 20 ft as required by manufacturer — Canadian). HUD: properly attached roof sheathing provides adequate overall bracing except long compression webs. Roof sheathing folded here: HUD §5.6.4 8d 6/12; AF&PA panel stamp for span/gap.",
+    "Do not notch, drill, cut, or alter roof trusses (CMHC Ch11). Field-cut webs are not this method.",
+    "Gable ends: AF&PA — usually framed conventional common rafter + gable studs; eave overhangs by extending top chords. Hip/valley: modified trusses or conventional framing (AF&PA; Essential hip/valley/girder truss anatomy).",
+    "Truss uplift / ceiling separation (AF&PA): gypsum may float — unattached at least 18 in from the ceiling/wall intersection when trusses are perpendicular to partitions (Fig 73). Not a skip of bracing.",
+    "Logan: truss package is an order from Burton SLC or Sunpro Lindon, not Logan will-call (MarketNote mn-logan). Not a Method. Fontana still gets a roof truss or rafter package — no Utah snow pack on that roof (mn-fontana).",
+    "Dry-in / ice is NOT this Method (gap-P09-ice-underlayment-unsourced). Logan ice barrier is the city sheet. Fontana does not get a Utah snow pack."
+  ],
+  "sequence_before": [
+    "P08",
+    "m-P08-stick-16oc-2x4",
+    "m-P08-advanced-24oc-2x6",
+    "m-P08-bwl-wsp"
+  ],
+  "sequence_after": [
+    "m-P09-roof-sheathing",
+    "P10"
+  ],
+  "can_overlap_with": [
+    "m-P09-roof-sheathing"
+  ],
+  "trades": [
+    "framing subcontractors (AF&PA names subcontractors / job foreman / inspector; HUD names builder for temp brace — no crew size)"
+  ],
+  "crew_notes": "not in sources as a headcount; Gap gap-crew-counts. CMHC 'by hand' vs special lift is span, not people.",
+  "tools_equipment": "Named: temporary braces to ground/wall (CMHC Fig 80); 2x4 web bracing as required by manufacturer (CMHC Fig 81); lift/spreader for long trusses. Not a SKU list.",
+  "inspection_hold_points": [
+    "Shop drawings / truss designer bracing on site (HUD §5.6.3).",
+    "Temporary bracing before the system is sheathed (CMHC Fig 80; HUD temp brace is builder's).",
+    "Do not cut or alter trusses (CMHC).",
+    "Spacing generally 24 in o.c. (AF&PA; CMHC 600 mm — Canadian / confirm AHJ).",
+    "Permanent web/lateral bracing per manufacturer (CMHC Fig 81; HUD long webs).",
+    "P08 temp wall braces still in until roof/ceiling AND exterior wall sheathing exist (Glencoe ch16)."
+  ],
+  "material_classes": [
+    "prefabricated roof trusses (metal-plate connected)",
+    "truss plates (manufacturer)",
+    "2x4 web / lateral brace lumber",
+    "truss hangers / anchors CLASS (manufacturer or code — not a brand)",
+    "gable studs",
+    "common rafter (gable end, AF&PA)"
+  ],
+  "material_classes_notes": "CLASS only. Do not shop a truss brand. Logan order plant is MarketNote, not a CLASS.",
+  "typical_duration_sfr": "unknown — not in sources. CMHC 'about two weeks' framing+roofing is Canadian sequence text, not our lag table.",
+  "when_this_beats_habit": "Wall-to-wall span, no interior bearing partitions, faster set (AF&PA; HUD). HUD: generally more efficient than stick; now used in many new homes. CMHC “most houses” is Canadian / confirm AHJ — not a flip of the AF&PA conventional rafter habit on this US first pass.",
+  "when_this_is_a_bad_idea": "Field-cutting webs. Skipping manufacturer permanent brace. Treating CMHC gable-first as the only legal first-truss (Essential 8–12 ft in is the other sourced method — keep both). Copying Logan ice/snow onto Fontana. SIP roof is not this method.",
+  "why_tier1_never_learned_it": "They did — this is the volume roof. What they skip is manufacturer brace, no-cut, and first-truss brace before anyone hangs off an unbraced gable.",
+  "permit_gate": "should be on drawings before permit",
+  "permit_gate_notes": "Truss profile, loads, bearings, and permanent bracing on drawings. Engineer / truss designer when the package is used. Confirm with AHJ / engineer. No stamp from this KB.",
+  "risk_if_swapped_late": "Truss vs stick after permit changes bearings, interior walls, hangers, and the sheathing module. Catch before permit.",
+  "sophistication_needed": 2,
+  "plain_language_summary": "Roof trusses 24 inches on center, engineered by the plant from your loads. Brace the first one plumb, then the rest. Leave the designer’s braces. Sheathing is still 8d at 6 and 12. Do not nail the drywall to the truss within about 18 inches of a partition. Ice felt is not in the assigned US books — Logan’s ice barrier is the city sheet. Do not put a Utah snow pack on a Fontana roof. This is the alt to stick rafters.",
+  "spanish_summary": "La mayoría de casas llevan paquete de cerchas de techo, por lo general a 24 pulgadas, diseñadas en planta. Se arriostran al levantar — sin riostra la cercha no es estable. No se cortan. El forro viene después. En Logan el pedido sale de SLC o Lindon, no del will-call local. Fontana también tiene techo; no le ponga el paquete de nieve de Utah.",
+  "scribd_sources": [
+    "src-cmhc-wood-frame",
+    "src-afpa-details",
+    "src-hud-rsdg",
+    "src-essential-guide-framing"
+  ],
+  "locators": [
+    "CMHC Ch11 printed 118–121, Figs 77–81; 'do not cut or alter' printed 121 (txt ~6858–7054). Canadian / NBC — confirm AHJ; not IRC.",
+    "AF&PA Roof Trusses (txt 781–794); generally 24 in o.c.; gable conventional; Fig 73 float 18 in.",
+    "HUD RSDG §5.6.1–5.6.3 (txt ~12457–12619): metal-plate 2x4/2x6; designer loads/profile/supports; permanent brace or warranty void; sheathing braces overall except long webs; ANSI/TPI 1-07.",
+    "Essential Guide: Handling and Storing Trusses; first truss 8–12 ft in from end (disagrees CMHC gable-first — keep both)."
+  ],
+  "market_notes": [
+    "mn-logan",
+    "mn-fontana",
+    "mn-wasatch"
+  ],
+  "constraints": [
+    "c-P08-connector-class",
+    "gap-P09-ice-underlayment-unsourced"
+  ],
+  "confidence": "high",
+  "confidence_notes": "Habit flag sourced in three US/Canadian books. First-truss location is a kept disagreement, not a winner. Truss-to-plate penny is Gap.",
+  "open_gaps": [
+    "gap-crew-counts",
+    "gap-sop-labor-crew",
+    "gap-sop-build-size-alts",
+    "gap-sop-walkthroughs",
+    "gap-sop-irc-section-numbers",
+    "gap-inspector-fail-list-unsourced",
+    "gap-P09-truss-to-plate-nail",
+    "gap-P09-roof-underlayment",
+    "gap-P09-ice-underlayment-unsourced",
+    "gap-P09-walkthrough-roof-truss"
+  ],
+  "remodel_note": "Remodel extras (matching an existing roof, occupied-site, shoring) not in these five books — Gap, do not invent.",
+  "last_updated": "2026-08-30",
+  "fastener_schedule": [
+    {
+      "what": "truss to top plate",
+      "size": "not printed (CMHC: toe-nailed). Gap gap-P09-truss-to-plate-nail.",
+      "pattern": "toe-nailed to the top plates",
+      "oc": "generally 24 in o.c. (spacing of trusses, not the nail)",
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "CMHC Ch11 printed 121 / txt 7003–7005. Canadian / confirm AHJ. Do not invent 16d."
+    },
+    {
+      "what": "permanent web / lateral bracing",
+      "size": "38 x 89 mm (2x4) as required by truss manufacturer",
+      "pattern": "top-chord plane, web lateral, braced bays",
+      "oc": "~6 m (20 ft) intervals as required by manufacturer",
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "CMHC Fig 81. Canadian / confirm AHJ. Follow the plant sheet."
+    },
+    {
+      "what": "roof WSP to trusses",
+      "size": "8d typically (HUD)",
+      "pattern": "minimum 6 in o.c. edges, 12 in o.c. intermediate; also 6 in at gable-end framing",
+      "oc": "6 in edge / 12 in field",
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "HUD RSDG §5.6.4. AF&PA silent on roof-panel pennies."
+    }
+  ],
+  "tools": [
+    "temporary braces to ground and wall (CMHC Fig 80)",
+    "2x4 web/lateral brace lumber (CMHC Fig 81)",
+    "lift/spreader for trusses longer than 6 m / 20 ft (CMHC)"
+  ],
+  "labor": {
+    "crew": null,
+    "certs": [
+      "truss designer / PE when the package is used",
+      "confirm AHJ / engineer"
+    ],
+    "gap": "gap-crew-counts"
+  },
+  "labor_notes": "HUD: temp bracing is the builder's; permanent bracing is designated by the truss designer. No headcount. Special inspector not named.",
+  "layering": [
+    "Trusses unstable until braced (CMHC Ch1/Ch11; Essential). Temp brace before walk/sheathe.",
+    "Generally 24 in o.c. (AF&PA; CMHC 600 mm — Canadian).",
+    "Do not cut, notch, or drill (CMHC).",
+    "Sheathing after plumb (m-P09-roof-sheathing). HUD: sheathing is overall brace except long webs.",
+    "Gable sheathed before end braces (CMHC Fig 80 note) — keep with Essential 8–12 ft first-truss; do not pick a winner."
+  ],
+  "build_size_alts": "not in sources",
+  "code_to_check": [
+    "ANSI/TPI 1 (HUD names ANSI/TPI 1-07). Confirm with AHJ / engineer.",
+    "Truss manufacturer installation / bracing sheet on site. Confirm with AHJ / engineer.",
+    "CMHC / NBC is Canadian — confirm AHJ; not IRC. Do not invent IRC R802.",
+    "No stamp from this KB. No skip-inspection."
+  ],
+  "time_money": "Truss vs stick is a permit-gate layout choice (interior bearings, speed of close-in). No dollars in sources. Logan plant order is MarketNote, not a price.",
+  "walkthroughs": [],
+  "images": [
+    {
+      "path": "kb/images/m-P09-roof-truss/cmhc-fig-80-81-truss-brace-24oc.png",
+      "caption": "CMHC Fig 80/81 (printed 121): gable truss first, temp braces to ground/wall; gable ends normally sheathed before end braces; then 24 in o.c.; permanent 2x4 web/lateral, braced bays ~6 m / 20 ft as required by manufacturer. Canadian / NBC — confirm AHJ; not IRC. Keep Essential 8–12 ft first-truss as the other sourced method."
+    },
+    {
+      "path": "kb/images/m-P09-roof-truss/afpa-fig-73-truss-uplift-float.png",
+      "caption": "Truss uplift at an interior partition: do not fasten gypsum to the truss within 16–18 in of the wall (Fig 73 print). Body: at least 18 in. AF&PA Fig 73."
+    }
+  ],
+  "inspector_looks_for": [
+    "Shop drawings / truss designer bracing on site (HUD §5.6.3).",
+    "Temporary bracing before the system is sheathed (CMHC Fig 80; HUD).",
+    "Do not cut or alter trusses (CMHC).",
+    "Generally 24 in o.c. (AF&PA; CMHC 600 mm Canadian).",
+    "Permanent web/lateral bracing per manufacturer (CMHC Fig 81; HUD long webs).",
+    "Truss-to-plate: toe-nailed — penny not printed (gap-P09-truss-to-plate-nail)."
+  ],
+  "inspector_fails": [
+    "Gap — gap-inspector-fail-list-unsourced. Not a stamp."
+  ],
+  "common_messups": [
+    "Truss uplift cracking the ceiling if gypsum is nailed tight to the truss (AF&PA Fig 73).",
+    "Skipping the designer’s permanent web braces (HUD).",
+    "Field-cutting plates or webs (CMHC)."
+  ],
+  "do_not_cheap": [
+    "Temporary bracing before walk/sheathe (hold + layering).",
+    "Do not cut or alter trusses (hold + layering).",
+    "Permanent bracing per the truss designer (hold + HUD warranty note).",
+    "Permit gate: truss package on drawings before permit.",
+    "Do not skip inspection. No stamp from this page."
+  ],
+  "smart_save": [
+    "Truss vs stick is a permit-gate layout choice. No dollars in sources.",
+    "Late swap: truss vs stick after permit changes bearings, interior walls, hangers, and the sheathing module. Catch before permit."
+  ],
+  "sop_gap_note": "inspector_fails and common_messups unsourced. bible/inspectors.html is book hold points, not a stamp. See gap-inspector-fail-list-unsourced."
+}

@@ -1,0 +1,269 @@
+{
+  "id": "m-P14-gwb-hang",
+  "type": "Method",
+  "practice_id": "pr-P14-drywall",
+  "practice_name": "Drywall hang / tape (SFR)",
+  "phase_id": "P14",
+  "building_types": [
+    "bt-sfr-new",
+    "bt-sfr-remodel",
+    "bt-adu"
+  ],
+  "tier": "A",
+  "is_habit": true,
+  "habit_or_alt": "habit",
+  "habit_scope": "Hang then tape; 1/2 in GWB common (CMHC). Fastener table from CMHC Ch21 as printed — Canadian / confirm AHJ. US Gypsum Association table Gap. 2-story light wood only.",
+  "alt_to": [],
+  "also_known_as": [
+    "drywall",
+    "sheetrock",
+    "gypsum board",
+    "GWB hang"
+  ],
+  "how_it_is_done": [
+    "Insulation, air barrier, and vapor have been seen (P13). Then hang. P11 may still be outside. No lag days invented.",
+    "Ceiling first, then walls. BD Room Additions (remodel-addition technique). CMHC: ceilings with the long dimension at right angles to trusses/joists (parallel if 1x4 strapped). Army FM 5-426 (technique, not local code): always start with the ceiling; joints on the center line of a stud or joist.",
+    "1/2 in is the common sheet. CMHC: 1/2 in more common; required min when supports are 24 in o.c. or when the GWB supports insulation. 3/8 in allowed on walls @ 16 in o.c. when boards perpendicular. P08: 1/2 in assumed in bracing lengths; 1/2 in under enclosed stairs. 24 in o.c. walls (P08 alt): screws-only 12 in o.c. — already filed, still a hold here.",
+    "Walls usually hung horizontally. Ends on a support, at a corner. CMHC. BD (remodel-addition): tight to the ceiling; 1/8 in at butt joints; 1/2 in gap at the floor. Keep both books.",
+    "Fasteners dimple the paper, they do not break it. CMHC: nails ringed, 2.3 mm (3/32 in) shank, 5.5 mm (7/32 in) heads; penetrate ≥20 mm (3/4 in) into wood; screws ≥15 mm (5/8 in) into wood. Single-nail: ceiling ≤7 in o.c., walls ≤8 in o.c. Double-nail: pairs 2 in apart, ≤12 in o.c. Screws usually 12 in o.c.; may go 16 in o.c. on walls when studs are ≤16 in. Bracing GWB: nails ≤8 in, screws ≤12 in (CMHC high wind/earthquake — Canadian / confirm AHJ). BD: ceiling screws ≥3/4 in into framing. Army FM 5-426 (technique): single 6–7 in ceiling / 6–8 in walls; double pairs 2–2-1/2 in at ~12 in; edge 3/8–1/2 in; do not double-nail the perimeter. Do not mix Army onto the CMHC table as the job schedule. US Gypsum Association table: Gap.",
+    "Float the ceiling at interior partitions so truss uplift does not crack the joint. AF&PA: unattached at least 18 in from the ceiling/wall when trusses run perpendicular to the partition (Fig 73). HUD: 16–24 in; 2x blocking as a backer; do not screw the ceiling to that blocking. Clips / hat channel CLASS. Keep 18 in vs 16–24 in.",
+    "Tape: compound, tape, cover, fold inside corners. CMHC Fig 165. ≥10°C (50°F). Fill joints >3 mm (1/8 in) first. Three coats: 125 mm (5 in) with tape; then 200 mm (8 in) recessed / 250 mm (10 in) unrecessed; then 250–300 mm (10–12 in) recessed / 400 mm (16 in) unrecessed. Nail/screw heads two coats. Nail pops: paper broken or fastener too proud / too long; lumber ≤19% MC is NBC Canadian. Fasteners just long enough cut popping (Ch21). BD (remodel-addition): 6 in knife, embed tape."
+  ],
+  "sequence_before": [
+    "P13",
+    "m-P13-batt-air-seal"
+  ],
+  "sequence_after": [
+    "P15"
+  ],
+  "can_overlap_with": [
+    "P11"
+  ],
+  "trades": [
+    "drywall hanger / taper"
+  ],
+  "crew_notes": "not in sources; Gap gap-crew-counts",
+  "tools_equipment": "Named: screw gun; trowel / wide-blade putty knife; corner bead. Army also names 4/6/12 in knives (technique). Not a SKU list.",
+  "inspection_hold_points": [
+    "Insulation/air-barrier inspection first (Ch2).",
+    "1/2 in when the board supports insulation or at 24 in OC (Ch21). 1/2 in under enclosed stairs already P08.",
+    "Nail 3/4 in into wood; screw 5/8 in into wood. Dimple, paper intact.",
+    "Float 18 in (AF&PA) or 16–24 in (HUD) at partition — do not screw to the backer.",
+    "Tape at ≥50°F."
+  ],
+  "material_classes": [
+    "1/2 in GWB",
+    "ring-shank drywall nails",
+    "drywall screws",
+    "joint compound",
+    "tape"
+  ],
+  "typical_duration_sfr": "unknown — not in sources as a drywall-only cycle. No lag days invented.",
+  "when_this_beats_habit": "This is the sourced habit/hold sequence from the phase extract.",
+  "when_this_is_a_bad_idea": "Hanging before the insulation inspection. Breaking the paper. Fastening the ceiling into the partition backer in the float zone. Inventing IRC R-numbers or a US Gypsum Association table.",
+  "why_tier1_never_learned_it": "They hang rock. What they skip is 3/4 in nail penetration, dimple without breaking paper, the float zone, and tape at 50°F.",
+  "permit_gate": "fire/wet-area board on drawings where required",
+  "permit_gate_notes": "Canadian names stay Canadian / confirm AHJ. Not a stamp. Do not invent IRC R-numbers.",
+  "risk_if_swapped_late": "Not named as dollars.",
+  "sophistication_needed": 1,
+  "plain_language_summary": "Hang 1/2-inch rock, ceilings first across the joists, walls often sideways. Ring nails 3/4 inch into the wood, or screws 5/8 inch. Dimple, do not blow the paper. Single 7/8 or double pairs at 12. Float the ceiling 18 in (AF&PA) or 16–24 in (HUD) at partitions. Tape three coats, not below 50°F.",
+  "spanish_summary": "Cuelgue roca de 1/2, techos primero a traves de los joists. Clavos de anillo 3/4 en la madera, o tornillos 5/8. Dimple, no rompa el papel. Flote el techo 18 in o 16–24 in en tabiques. Cinta a tres capas, no bajo 50°F.",
+  "scribd_sources": [
+    "src-cmhc-wood-frame",
+    "src-afpa-details",
+    "src-hud-rsdg",
+    "src-fm-5-426"
+  ],
+  "locators": [
+    "CMHC Ch21 Figs 164–165 printed 227–230 — single/double nail, screw OC, three-coat tape, dimple",
+    "AF&PA Ceiling-Floor-Partition Separation Fig 73 — unattached ≥18 in",
+    "HUD RSDG §5.6.3 — 16–24 in, do not fasten ceiling to partition backer",
+    "Army FM 5-426 Ch 9 — hang/tape technique, not local code"
+  ],
+  "confidence": "high",
+  "confidence_notes": "Nail/screw penetration and OC printed in CMHC Ch21. Canadian NBC labeled. AF&PA 18 in and HUD 16–24 in float kept as variants. US Gypsum Association table still Gap.",
+  "open_gaps": [
+    "gap-crew-counts",
+    "gap-inspector-fail-list-unsourced",
+    "gap-P14-us-gypsum-assoc-table",
+    "gap-P14-walkthrough-flags"
+  ],
+  "last_updated": "2026-08-30",
+  "inspector_looks_for": [
+    "Insulation inspection first (Ch2).",
+    "1/2 in common / bracing / stairs; ceiling first; long way across joists.",
+    "Fasteners dimpled not broken; nail ≥3/4 in / screw ≥5/8 in into wood.",
+    "Single 7 in ceiling / 8 in wall or double pairs 2 in at 12 (CMHC — confirm AHJ).",
+    "Float 18 in (AF&PA) or 16–24 in (HUD) at partition; do not screw the ceiling to that backer.",
+    "24 in o.c. walls still 12 in screw if that is the filed P08 alt; tape on joints at ≥50°F."
+  ],
+  "inspector_fails": [],
+  "common_messups": [
+    "Nail / screw popping (CMHC; Army FM 5-426): paper broken, fastener too proud, or fastener longer than needed; lumber wetter than 19% MC (NBC Canadian / confirm AHJ)."
+  ],
+  "do_not_cheap": [
+    "Insulation inspection before hang (Ch2). No skip-inspection.",
+    "1/2 in where P08 bracing assumed it (hold + layering); 1/2 in under enclosed stairs (already SOP).",
+    "Nail 3/4 in into wood (fastener).",
+    "Do not break the paper (layering).",
+    "Do not fasten the ceiling into the partition backer in the float zone.",
+    "Do not glue this to a BWP story — wall-sheathing glue ban stays P08."
+  ],
+  "smart_save": [
+    "Use fasteners just long enough to cut popping (Ch21). No dollars.",
+    "Horizontal vs vertical hang is CMHC/BD preference, not a fastener skip. Float ceiling is a callback save, not a drywall-count save."
+  ],
+  "sop_gap_note": "inspector_fails unsourced. Canadian NBC. 19% MC is NBC not IRC. US Gypsum Association table Gap. Crew and pennies Gap.",
+  "fastener_schedule": [
+    {
+      "what": "gypsum to wood — nails",
+      "size": "ringed nails, 2.3 mm (3/32 in) shank, 5.5 mm (7/32 in) head; penetrate ≥20 mm (3/4 in) into wood",
+      "pattern": "single: ceiling ≤7 in OC, walls ≤8 in OC; double: pairs 2 in apart ≤12 in OC",
+      "oc": "7 in ceiling / 8 in wall single; 12 in double",
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "CMHC Ch21 Nail Attachment / Fig 164 printed 228. Canadian / confirm AHJ."
+    },
+    {
+      "what": "gypsum to wood — screws",
+      "size": "drywall screws; penetrate ≥15 mm (5/8 in) into wood",
+      "pattern": "usually 12 in OC edges and field; 16 in OC on walls when supports ≤16 in OC",
+      "oc": "12 in typical; 16 in walls at 16 in supports",
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "CMHC Ch21 Screw Attachment printed 229. Canadian / confirm AHJ."
+    },
+    {
+      "what": "braced-wall high wind/earthquake (CANADIAN — confirm AHJ)",
+      "size": "same family",
+      "pattern": "nails ≤8 in; screws ≤12 in",
+      "oc": "8 in nails / 12 in screws",
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "CMHC Ch21"
+    }
+  ],
+  "tools": [
+    "screw gun",
+    "trowel",
+    "putty knife",
+    "corner bead"
+  ],
+  "labor": {
+    "crew": null,
+    "certs": [
+      "Confirm with AHJ / engineer. CMHC is Canadian NBC — not IRC."
+    ],
+    "gap": "gap-crew-counts",
+    "named_not_headcount": "Books name hanger / taper, not a headcount."
+  },
+  "layering": [
+    "Insulation inspection first.",
+    "Ceilings: long way across joists/trusses. Ceiling first.",
+    "1/2 in when board supports insulation or at 24 in OC. 1/2 in under enclosed stairs (P08).",
+    "Dimple without breaking paper.",
+    "Float zone unscrewed — 18 in (AF&PA) or 16–24 in (HUD).",
+    "Three tape coats; ≥50°F. Two coats on fastener heads."
+  ],
+  "code_to_check": [
+    "AHJ gypsum/fire. CMHC NBC. P08 GWB bracing already filed. Do not invent IRC. US Gypsum Association table not in this set."
+  ],
+  "time_money": "No dollars. Fasteners just long enough cut popping (Ch21).",
+  "images": [
+    {
+      "path": "kb/images/m-P14-gwb-hang/cmhc-fig164-drywall-nails.png",
+      "caption": "CMHC Fig 164 Application of drywall finish (printed p 228 / PDF p 247): single nailing 6–8 in o.c.; double-nailing pairs 2 in apart at 12 in. Ring nails ≥3/4 in into wood; screws ≥5/8 in; dimple, paper not broken. Canadian NBC — confirm AHJ."
+    },
+    {
+      "path": "kb/images/m-P14-gwb-hang/cmhc-fig165-tape.png",
+      "caption": "CMHC Fig 165 Finishing of gypsum board (printed p 229 / PDF p 248): dimple without breaking paper; inside-corner tape with a sharp fold; recessed edge, joint cement, tape, joint cement, feather edge. Canadian NBC — confirm AHJ."
+    },
+    {
+      "path": "kb/images/m-P14-gwb-hang/fm-fig9-3-single-nail.png",
+      "caption": "Army FM 5-426 Fig 9-3 (technique, not local code): sheetrock applied vertically; nails 6–8 in o.c. on walls. Body: single-nail ceilings 6–7 in. Edge 3/8–1/2 in. Dimple, paper not broken."
+    },
+    {
+      "path": "kb/images/m-P14-gwb-hang/fm-fig9-4-double-nail.png",
+      "caption": "Army FM 5-426 Fig 9-4 (technique, not local code): double-nail pairs 2 in apart at 12 in o.c. in the field; perimeter 7 in o.c.; do not double-nail the perimeter."
+    },
+    {
+      "path": "kb/images/m-P14-gwb-hang/afpa-fig-73-truss-uplift-float.png",
+      "caption": "AF&PA Fig 73: ceiling unattached at least 18 in from the partition when trusses run perpendicular. Drawing prints 16–18 in min. HUD §5.6.3 16–24 in, do not screw to the partition backer. Keep both."
+    }
+  ],
+  "walkthroughs": [
+    {
+      "url": "https://www.youtube.com/watch?v=VJXY7FpbB_Q",
+      "title": "Hanging Drywall Ep.106",
+      "channel": "Essential Craftsman",
+      "platform": "youtube",
+      "duration_or_pages": "19:59",
+      "what_it_shows": "Field spec house after insulation. Push sagging ceiling batts back. Hang and nail ceilings first, then walls snug. 1/2 in named with 1-1/4 in fasteners (1-1/2 in for 5/8). Tape next episode. Timestamp none. Hunt cw-P14-2026-08-30. Do not invent a US Gypsum Association table. No skip-inspection.",
+      "timestamp_if_any": null,
+      "flags": [
+        "field",
+        "ceiling first",
+        "after insulation",
+        "from cw-P14-2026-08-30"
+      ]
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=DhLv5MmSm6U",
+      "title": "Tape and Texture the Drywall Ep.107",
+      "channel": "Essential Craftsman",
+      "platform": "youtube",
+      "duration_or_pages": "25:32",
+      "what_it_shows": "Same house tape-half. Prefill, paper tape, second coat, third flush. Texture after three coats. Not a second method. Timestamp none. Hunt cw-P14-2026-08-30.",
+      "timestamp_if_any": null,
+      "flags": [
+        "field",
+        "tape-half",
+        "three coats",
+        "from cw-P14-2026-08-30"
+      ]
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=S39Rd8pGcDk",
+      "title": "How To Install Drywall (The Right Way)",
+      "channel": "The Home Depot Canada",
+      "platform": "youtube",
+      "duration_or_pages": "3:10",
+      "what_it_shows": "Studio. Ceiling panels first. Walls usually horizontal, top panels tight to ceiling. Screw head slightly below face, do not break the paper. Timestamp none. Hunt cw-P14-2026-08-30.",
+      "timestamp_if_any": null,
+      "flags": [
+        "studio",
+        "ceiling first",
+        "from cw-P14-2026-08-30"
+      ]
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=McCZLfZipTg",
+      "title": "How To Tape and Mud Drywall (Reduce Sanding Time) | The Home Depot Canada",
+      "channel": "The Home Depot Canada",
+      "platform": "youtube",
+      "duration_or_pages": "6:04",
+      "what_it_shows": "Studio three coats. Bedding fills screw dimples, tape, second overnight, third. Timestamp none. Hunt cw-P14-2026-08-30.",
+      "timestamp_if_any": null,
+      "flags": [
+        "studio",
+        "tape-half",
+        "three coats",
+        "from cw-P14-2026-08-30"
+      ]
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=J8goDX_oRUU",
+      "title": "The Basics of Hanging Drywall",
+      "channel": "Vancouver Carpenter",
+      "platform": "youtube",
+      "duration_or_pages": "36:07",
+      "what_it_shows": "Field wood-frame. 1/2 in. Ceilings already first and why. Paper-intact screw depth (holding power). Vapor barrier already on walls/ceiling, then tape. Timestamp none. Hunt cw-P14-2026-08-30.",
+      "timestamp_if_any": null,
+      "flags": [
+        "field",
+        "ceiling first",
+        "from cw-P14-2026-08-30"
+      ]
+    }
+  ]
+}

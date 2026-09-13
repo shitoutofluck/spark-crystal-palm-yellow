@@ -1,0 +1,144 @@
+{
+  "id": "m-P02-permit-holds",
+  "type": "Method",
+  "practice_id": "pr-P02-permits",
+  "practice_name": "Permits and inspection hold points (SFR)",
+  "phase_id": "P02",
+  "building_types": [
+    "bt-sfr-new",
+    "bt-sfr-remodel",
+    "bt-adu"
+  ],
+  "tier": "A",
+  "is_habit": true,
+  "habit_or_alt": "habit",
+  "habit_scope": "Paper hold points: drawings accepted, building permit in hand, inspections scheduled before the work they cover. ORNL SITE INSPECTIONS DURING CONSTRUCTION; CMHC Ch2 Fig 2 (Canadian / NBC — confirm AHJ; not IRC). Not legal advice. Not a stamp. Not a skip-inspection. 1–2 story wood SFR.",
+  "alt_to": [],
+  "also_known_as": [
+    "building permit and inspections",
+    "hold points",
+    "plan check"
+  ],
+  "how_it_is_done": [
+    "This phase is hold points, not a how-to for the trades. Confirm AHJ. CMHC is Canadian / NBC — not IRC. Do not copy the Canadian permit menu as a US habit.",
+    "CMHC Fig 2 pre-construction: Zoning and Environmental Approvals → Site Plan, Working Drawings and Specifications → Building Permit (and, in Canada, plumbing / heating / electrical / utility / health-unit permits as they apply). Canadian / NBC — confirm AHJ; not IRC.",
+    "ORNL: Acquire building permits after plans, specs, bid package, and contract (PLANS, CONTRACTS, AND BUILDING PERMITS).",
+    "Schedule inspections so you do not sit. CMHC Ch2: 'It is important to schedule inspections to avoid lengthy delays. Determine exactly what work must be completed and how much notice is required prior to calling for a particular inspection.' 'Municipalities may not inspect the work at every stage of construction; however, most will inspect when the foundations, framing, plumbing and electrical, insulation and exterior finishes are complete.' Canadian / NBC — confirm AHJ; not IRC. That is not a skip-inspection — it is 'ask the AHJ which holds they run.'",
+    "ORNL SITE INSPECTIONS DURING CONSTRUCTION (checklist): After excavation and before concrete is poured for the footings; After the footings have been poured before foundation wall construction; After foundation construction and dampproofing before rough framing; After rough framing; After rough plumbing and electrical; After insulation installation before drywall and backfilling in case of exterior insulation; Final. Dual-use design and field (ORNL Ch 2 checklists). HUD: IRC so builder + official can inspect without a PE; PE when tables fail.",
+    "CMHC construction-stage names (Canadian / NBC — confirm AHJ; not IRC): Excavation and Footings Inspection; Pre-Backfill Inspection; Framing Inspection; Sewers, Drains, Water Service and Underground Plumbing Inspection; Electrical Service Inspection; Plumbing, Heating and Electrical Rough-In Inspection; Insulation and Air/Vapour Barrier Inspection; Pre-Occupancy / Final Plumbing, Heating and Electrical; Completion Inspection (Interior and Exterior); Certificate of Occupancy. Do not copy this list as IRC. Use it as 'the book printed a hold-point sequence — ask the AHJ for theirs.'",
+    "Warranty-program extra registration and inspection may apply in some areas (CMHC). Canadian — confirm AHJ; not IRC.",
+    "HOA, impact fees, and special-inspection agreements are silent in these books. Gap gap-P02-hoa-impact-special-inspect. Do not invent them as Methods.",
+    "Nothing in the ground until the paper is real. CMHC: excavation proceeds once building layout has been completed (Ch2 Stages) and the pre-construction permits exist (Fig 2). Confirm AHJ."
+  ],
+  "sequence_before": [
+    "P00",
+    "m-P00-drawings-before-permit"
+  ],
+  "sequence_after": [
+    "P03",
+    "m-P03-batter-boards",
+    "P04",
+    "m-P04-full-excavation"
+  ],
+  "can_overlap_with": [
+    "m-P01-site-prep"
+  ],
+  "trades": [
+    "CMHC: municipal building officials / plans examiner; building official to inspect footings, foundation, municipal service connections. Canadian / NBC — confirm AHJ; not IRC.",
+    "ORNL: construction inspection checklists. HUD: builder + official; PE when tables fail. AF&PA: building inspector enforces the illustrated procedures. No crew size."
+  ],
+  "crew_notes": "not in sources; Gap gap-crew-counts",
+  "tools_equipment": "Not a tool list. The paper is the work.",
+  "inspection_hold_points": [
+    "Building permit acquired before construction (ORNL; CMHC Fig 2). Confirm AHJ.",
+    "Footing inspection after excavation and before the pour (ORNL). No frozen subgrade (ORNL FOOTINGS) — that hold is also P04/P05.",
+    "Do not skip the AHJ's list because CMHC said some municipalities do not inspect every stage. Ask. Not a skip-inspection.",
+    "PE when IRC/HUD tables fail (HUD). Not a stamp on a table house."
+  ],
+  "material_classes": [
+    "building permit CLASS"
+  ],
+  "typical_duration_sfr": "unknown — not in sources",
+  "when_this_beats_habit": "This is the habit. Books did not file competing permit Methods. AHJ variation is the rule, not an alt Method.",
+  "when_this_is_a_bad_idea": "Copying CMHC's Canadian permit menu as IRC. Treating 'municipalities may not inspect every stage' as a skip-inspection. Inventing HOA / impact-fee / special-inspector Methods the books did not print. Giving legal advice.",
+  "why_tier1_never_learned_it": "They did — you do not pour without a permit and a footing inspection. What they skip is asking the AHJ which holds they actually run.",
+  "permit_gate": "should be on drawings before permit",
+  "permit_gate_notes": "This phase IS the hold-point list. Confirm with AHJ / engineer. Not a stamp. Not legal advice. CMHC is Canadian / NBC — not IRC.",
+  "risk_if_swapped_late": "Working ahead of a hold is a stop-work, not a save. Changing type after permit is a type change.",
+  "sophistication_needed": 1,
+  "plain_language_summary": "Paper first. Permit on the wall. Ask the AHJ which inspections they run and how much notice they want. ORNL wants a look after the hole and before the footing pour. CMHC is Canadian — do not copy their permit list as IRC. This is not a skip-inspection and it is not legal advice.",
+  "spanish_summary": "Primero el papel. Permiso en la pared. Pregunte al AHJ qué inspecciones corre y con cuánto aviso. ORNL quiere ver el hueco antes de la zapata. CMHC es canadiense — no copie su lista como IRC. No es saltarse inspección ni consejo legal.",
+  "scribd_sources": [
+    "src-cmhc-wood-frame",
+    "src-ornl-bfh",
+    "src-hud-rsdg"
+  ],
+  "locators": [
+    "CMHC Ch2 Fig 2 Approval, permits and inspection processes for new houses (printed pp 11–12)",
+    "ORNL BFH SITE INSPECTIONS DURING CONSTRUCTION (printed p 37)",
+    "HUD RSDG: IRC so builder + official can inspect without a PE; PE when tables fail"
+  ],
+  "market_notes": [],
+  "constraints": [],
+  "confidence": "high",
+  "confidence_notes": "Hold-point sequence sourced. Canadian vs IRC labeled. HOA/impact fees/special inspection agreement Gap. No skip-inspection. No legal advice.",
+  "open_gaps": [
+    "gap-crew-counts",
+    "gap-sop-labor-crew",
+    "gap-sop-walkthroughs",
+    "gap-inspector-fail-list-unsourced",
+    "gap-P02-hoa-impact-special-inspect",
+    "gap-sop-fastener-missing",
+    "gap-P02-walkthrough-permit-holds"
+  ],
+  "remodel_note": "Remodel extras (matching, occupied-site, shoring, demo of an existing house) are not a sequence in CMHC/ORNL/HUD/FM — Gap, do not invent remodel-only methods. Essential Guide is framing-only (opened 2026-08-30; silent on site/layout). B&D Room Additions not used as a P00–P06 sequence.",
+  "last_updated": "2026-08-30",
+  "fastener_schedule": [],
+  "tools": [],
+  "labor": {
+    "crew": null,
+    "certs": [
+      "PE when IRC/HUD tables fail"
+    ],
+    "gap": "gap-crew-counts"
+  },
+  "labor_notes": "Special inspector is not named in these books (gap-P02-hoa-impact-special-inspect). Building official / plans examiner named. No crew count.",
+  "layering": [
+    "Zoning → drawings/specs → permit → then layout/excavation (CMHC Fig 2). Canadian / NBC — confirm AHJ; not IRC.",
+    "ORNL footing hold sits between P04 excavation and P05 pour."
+  ],
+  "build_size_alts": "not in sources",
+  "code_to_check": [
+    "Confirm with AHJ / engineer. Not a stamp. Not legal advice.",
+    "CMHC 2010 NBC — Canadian / NBC — confirm AHJ; not IRC.",
+    "HUD prints IRC R401.4 / R401.4.1 for soils (P01). No invented R-numbers for permit process."
+  ],
+  "time_money": "Schedule inspections to avoid delay (CMHC). PE only when tables fail (HUD). No dollars. No invented days.",
+  "walkthroughs": [],
+  "images": [
+    {
+      "path": "kb/images/m-P02-permit-holds/cmhc-fig-2-approvals-permits-inspections.png",
+      "caption": "CMHC Fig 2 hold-point ladder: zoning → drawings/specs → permits → excavation/footings inspection → pre-backfill → framing → underground plumbing → rough-in → insulation/air-vapour → finals → certificate of occupancy. Canadian / NBC — confirm AHJ; not IRC. Do not copy as a US/IRC menu. Not a skip-inspection."
+    }
+  ],
+  "inspector_looks_for": [
+    "Permit in hand before the hole (ORNL; CMHC Fig 2). Confirm AHJ.",
+    "ORNL: after excavation and before footing concrete; after footings before walls; after foundation and dampproofing before rough framing; after rough framing; after rough plumbing and electrical; after insulation before drywall / before backfill if exterior insulation; final.",
+    "CMHC: most inspect foundations, framing, plumbing and electrical, insulation and exterior finishes. Canadian / NBC — confirm AHJ; not IRC.",
+    "How much notice before calling an inspection (CMHC). Canadian / NBC — confirm AHJ; not IRC."
+  ],
+  "inspector_fails": [],
+  "common_messups": [],
+  "do_not_cheap": [
+    "Permit before dirt (hold + permit gate).",
+    "Footing inspection after excavation and before the pour (ORNL hold).",
+    "Call the inspection with the notice the AHJ printed (CMHC). Not a skip-inspection.",
+    "PE when tables fail (HUD). Not a stamp on a table house."
+  ],
+  "smart_save": [
+    "CMHC: schedule inspections to avoid lengthy delays. No dollars.",
+    "HUD: IRC so builder + official can inspect without a PE; PE when tables fail — do not buy a PE stamp as a default on a table house.",
+    "Late swap: changing type after permit is a type change. Catch on the drawings (P00/P05)."
+  ],
+  "sop_gap_note": "inspector_fails and common_messups unsourced as an AHJ fail list. Not a stamp. HOA/impact fees/special inspection Gap. Fastener_schedule []. walkthroughs []."
+}

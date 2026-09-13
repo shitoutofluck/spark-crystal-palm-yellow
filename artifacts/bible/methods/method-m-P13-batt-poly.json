@@ -1,0 +1,150 @@
+{
+  "id": "m-P13-batt-poly",
+  "type": "Method",
+  "practice_id": "pr-P13-batt-poly",
+  "practice_name": "Batt insulation + interior poly vapor retarder (SFR)",
+  "phase_id": "P13",
+  "building_types": [
+    "bt-sfr-new",
+    "bt-sfr-remodel",
+    "bt-adu"
+  ],
+  "tier": "A",
+  "is_habit": true,
+  "habit_or_alt": "habit",
+  "habit_scope": "AF&PA Insulation and Vapor Retarders: batt/roll full thickness in exterior walls and rafters; loose fill or roll in attic joists; 4-mil poly on the warm side under drywall. 1–2 story wood-frame. Not an R-value table. Not Title 24 (that is MarketNote mn-fontana, not this Method). ORNL foundation insulation stays in P05.",
+  "alt_to": [],
+  "also_known_as": [
+    "batt insulation",
+    "4-mil poly vapor retarder",
+    "kraft-faced batt (not sufficient alone)"
+  ],
+  "how_it_is_done": [
+    "MEP rough is already in the cavities (P12). Batt or roll-type insulation goes full thickness in exterior wall stud spaces or between rafters (AF&PA Insulation).",
+    "Attic: roll or loose-fill between ceiling joists. Do not invent an R-value — none is printed in this chapter.",
+    "Batt kraft/paper facing toward the room is of little value because the usual install leaves gaps along each stud. Proper vapor protection is 4-mil (0.004 in) polyethylene film stapled to the wall studs immediately beneath the drywall or other interior finish, carefully fitted around window and door openings and behind electric outlets (AF&PA Vapor Retarders).",
+    "If plastic-foam or foil-faced sheathing is on the outside (those can act as exterior vapor retarders), the interior 4-mil poly under the finish is essential — do not skip it.",
+    "Crawl-ground 6-mil and basement-slab 6-mil over gravel are P05 (already filed). Rigid foam bonded to the inside of foundation walls is P05, not this wall/attic Method. Do not re-file ORNL foundation insulation here.",
+    "Air-seal foam/caulk sequence is not in this AF&PA chapter — Gap, do not invent. Energy inspection: Fontana Title 24 is a hold on this phase as MarketNote mn-fontana, not a Utah copy, not this Method."
+  ],
+  "sequence_before": [
+    "P12"
+  ],
+  "sequence_after": [
+    "P14"
+  ],
+  "can_overlap_with": [],
+  "trades": [
+    "AF&PA: job foreman, subcontractors, building inspector — no crew size"
+  ],
+  "crew_notes": "not in sources; Gap gap-crew-counts",
+  "tools_equipment": "Not a tool list in sources. Named: staples for the 4-mil film (no size).",
+  "inspection_hold_points": [
+    "Batt/roll full thickness in exterior walls or between rafters (AF&PA Insulation).",
+    "4-mil poly stapled to studs immediately beneath drywall; fitted around window/door openings and behind electric outlets (Vapor Retarders).",
+    "If foam or foil-faced sheathing is outside, interior poly under the finish is essential.",
+    "Fontana only: Title 24 energy inspection is a hold (mn-fontana MarketNote) — not a Utah copy, not this Method."
+  ],
+  "material_classes": [
+    "batt / roll insulation",
+    "loose-fill attic insulation",
+    "4-mil polyethylene film"
+  ],
+  "typical_duration_sfr": "unknown — not in sources",
+  "when_this_beats_habit": "This is the AF&PA wall/attic habit. Kraft-faced batt alone is called out as not enough. Title 24 is not a competing Method.",
+  "when_this_is_a_bad_idea": "Relying on kraft facing. Skipping interior poly when foam/foil sheathing is outside. Inventing R-values. Copying Fontana Title 24 onto Wasatch/Logan as if it were this Method. Dumping ORNL foundation foam into this phase.",
+  "why_tier1_never_learned_it": "They stuff batts. What they skip is the 4-mil film fitted at openings and outlets before drywall.",
+  "permit_gate": "energy path on drawings where the AHJ requires it; Title 24 is Fontana MarketNote",
+  "permit_gate_notes": "No R-table in AF&PA. Fontana Title 24 2025 is mn-fontana, a P13 hold, not a Method. Confirm with AHJ.",
+  "risk_if_swapped_late": "Poly is under the drywall. Drywall before the film is a tear-off. Book did not name dollars.",
+  "sophistication_needed": 1,
+  "plain_language_summary": "On the 2-story stick house, after MEP rough, batts go full thickness in the walls. Attic gets roll or loose fill. Then 4-mil plastic on the warm side, stapled to the studs, fitted around windows and behind outlets, right before drywall. The paper on the batt is not enough. Fontana Title 24 is a hold on this phase — a MarketNote, not a Utah copy, not this Method. Do not invent R-values.",
+  "spanish_summary": "En la casa de 2 pisos, después del rough, los batts van a espesor completo en los muros. El ático lleva rollo o relleno suelto. Luego plástico de 4 mil en el lado caliente, engrapado a los postes, recortado en ventanas y detrás de salidas, antes del drywall. El papel del batt no basta. Title 24 en Fontana es un hold de MarketNote, no una copia de Utah, no este Method. No invente valores R.",
+  "scribd_sources": [
+    "src-afpa-details"
+  ],
+  "locators": [
+    "AF&PA Details: Insulation and Vapor Retarders (batt full thickness; roll/loose fill attic; 4-mil poly under drywall; kraft facing of little value; foam/foil sheathing requires interior film)"
+  ],
+  "market_notes": [
+    "mn-fontana"
+  ],
+  "constraints": [],
+  "confidence": "med",
+  "confidence_notes": "Install steps are printed (batt + 4-mil). No R-values, no air-seal foam sequence, no energy-inspection procedure in AF&PA. Title 24 is MarketNote. Med.",
+  "open_gaps": [
+    "gap-P13-r-values-airseal-unsourced",
+    "gap-crew-counts",
+    "gap-sop-labor-crew",
+    "gap-sop-irc-section-numbers",
+    "gap-inspector-fail-list-unsourced",
+    "gap-P13-walkthrough-flags"
+  ],
+  "remodel_note": "Remodel insulation of existing walls not in this chapter — Gap.",
+  "last_updated": "2026-08-30",
+  "fastener_schedule": [
+    {
+      "what": "4-mil poly to wall studs",
+      "size": "staples (size not printed)",
+      "pattern": "stapled to wall studs immediately beneath drywall; fitted around openings and behind outlets",
+      "oc": null,
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "AF&PA Vapor Retarders"
+    }
+  ],
+  "tools": [],
+  "labor": {
+    "crew": null,
+    "certs": [],
+    "gap": "gap-crew-counts"
+  },
+  "layering": [
+    "Batt/roll full thickness in exterior walls or between rafters.",
+    "4-mil poly on the warm side, under drywall, fitted at openings and outlets.",
+    "Kraft facing is of little value (gaps along studs).",
+    "Foam/foil exterior sheathing still needs interior poly.",
+    "Foundation foam / 6-mil under slabs is P05, not this method."
+  ],
+  "build_size_alts": "not in sources",
+  "code_to_check": [
+    "No IRC R-number / IECC R-table in this AF&PA chapter. Confirm with AHJ / engineer (gap-sop-irc-section-numbers).",
+    "Fontana Title 24 2025 is mn-fontana (MarketNote hold), not a Utah copy, not this Method."
+  ],
+  "time_money": "Gap — book did not name a save. No dollars in sources.",
+  "walkthroughs": [
+    {
+      "url": "https://www.youtube.com/watch?v=OWQpsbILOPs",
+      "title": "How to Install Fiberglass Insulation | This Old House",
+      "channel": "This Old House",
+      "platform": "youtube",
+      "duration_or_pages": "4:07",
+      "what_it_shows": "Continuous poly pulled tight and stapled on house walls, covering windows until drywall. Spoken 3 mil, not AF&PA 4-mil / CMHC 6-mil. Keep both mils. Confirm AHJ. Timestamp none. Hunt cw-P13-2026-08-30.",
+      "timestamp_if_any": null,
+      "flags": [
+        "field",
+        "3 mil spoken vs book 4-mil/6-mil",
+        "from cw-P13-2026-08-30"
+      ]
+    }
+  ],
+  "images": [],
+  "inspector_looks_for": [
+    "Batt/roll full thickness in exterior walls or between rafters (AF&PA Insulation).",
+    "4-mil poly stapled to studs immediately beneath drywall; fitted around window/door openings and behind electric outlets (Vapor Retarders).",
+    "If foam or foil-faced sheathing is outside, interior poly under the finish is essential.",
+    "Fontana only: Title 24 energy inspection is a hold (mn-fontana MarketNote) — not a Utah copy, not this Method."
+  ],
+  "inspector_fails": [],
+  "common_messups": [],
+  "do_not_cheap": [
+    "Full-thickness batts in the cavity (layering).",
+    "4-mil poly under drywall, fitted at openings and outlets (hold + layering). Kraft facing is not a substitute.",
+    "Interior poly required when foam/foil sheathing is outside (layering).",
+    "Fontana Title 24 energy inspection is a hold (MarketNote) — do not skip it and do not copy it onto Utah."
+  ],
+  "smart_save": [
+    "Gap — book did not name a save. No dollars in sources. No R-values to shop as a cheaper skip."
+  ],
+  "sop_gap_note": "inspector_fails and common_messups unsourced. See gap-inspector-fail-list-unsourced."
+}

@@ -1,0 +1,91 @@
+{
+  "id": "m-P18-punch-co",
+  "type": "Method",
+  "practice_id": "pr-P18-punch",
+  "practice_name": "Punch / CO / turnover (SFR)",
+  "phase_id": "P18",
+  "building_types": [
+    "bt-sfr-new",
+    "bt-sfr-remodel",
+    "bt-adu"
+  ],
+  "tier": "A",
+  "is_habit": true,
+  "habit_or_alt": "habit",
+  "habit_scope": "contractor punch then finals then CO. No skip-inspection. CMHC Fig 2 Canadian / confirm AHJ. Goetsch punch process. 2-story light wood only.",
+  "alt_to": [],
+  "also_known_as": [],
+  "how_it_is_done": [
+    "Do not start punch by skipping a hold that was never called. CMHC p 12, quote: “Municipalities may not inspect the work at every stage of construction; however, most will inspect when the foundations, framing, plumbing and electrical, insulation and exterior finishes are complete.” Schedule them. Know what work must be done and how much notice is required. Confirm with AHJ.",
+    "CMHC Ch 2 also names in-stage calls: footings and foundation and municipal services; completed framing including windows, doors, and skylights; completed plumbing, electrical, and mechanical; completed insulation, vapour barrier, and air barrier. Those were P05–P13. If one was missed, it is not a P18 shortcut. Call it. Do not skip inspection.",
+    "Contractor assessment. Goetsch Ch 1 closeout applies “regardless of … type from residential to commercial,” quote: the firm “cooperates with the owner, architect, and engineers in developing the punch list, completes all tasks on the punch list, and turns the project over to the owner.”",
+    "Goetsch Ch 7 process (skip his college-arena example list — commercial). (1) GC, subs, and trades complete their work. (2) Contractor walks and writes a punch list. (3) Finish that list. (4) Notify the architect the work is complete. (5) Architect walks and writes an architect punch list. (6) Finish that list. (7) Architect rechecks. (8) Architect issues a certificate of substantial completion. (9) GC transfers keys and remaining contractual obligations. (10) Owner issues final payment. Closeout meetings cover O&M manuals, warranties, cleanup, demobilization, subcontractor payments.",
+    "Architect punch / substantial completion assumes an architect of record. Gap for production spec SFR with no architect on site. Do not invent a substitute stamp. The AHJ CO is the occupancy paper CMHC names.",
+    "CMHC Fig 2 post-construction (Canadian, confirm with AHJ): Completion Inspection (Interior and Exterior) → Certificate of Occupancy. Also: Pre-Occupancy Inspection and Final Plumbing, Heating and Electrical Inspection. Warranty-program extra inspections may apply (CMHC p 12). Confirm with AHJ.",
+    "CMHC Ch 2 p 22, quote: “Ensure that all installations have been inspected and function properly and that operating instructions and warranties are provided. A final clean-up of the dwelling concludes the work.” Landscaping may wait for warm weather if the house finishes in fall or winter (CMHC) — that is P17, not a skipped CO.",
+    "Goetsch: substantial completion is the architect’s acknowledgement that the owner can occupy even if minor punch items remain; remaining items stay on the certificate. Liquidated damages talk in Goetsch is contract language, not an AHJ skip. Do not treat substantial completion as a reason to skip the CO inspection."
+  ],
+  "sequence_before": [],
+  "sequence_after": [],
+  "can_overlap_with": [],
+  "trades": [
+    "named in source as trades / building official — no crew size"
+  ],
+  "crew_notes": "not in sources; Gap gap-crew-counts",
+  "tools_equipment": "Not a tool list in sources.",
+  "inspection_hold_points": [
+    "every inspection CMHC says most houses actually get — foundations, framing, plumbing and electrical, insulation, exterior finishes — plus finals / pre-occupancy / completion (Canadian names, confirm with AHJ); contractor punch list complete; architect punch if an architect is on the job (Goetsch); operating instructions and warranties in the owner’s hands; final clean-up; CO issued."
+  ],
+  "material_classes": [],
+  "typical_duration_sfr": "unknown — not in sources",
+  "when_this_beats_habit": "This is the sourced habit/hold sequence from the phase extract.",
+  "when_this_is_a_bad_idea": "Inventing IRC R-numbers, skip-inspection, or mixing Canadian NBC numbers onto a Utah/Fontana job without AHJ confirm.",
+  "why_tier1_never_learned_it": "They did the work. What they skip is the printed hold.",
+  "permit_gate": "confirm with AHJ",
+  "permit_gate_notes": "Canadian names stay Canadian / confirm AHJ. Not a stamp.",
+  "risk_if_swapped_late": "Not named as dollars.",
+  "sophistication_needed": 1,
+  "plain_language_summary": "contractor punch then finals then CO. No skip-inspection. CMHC Fig 2 Canadian / confirm AHJ. Goetsch punch process.",
+  "spanish_summary": "",
+  "scribd_sources": [],
+  "locators": [
+    "bible/bible/phases/P18-punch/index.html sourced card; research/extract.txt"
+  ],
+  "confidence": "med",
+  "confidence_notes": "Filed from on-disk extract/HTML. Canadian figures flagged confirm AHJ. Med.",
+  "open_gaps": [
+    "gap-crew-counts",
+    "gap-inspector-fail-list-unsourced",
+    "gap-P18-punch-unsourced",
+    "gap-P18-walkthrough-flags"
+  ],
+  "last_updated": "2026-08-31",
+  "inspector_looks_for": [
+    "every inspection CMHC says most houses actually get — foundations, framing, plumbing and electrical, insulation, exterior finishes — plus finals / pre-occupancy / completion (Canadian names, confirm with AHJ); contractor punch list complete; architect punch if an architect is on the job (Goetsch); operating instructions and warranties in the owner’s hands; final clean-up; CO issued."
+  ],
+  "inspector_fails": [],
+  "common_messups": [],
+  "do_not_cheap": [
+    "Do not skip inspections. Do not skip CO. Do not treat this page as a stamp. Do not treat substantial completion as a substitute for the AHJ occupancy inspection. Do not reopen P05/P07/P08 holds as punch “saves.”"
+  ],
+  "smart_save": [
+    "Goetsch: contractor punch before the architect walk so you are not paying to walk twice — no dollars named. CMHC: schedule notice so the job does not sit. Gap — book did not name a dollar save. No skip-inspection save."
+  ],
+  "sop_gap_note": "inspector_fails and common_messups unsourced. See gap-inspector-fail-list-unsourced.",
+  "walkthroughs": [
+    {
+      "url": "https://www.youtube.com/watch?v=ySOgr_cTcZo",
+      "title": "Getting a Final Inspection Ep.139",
+      "channel": "Essential Craftsman",
+      "platform": "youtube",
+      "duration_or_pages": "14:56",
+      "what_it_shows": "Same 2-story spec house as P14 keepers. Douglas County building official walks finished house. Fire caulk in garage firewall ceiling plus upstairs bonus-room window limiter. Signed off. No skip. No paper CO on camera. Confirm AHJ whether signed building final is occupancy. Timestamp none. Hunt cw-P18-2026-08-30. CMHC Fig 2 Canadian, confirm AHJ. Do not invent IRC R-numbers. Do not KEEP as P16.",
+      "timestamp_if_any": null,
+      "flags": [
+        "field",
+        "2-story",
+        "from cw-P18-2026-08-30"
+      ]
+    }
+  ]
+}

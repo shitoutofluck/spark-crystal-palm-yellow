@@ -1,0 +1,172 @@
+{
+  "id": "m-P09-roof-felt",
+  "type": "Method",
+  "practice_id": "pr-P09-roof-felt",
+  "practice_name": "Roof felt underlayment (SFR dry-in)",
+  "phase_id": "P09",
+  "building_types": [
+    "bt-sfr-new",
+    "bt-sfr-remodel",
+    "bt-adu"
+  ],
+  "tier": "A",
+  "is_habit": true,
+  "habit_or_alt": "habit",
+  "habit_scope": "FM 5-426 Ch7: an underlay of ROOFING FELT is first applied to the sheathing before asphalt. Technique not code. Not AF&PA floor underlayment (txt 77/995). Not Logan ice barrier (that is MarketNote mn-logan). Not a Fontana snow pack. Do not invent IRC R905.",
+  "alt_to": [],
+  "also_known_as": [
+    "roofing felt underlay",
+    "dry-in felt",
+    "asphalt-saturated roofing felt"
+  ],
+  "how_it_is_done": [
+    "Deck on, swept, dry, no holes (FM: no roofing unless sheathing boards are absolutely dry).",
+    "FM 5-426: an underlay of roofing felt is first applied to the sheathing. Roofing felt usually comes in 3-foot-wide rolls and should be laid with a 2-inch top lap and a 4-inch side lap. Then starter course / asphalt strips. This is the sourced ROOF felt layout. Technique not code. Confirm AHJ.",
+    "AF&PA 'Underlayment' in the flooring chapter (txt 77 TOC / 995) is FLOOR underlayment under resilient tile/carpet — do not file it as roof felt.",
+    "AF&PA Type 15 asphalt felt: (1) 18-in underlay between wood-shake courses, or solid sheathing + Type 15 under shakes where wind-driven snow is encountered; (2) siding underlay. Those are not this asphalt-shingle underlay method.",
+    "HUD: ASTM D1970 named as self-adhering underlayment for a sealed roof deck — minimum 4-inch-wide strips over sheathing joints in hurricane/high-wind guidance. IRC high-wind underlayment ASTM D226 Type II (30 lb) named in that same HUD high-wind paragraph. That is hurricane/high-wind CLASS, not Fontana habit and not a national ice layout. ASTM D1970 title also names ice-dam protection — spec name only, not a field layout and not IRC R905.",
+    "CMHC eave protection (printed 138-139, Fig 100) is Canadian NBC: membrane along the eave under the starter; self-adhering bituminous or roll roofing; at least 900 mm (36 in) up the slope to a point at least 300 mm (12 in) inside the inner face of the exterior wall; not required on unheated garages/porches, slope 1:1.5 or greater, or regions with 3500 or fewer HDD. Label: Canadian / NBC — confirm AHJ; not IRC. Do NOT copy onto Fontana. Logan ice barrier is on the CITY SHEET (mn-logan), not this Method and not these dimensions unless the AHJ says so.",
+    "Cover without delay after the deck (CMHC; AF&PA). Shingles themselves are P11 roof finish, not this dry-in Method."
+  ],
+  "sequence_before": [
+    "m-P09-roof-sheathing"
+  ],
+  "sequence_after": [
+    "P10",
+    "P11"
+  ],
+  "can_overlap_with": [],
+  "trades": [
+    "roofing / framing (FM names the covering crew as technique — no headcount)"
+  ],
+  "crew_notes": "not in sources; Gap gap-crew-counts",
+  "tools_equipment": "FM: scaffold to eaves about waist-high. Not a SKU list.",
+  "inspection_hold_points": [
+    "Sheathing dry and inspected before felt (FM).",
+    "Roofing felt 3-ft rolls, 2-in top lap, 4-in side lap (FM). Technique not code — confirm AHJ.",
+    "Do not treat AF&PA floor underlayment as this layer.",
+    "Do not treat Logan ice barrier as this Method (mn-logan city sheet).",
+    "Do not walk CMHC 36 in / 12 in eave protection onto Fontana (Canadian / not IRC)."
+  ],
+  "material_classes": [
+    "roofing felt (asphalt-saturated)",
+    "self-adhering bituminous membrane CLASS (CMHC eave / HUD D1970 high-wind — not Fontana habit, not Logan city-sheet substitute)"
+  ],
+  "typical_duration_sfr": "unknown — not in sources",
+  "when_this_beats_habit": "This is the dry-in felt step the Army book names before asphalt. Ice barrier is a separate MarketNote on the Logan city sheet, not a cheaper skip of this felt and not a Fontana add.",
+  "when_this_is_a_bad_idea": "Filing AF&PA floor underlayment as roof felt. Inventing IRC R905. Shopping ice barrier as Fontana habit. Using HUD 4-in D1970 strips as Wasatch/Fontana habit (high-wind CLASS).",
+  "why_tier1_never_learned_it": "They roll felt. What they skip is that the only sourced lap numbers in these five books are FM 2-in top / 4-in side — technique not code — and ice is the city sheet, not a national habit.",
+  "permit_gate": "should be on drawings before permit",
+  "permit_gate_notes": "Underlayment / ice barrier when the AHJ requires it (Logan city sheet). Confirm with AHJ / engineer. Do not invent R905. No stamp.",
+  "risk_if_swapped_late": "Skipping felt until after occupancy is a leak, not a save. Ice on a Fontana takeoff is the wrong climate.",
+  "sophistication_needed": 1,
+  "plain_language_summary": "Once the deck is on, roll roofing felt before the shingles. The Army book is the one that actually names roof felt: 3-foot rolls, 2-inch top lap, 4-inch side lap. That is technique, not the IRC. The AF&PA 'underlayment' chapter is the floor. Logan ice barrier is on the city sheet — do not put a Utah ice pack on a Fontana roof.",
+  "spanish_summary": "Con el forro puesto, el felt de techo va antes de las tejas. El libro del ejercito es el que nombra felt de techo: rollos de 3 pies, traslape de 2 pulgadas arriba y 4 a los lados. Es tecnica, no el IRC. El 'underlayment' de AF&PA es de piso. La barrera de hielo de Logan esta en la hoja de la ciudad — no ponga nieve de Utah en un techo de Fontana.",
+  "scribd_sources": [
+    "src-fm-5-426",
+    "src-cmhc-wood-frame",
+    "src-hud-rsdg",
+    "src-afpa-details"
+  ],
+  "locators": [
+    "FM 5-426 Ch7 txt 3775-3778: roofing felt 3-ft rolls, 2-in top lap, 4-in side lap. Technique not code.",
+    "AF&PA txt 77 TOC and 995-1004: Underlayment is FLOOR. txt 831-833 Type 15 under shakes / wind-driven snow — not asphalt habit.",
+    "HUD txt 3627-3634: ASTM D1970 4-in strips over sheathing joints (high-wind sealed deck); ASTM D226 Type II (30 lb) high-wind underlayment. Not Fontana habit.",
+    "CMHC Ch12 Eave Protection printed 138-139 / Fig 100 / txt 7849-7943: 36 in along slope / 12 in inside wall face. Canadian / NBC — confirm AHJ; not IRC. Not Fontana."
+  ],
+  "market_notes": [
+    "mn-logan",
+    "mn-fontana",
+    "mn-wasatch"
+  ],
+  "constraints": [],
+  "confidence": "med",
+  "confidence_notes": "FM names roof felt with laps (technique not code). US IRC felt/ice R-numbers not in these books (gap). Ice is MarketNote.",
+  "open_gaps": [
+    "gap-crew-counts",
+    "gap-sop-labor-crew",
+    "gap-sop-build-size-alts",
+    "gap-sop-walkthroughs",
+    "gap-sop-irc-section-numbers",
+    "gap-inspector-fail-list-unsourced",
+    "gap-P09-roof-underlayment",
+    "gap-P09-ice-barrier-irc",
+    "gap-P09-walkthrough-roof-felt"
+  ],
+  "remodel_note": "FM reroofing (30-lb felt, large-head nails ~6 in) is reroof technique, not this new-house SOP.",
+  "last_updated": "2026-08-30",
+  "fastener_schedule": [
+    {
+      "what": "roofing felt underlay (new asphalt, FM)",
+      "size": "not printed as a penny for the felt itself (shingle nails are later, P11)",
+      "pattern": "3-ft-wide rolls; 2-in top lap; 4-in side lap",
+      "oc": null,
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "FM 5-426 Ch7 txt 3775-3778. Technique not code. Confirm AHJ. Do not invent IRC R905."
+    },
+    {
+      "what": "HUD high-wind sealed-deck strips (CLASS, not habit)",
+      "size": "self-adhering ASTM D1970",
+      "pattern": "minimum 4-in-wide strips over roof sheathing joints",
+      "oc": null,
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "HUD txt 3627-3634. Hurricane/high-wind CLASS. Not Fontana habit. Not Logan ice layout."
+    }
+  ],
+  "tools": [
+    "scaffold to eaves (FM)"
+  ],
+  "labor": {
+    "crew": null,
+    "certs": [
+      "confirm AHJ"
+    ],
+    "gap": "gap-crew-counts"
+  },
+  "labor_notes": "No headcount. Fall protection named in CMHC Ch1 as a safety note, not a crew size.",
+  "layering": [
+    "Sheathing dry first (FM).",
+    "Roofing felt 2-in top / 4-in side (FM). Technique not code.",
+    "AF&PA flooring underlayment is not this layer.",
+    "CMHC eave 36 in / 12 in is Canadian — confirm AHJ; not Fontana; not a substitute for the Logan city sheet.",
+    "HUD D1970 4-in strips are high-wind CLASS."
+  ],
+  "build_size_alts": "not in sources",
+  "code_to_check": [
+    "Confirm adopted underlayment with AHJ. Do not invent IRC R905 (gap-sop-irc-section-numbers / gap-P09-ice-barrier-irc).",
+    "Logan ice barrier: city sheet (mn-logan), not this Method.",
+    "CMHC eave protection is Canadian NBC — confirm AHJ; not IRC.",
+    "No stamp. No skip-inspection."
+  ],
+  "time_money": "Felt is the dry-in step. Ice barrier is Logan city-sheet, not a Fontana add and not a national habit. No dollars.",
+  "walkthroughs": [],
+  "images": [
+    {
+      "path": "kb/images/m-P09-roof-felt/cmhc-fig-100-eave-protection-canadian.png",
+      "caption": "CMHC Fig 100 (printed 139): eave protection vs ice dam — membrane at least 900 mm (36 in) along the slope and at least 300 mm (12 in) horizontally inside the inner face of the wall. Canadian / NBC — confirm AHJ; not IRC. NOT Fontana habit. NOT a substitute for the Logan city sheet (mn-logan). Do not invent R905."
+    }
+  ],
+  "inspector_looks_for": [
+    "Sheathing dry before felt (FM).",
+    "Roofing felt 2-in top lap / 4-in side lap (FM). Technique not code — confirm AHJ.",
+    "Do not inspect AF&PA floor underlayment as this layer.",
+    "Logan ice: city sheet, not this Method.",
+    "Do not inspect a Utah ice pack on a Fontana roof."
+  ],
+  "inspector_fails": [],
+  "common_messups": [],
+  "do_not_cheap": [
+    "Roofing felt on the dry deck before asphalt (hold + FM).",
+    "2-in top / 4-in side (layering, FM) — technique not code; confirm AHJ.",
+    "Do not skip ice where the Logan city sheet requires it (MarketNote, not this Method).",
+    "Do not add ice as Fontana habit.",
+    "No skip-inspection. No stamp."
+  ],
+  "smart_save": [
+    "Felt is the dry-in step. Ice is Logan city-sheet, not a Fontana add. No dollars.",
+    "Late swap: skipping felt is a leak. Putting Utah ice on Fontana is the wrong climate."
+  ],
+  "sop_gap_note": "inspector_fails and common_messups unsourced. Not a stamp. IRC R905 not in these books."
+}

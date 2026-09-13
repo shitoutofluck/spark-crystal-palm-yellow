@@ -1,0 +1,181 @@
+{
+  "tier": "A",
+  "building_types": [
+    "bt-sfr-new",
+    "bt-sfr-remodel",
+    "bt-adu"
+  ],
+  "alt_to": [],
+  "can_overlap_with": [
+    "m-P06-vapor-retarder",
+    "m-P06-termite-soil-treat",
+    "m-P05-slab"
+  ],
+  "typical_duration_sfr": "unknown — not in sources",
+  "fastener_schedule": [],
+  "walkthroughs": [
+    {
+      "url": "https://www.youtube.com/watch?v=PUgAmOAorK4",
+      "title": "Hibbs radon tee in gravel",
+      "channel": "Hibbs",
+      "platform": "youtube",
+      "duration_or_pages": "2:29",
+      "what_it_shows": "Tee in gravel + sock every home. Field. Over 90s. CLASS is radon pipe / gravel, not a brand.",
+      "timestamp_if_any": null,
+      "flags": [
+        "field",
+        "tee in gravel"
+      ]
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=eVjp4zL0VX0",
+      "title": "North Ridge basement radon rock",
+      "channel": "North Ridge",
+      "platform": "youtube",
+      "duration_or_pages": "2:50",
+      "what_it_shows": "Basement radon rock over interior footings. Field.",
+      "timestamp_if_any": null,
+      "flags": [
+        "field",
+        "basement radon rock"
+      ]
+    }
+  ],
+  "images": [],
+  "labor": {
+    "crew": null,
+    "certs": [],
+    "gap": "gap-crew-counts",
+    "named_not_headcount": "ORNL checklist names construction contractor; AF&PA names job foreman, subcontractors, building inspector — not a headcount"
+  },
+  "labor_notes": "Do not invent crew counts.",
+  "build_size_alts": "not in sources",
+  "last_updated": "2026-08-30",
+  "inspector_fails": [],
+  "remodel_note": "Remodel extras not in these books — Gap, do not invent.",
+  "id": "m-P06-radon-subslab",
+  "type": "Method",
+  "practice_id": "pr-P06-underslab",
+  "practice_name": "Underslab vapor / radon / termite (SFR)",
+  "phase_id": "P06",
+  "is_habit": true,
+  "habit_or_alt": "habit",
+  "habit_scope": "Habit where there is a reasonable probability radon is present (ORNL: contact state health department or environmental protection office). Collection system during construction; discharge later if needed. 1–2 story wood SFR / ADU. Not AF&PA (silent). Not HUD RSDG (silent). Med on regional trigger; high on the printed sequence.",
+  "also_known_as": [
+    "subslab depressurization",
+    "radon standpipe",
+    "soil gas collection"
+  ],
+  "how_it_is_done": [
+    "Decide if the site needs it: contact the state health department or environmental protection office (ORNL Ch 2 / Ch 4 RADON CONTROL TECHNIQUES). EPA action level named in ORNL §1.4: 4 pCi/L from long-term tests (EPA 1987; ASHRAE 62-1989) — that is a 1991 citation, not a 2026 code reprint. Confirm with AHJ / state health.",
+    "Two approaches printed: (1) seal joints, cracks, and penetrations in the foundation; (2) evacuate soil gas around the basement / under the slab (ORNL Ch 2).",
+    "Collection during construction is the insurance policy: 4 inches of clean aggregate no less than 1/2 inch diameter under the slab; 6-mil poly on the gravel (ORNL Intercepting Soil Gas). Weep holes through the footing or gravel bed past the wall so perimeter soil talks to the underside of the slab.",
+    "Cast a 3- or 4-inch diameter PVC 12-inch section of pipe vertically into the subslab aggregate and cap it at the top (ORNL). A single standpipe is adequate for typical house-size floors with clean coarse gravel. Position it for easy routing through plumbing chases, interior walls, or closets. Stack pipes can also go horizontally through below-grade walls to adjoining slabs.",
+    "It is normally less costly to complete the vent stack routing through the roof during construction than to add it later (ORNL). Connecting the vent pipe initially without the fan is a passive depressurization system. If levels are later excessive, activate with an in-line duct fan (ORNL Fig 2-6).",
+    "Sealing: solid pipes for floor discharge drains to daylight, or mechanical traps if they discharge to subsurface drains. Tool the wall-slab joint and seal with polyurethane. Avoid perimeter gutters that open to the soil. Low water/cement concrete; WWF or fibers to cut shrinkage cracks. No sumps in radon-prone basements unless absolutely necessary — if used, sealed lid, vent outdoors, submersible pump (ORNL Ch 2 items 1–12).",
+    "Do not locate return air ducts in a crawl space or beneath a slab (ORNL §1.4). HVAC condensate drains to daylight outside the envelope — drains to dry wells/soil can be a major radon path (ORNL Ch 2 item 12). Avoid ducts beneath floor slab top surface (ORNL slab termite/radon checklist).",
+    "Crawl: venting is not reliable radon control (ORNL Ch 3 — already on m-P05-crawl). This Method is the subslab collection + seal path.",
+    "AF&PA and HUD RSDG are silent on radon. Do not invent an IRC R-number. Poly 12-in laps live on m-P06-vapor-retarder (same pour)."
+  ],
+  "sequence_before": [
+    "P04",
+    "m-P04-excavation",
+    "P05",
+    "m-P05-slab",
+    "m-P05-basement-cip-cmu",
+    "m-P06-vapor-retarder"
+  ],
+  "sequence_after": [
+    "P07",
+    "P08"
+  ],
+  "trades": [
+    "construction contractor — named, not a headcount"
+  ],
+  "crew_notes": "not in sources; Gap gap-crew-counts",
+  "tools_equipment": "Named: 3- or 4-in PVC standpipe (12-in section, capped); optional in-line duct fan later. Not a SKU list.",
+  "inspection_hold_points": [
+    "State health / environmental office trigger checked (ORNL).",
+    "4-in clean coarse gravel under slab; 6-mil poly on it (ORNL).",
+    "3- or 4-in PVC standpipe cast into subslab aggregate, capped (ORNL).",
+    "Standpipe positioned for future roof routing; preferably stack through roof during construction (ORNL).",
+    "Wall-slab joint tooled and polyurethane sealed (ORNL).",
+    "No return ducts under slab / in crawl (ORNL §1.4).",
+    "Sump, if any: sealed lid, vented outdoors (ORNL).",
+    "Grade stakes / wood out of the pour (ORNL)."
+  ],
+  "inspector_looks_for": [
+    "Capped PVC standpipe in the subslab gravel (ORNL).",
+    "4-in coarse gravel + 6-mil poly (ORNL).",
+    "Caulked slab penetrations and wall-slab joint (ORNL).",
+    "No open perimeter gutter to soil (ORNL).",
+    "Sump cover airtight if a sump exists (ORNL)."
+  ],
+  "common_messups": [
+    "Leaving the standpipe out and planning to drill the finished slab as the habit (ORNL: can be added later by drilling a 4-in hole — not the cheap first path; completing the stack during construction is normally less costly).",
+    "Return ducts under the slab (ORNL §1.4: do not).",
+    "HVAC condensate to a dry well (ORNL: major radon path).",
+    "Open sump in a radon-prone basement (ORNL).",
+    "Perimeter slab gutter open to soil (ORNL: avoid)."
+  ],
+  "smart_save": "ORNL: collection system (4-in gravel) at little or no additional cost in new construction; normally less costly to run the vent stack through the roof during construction than after finish. Fan only if tests later demand it. No dollars printed.",
+  "do_not_cheap": [
+    "4-in coarse clean gravel under the slab as the collection bed (ORNL).",
+    "Capped 3- or 4-in PVC standpipe cast in during construction (ORNL).",
+    "6-mil poly 12-in laps (ORNL) — same class as vapor Method.",
+    "Polyurethane at the wall-slab joint and penetrations (ORNL).",
+    "Do not skip the stack-during-construction path to 'save' a chase (ORNL: normally less costly now than later)."
+  ],
+  "material_classes": [
+    "4-in gravel drainage (clean, >=1/2 in diameter)",
+    "6-mil poly",
+    "3- or 4-in PVC standpipe (capped)",
+    "polyurethane caulk",
+    "sump pit airtight cover (if sump used)",
+    "in-line duct fan CLASS (only if later activated)"
+  ],
+  "when_this_beats_habit": "This is the habit where radon is reasonably probable (ORNL). The collection/standpipe is the insurance policy even if the fan waits on tests.",
+  "when_this_is_a_bad_idea": "Skipping the standpipe in a mapped radon area. Putting return ducts under the slab. Treating AF&PA/HUD silence as a veto — they are silent, ORNL is the source (med on the regional trigger).",
+  "why_tier1_never_learned_it": "In radon country they did — gravel, plastic, a capped pipe. What they skip is running the stack through the roof while the walls are open, and keeping condensate/returns out of the dirt.",
+  "permit_gate": "should be on drawings before permit",
+  "permit_gate_notes": "Radon collection / standpipe on drawings where the AHJ or state health requires it. 1991 EPA 4 pCi/L is a citation, not a 2026 code. Confirm with AHJ / state health / engineer.",
+  "risk_if_swapped_late": "Adding a standpipe after the pour means drilling the finished slab (ORNL allows it). Completing the roof stack after finishes is the costly path ORNL names. Catch before the pour.",
+  "sophistication_needed": 2,
+  "plain_language_summary": "Where radon is a real chance, the book wants a collection bed under the slab: 4 inches of clean gravel, plastic on it, and a 3- or 4-inch PVC pipe stuck in the gravel and capped. One pipe is enough on a typical house floor. Run the stack through the roof while you are building — cheaper than fishing it later. A fan is only if tests later say so. Do not put return ducts under the slab. Do not dump AC condensate into the dirt.",
+  "spanish_summary": "Donde hay chance de radón, el libro pide cama de recolección: 4 pulgadas de grava limpia, plástico, y un PVC de 3 o 4 pulgadas en la grava, tapado. Un tubo basta en una casa típica. Suba el stack por el techo mientras construye. El ventilador solo si las pruebas lo piden. No ponga retornos bajo la losa. No tire el condensado al suelo.",
+  "scribd_sources": [
+    "src-ornl-bfh"
+  ],
+  "locators": [
+    "ORNL BFH §1.4 Radon Mitigation Techniques; 4 pCi/L EPA 1987 / ASHRAE 62-1989",
+    "ORNL BFH Ch 2 RADON CONTROL TECHNIQUES; Fig 2-5; Fig 2-6 Soil Gas Collection and Discharge; Intercepting Soil Gas (4-in gravel, 3- or 4-in PVC 12-in standpipe capped)",
+    "ORNL BFH Ch 4 RADON CONTROL TECHNIQUES Fig 4-6; RADON CONTROL MEASURES checklist",
+    "ORNL BFH Ch 2 checklist: Cast 4-inch-diameter PVC tubing standpipes (capped) into slab"
+  ],
+  "constraints": [],
+  "confidence": "high",
+  "confidence_notes": "Sequence high (ORNL only). Regional trigger med (state health; 1991 EPA number). AF&PA and HUD RSDG silent — do not treat silence as a veto. Fan is later activation, not habit hardware.",
+  "open_gaps": [
+    "gap-crew-counts",
+    "gap-sop-labor-crew",
+    "gap-sop-build-size-alts",
+    "gap-sop-walkthroughs",
+    "gap-inspector-fail-list-unsourced",
+    "gap-sop-irc-section-numbers"
+  ],
+  "tools": [
+    "3- or 4-in PVC standpipe (12-in section, capped)",
+    "in-line duct fan (later, if activated)"
+  ],
+  "layering": [
+    "4-in clean aggregate >=1/2 in diameter → 6-mil poly → optional 2-in sand → capped 3- or 4-in PVC standpipe into gravel → pour.",
+    "Weep holes through footing or gravel past wall for air communication (ORNL).",
+    "Passive stack without fan first; fan only if tests demand (ORNL).",
+    "Do not locate return ducts under slab or in crawl (ORNL §1.4)."
+  ],
+  "code_to_check": [
+    "State health department / environmental protection office for whether radon control is required (ORNL Ch 2 / Ch 4). Confirm with AHJ.",
+    "1991 EPA 4 pCi/L is a citation in ORNL §1.4, not a 2026 IRC reprint. Confirm with AHJ / state health. Do not invent an IRC R-number."
+  ],
+  "time_money": "ORNL: collection at little or no additional cost in new construction; stack through roof during construction normally less costly than after finish. Fan later. No dollars printed."
+}

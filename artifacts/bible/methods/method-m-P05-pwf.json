@@ -1,0 +1,166 @@
+{
+  "id": "m-P05-pwf",
+  "type": "Method",
+  "practice_id": "pr-P05-pwf",
+  "practice_name": "Permanent wood foundation (SFR)",
+  "phase_id": "P05",
+  "building_types": [
+    "bt-sfr-new",
+    "bt-sfr-remodel",
+    "bt-adu"
+  ],
+  "tier": "A",
+  "is_habit": false,
+  "habit_or_alt": "alt",
+  "habit_scope": "alternate in all regions. Model-code and HUD accepted (AF&PA Wood Foundations; ORNL Ch 2 notes 26–30; HUD Fig 4.9 / Table 4.8). Not the regional default.",
+  "alt_to": [
+    "m-P05-basement-cip-cmu",
+    "m-P05-crawl",
+    "m-P05-slab"
+  ],
+  "also_known_as": [
+    "PWF",
+    "permanent wood foundation",
+    "treated-wood foundation wall"
+  ],
+  "how_it_is_done": [
+    "Site / termite prep still applies: organics out; soil treatment where hazard; do not trade treatment for shields (D8).",
+    "Gravel bed ≥4 in (AF&PA Wood Foundations) / ≥6 in thick and 6 in past the plate (ORNL note 27). Compacted.",
+    "Treated footing plate on the stone.",
+    "Treated studs + plywood; joints caulked; 6-mil on basement walls (AF&PA; ORNL notes 26–30). This is a treated system per the wood-foundation standard — not a field-cut untreated wall (HUD §4.5 / Fig 4.9).",
+    "Gravel under the floor to a center sump (24 in deep, 16 in dia or square) to daylight or pump. D9 agreement: no conventional drain tile around a footing — gravel to sump (AF&PA Wood Foundations; ORNL notes 26–30 citing NFPA 1987). Coarse gravel against the lower half of the wall (ORNL).",
+    "Slab or treated wood floor over 6-mil (AF&PA; ORNL notes 28–30, 36). PWF may use a treated wood floor in lieu of a basement slab.",
+    "Batt in cavities; 2-in air gap above the bottom plate (ORNL note 35).",
+    "Winter / prefab is the reason to pick it (AF&PA Wood Foundations)."
+  ],
+  "sequence_before": [
+    "P04"
+  ],
+  "sequence_after": [
+    "P06",
+    "m-P07-i-joist",
+    "m-P07-sawn",
+    "m-P07-floor-truss"
+  ],
+  "can_overlap_with": [],
+  "trades": [
+    "AF&PA: job foreman, subcontractors, building inspector — no crew size",
+    "HUD: treated lumber/plywood per the wood-foundation standard"
+  ],
+  "crew_notes": "not in sources; Gap gap-crew-counts",
+  "tools_equipment": "Not a tool list in sources.",
+  "inspection_hold_points": [
+    "Treated material and gravel-bed thickness before walls (AF&PA; ORNL note 27).",
+    "No drain tile to look for — inspect gravel path to sump instead (D9).",
+    "6-mil on basement walls and under floor.",
+    "PWF / treated-wall system on drawings before permit (HUD Fig 4.9 / Table 4.8)."
+  ],
+  "material_classes": [
+    "gravel drainage",
+    "sill plate treated",
+    "treated lumber",
+    "treated plywood",
+    "6-mil poly"
+  ],
+  "material_classes_notes": "Drain tile is NOT used with PWF (D9). Do not shop drain tile for this method.",
+  "typical_duration_sfr": "unknown — not in sources",
+  "when_this_beats_habit": "Winter or prefab schedule (AF&PA). Cold-weather pours are the thing it avoids. Accepted by model codes and HUD as a full system, not a one-off.",
+  "when_this_is_a_bad_idea": "Not the regional default in Wasatch (basement) or Fontana (slab). Do not add conventional footing drain tile — that is a D9 miss. Do not field-cut untreated walls and call it PWF.",
+  "why_tier1_never_learned_it": "Yards and crews in these three markets are CIP/CMU or SOG. PWF is a treated-system specialty; winter/prefab is the usual reason anyone switches.",
+  "permit_gate": "should be on drawings before permit",
+  "risk_if_swapped_late": "PWF vs CIP/CMU after permit changes excavation, drainage (no tile), treated package, and inspection path. Catch before permit.",
+  "sophistication_needed": 3,
+  "plain_language_summary": "This is the treated-wood basement or crawl: gravel bed, treated plate and studs, plywood, plastic, gravel to a sump. No drain tile. People pick it to prefab or to keep pouring out of a winter hole. It is legal; it is not what Wasatch or Fontana usually builds.",
+  "spanish_summary": "Cimiento de madera tratada: cama de grava, placa y postes tratados, plywood, plástico, grava hasta un sumidero. No lleva tubo de drenaje. Se usa para prefabricar o para no colar en invierno. Es legal, no es lo habitual aquí.",
+  "scribd_sources": [
+    "src-afpa-details",
+    "src-ornl-bfh",
+    "src-hud-rsdg"
+  ],
+  "locators": [
+    "AF&PA Details: Wood Foundations",
+    "ORNL BFH notes 26–30, 35, 36",
+    "HUD RSDG Fig 4.9 / Table 4.8, §4.5"
+  ],
+  "constraints": [
+    "c-P05-D8-termite-shields"
+  ],
+  "d9_agreement": "No conventional footing tile; gravel + sump. Filed as agreement, not a disagreement winner.",
+  "confidence": "high",
+  "confidence_notes": "D9 no-tile + gravel/sump agreed AF&PA and ORNL (high). Sequence sourced. Not volume habit.",
+  "open_gaps": [
+    "gap-crew-counts",
+    "gap-P05-methods-unsourced",
+    "gap-sop-fastener-missing",
+    "gap-sop-labor-crew",
+    "gap-sop-build-size-alts",
+    "gap-sop-walkthroughs",
+    "gap-sop-irc-section-numbers",
+    "gap-inspector-fail-list-unsourced",
+    "Gap — book did not name a fail item",
+    "gap-P05-walkthrough-pwf"
+  ],
+  "remodel_note": "Remodel extras (matching, occupied-site, shoring) not in these four books — Gap, do not invent remodel-only methods.",
+  "last_updated": "2026-08-30",
+  "fastener_schedule": [],
+  "fastener_schedule_notes": "Re-checked AF&PA Wood Foundations (Figs 6–7) and HUD Fig 4.9 / Table 4.8. HUD Fig 4.9 prints “NAIL AND/OR FRAMING ANCHORS AS REQUIRED” with no size+oc. Table 4.8 is stud size/spacing (2x6 @ 16 in / 5 ft backfill; 2x6 @ 12 in / 6 ft; 2x8 @ 12 in / 8 ft) plus “connect each stud to top plate with framing anchors when backfill height is 6 feet or greater” — no penny, no oc. HUD: all PWF fasteners/hardware stainless steel or hot-dipped galvanized (coating, not a schedule). AF&PA Figs 6–7 silent on penny/oc; points to AF&PA TR-7 / Southern Pine PWF guide / AF&PA 2007 spec. Do not invent 8d/10d/16d. fastener_schedule stays []. gap-sop-fastener-missing keeps m-P05-pwf.",
+  "tools": [],
+  "tools_notes": "No tool list in sources for PWF. Do not invent.",
+  "labor": {
+    "crew": null,
+    "certs": [
+      "PE when IRC/HUD tables fail"
+    ],
+    "gap": "gap-crew-counts"
+  },
+  "labor_notes": "Licensed applicator for termiticide is not named in the four books (termiticide itself is). Special inspector is not named. Crew counts: gap-crew-counts. HUD: treated lumber/plywood per the wood-foundation standard (Fig 4.9 / Table 4.8).",
+  "layering": [
+    "Gravel bed ≥4 in (AF&PA) / ≥6 in thick and 6 in past the plate (ORNL note 27).",
+    "6-mil on basement walls and under floor (AF&PA; ORNL notes 28–30, 36).",
+    "Batt in cavities; 2-in air gap above the bottom plate (ORNL note 35).",
+    "No conventional drain tile — gravel to sump (D9)."
+  ],
+  "build_size_alts": "not in sources",
+  "code_to_check": [
+    "HUD prints IRC table R401.4.1 (presumptive soil bearing) and section R401.4 (when geotech reports are required). Confirm with AHJ / engineer.",
+    "HUD: PWFs may be designed in accordance with the basic provisions in the IRC (ICC, 2012) — no R-number named for the PWF wall itself (gap-sop-irc-section-numbers). Confirm with AHJ / engineer.",
+    "HUD Fig 4.9 / Table 4.8 — PWF model-code and HUD accepted; connections per building code and AF&PA Permanent Wood Foundation Design Specification (2007). Confirm with AHJ / engineer. No R403/R404 in sources."
+  ],
+  "time_money": "Winter/prefab is the reason to pick it (AF&PA). Gravel-to-sump instead of a pour and drain tile — not a cheaper tile skip (D9). No dollars in sources.",
+  "walkthroughs": [],
+  "images": [
+    {
+      "path": "kb/images/m-P05-pwf/afpa-fig-6-pwf-crawl-gravel-bed.png",
+      "caption": "PWF crawl (AF&PA Fig 6): gravel footing 2d wide × 3/4 d deep below frost; 18 in min earth-to-joist; 8 in min grade-to-treated plywood; grade 1/2 in per foot for 6 ft. No drain tile (D9). Figure does not name nail size+oc."
+    },
+    {
+      "path": "kb/images/m-P05-pwf/afpa-fig-7-pwf-basement-gravel-poly.png",
+      "caption": "PWF basement (AF&PA Fig 7): 8 in min grade-to-treated; 4 in gravel under 3–4 in slab; gravel footing 2d × 3/4 d below frost. 6-mil/poly on walls; 2-in air gap above bottom plate (ORNL note 35). No drain tile (D9)."
+    },
+    {
+      "path": "kb/images/m-P05-pwf/hud-fig-4-9-pwf-basement-and-crawl.png",
+      "caption": "PWF basement and crawl (HUD Fig 4.9): 8 in min grade (basement); 18 in min crawl joist clearance; 6 in min hi gravel. Prints “NAIL AND/OR FRAMING ANCHORS AS REQUIRED” — no size+oc. NO drain tile (D9)."
+    }
+  ],
+  "inspector_looks_for": [
+    "Treated material and gravel-bed thickness before walls (AF&PA; ORNL note 27).",
+    "No drain tile to look for — inspect gravel path to sump instead (D9).",
+    "6-mil on basement walls and under floor.",
+    "PWF / treated-wall system on drawings before permit (HUD Fig 4.9 / Table 4.8)."
+  ],
+  "inspector_fails": [],
+  "common_messups": [],
+  "do_not_cheap": [
+    "Gravel bed ≥4 in (AF&PA) / ≥6 in thick and 6 in past the plate (layering, ORNL note 27).",
+    "6-mil on basement walls and under floor (hold + layering).",
+    "No conventional drain tile — gravel to sump (layering D9). Do not shop drain tile onto PWF.",
+    "Batt in cavities; 2-in air gap above the bottom plate (layering, ORNL note 35).",
+    "Permit gate: PWF on drawings before permit.",
+    "Fastener size+oc is not in the extract (fastener_schedule is empty). Do not invent 8d/10d/16d."
+  ],
+  "smart_save": [
+    "Winter/prefab is the reason to pick it (AF&PA). Gravel-to-sump instead of a pour and drain tile — not a cheaper tile skip (D9). No dollars in sources.",
+    "Late swap: PWF vs CIP/CMU after permit changes excavation, drainage (no tile), treated package, and inspection path. Catch before permit."
+  ],
+  "sop_gap_note": "inspector_fails and common_messups unsourced. bible/inspectors.html is book hold points, not a stamp. See gap-inspector-fail-list-unsourced. Do not invent correction-notice language."
+}

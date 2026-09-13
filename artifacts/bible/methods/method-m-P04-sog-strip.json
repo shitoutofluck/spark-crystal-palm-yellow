@@ -1,0 +1,124 @@
+{
+  "id": "m-P04-sog-strip",
+  "type": "Method",
+  "practice_id": "pr-P04-excavation",
+  "practice_name": "Excavation / grading / site drainage (SFR)",
+  "phase_id": "P04",
+  "building_types": [
+    "bt-sfr-new",
+    "bt-sfr-remodel",
+    "bt-adu"
+  ],
+  "tier": "A",
+  "is_habit": false,
+  "habit_or_alt": "alt",
+  "habit_scope": "Slab-on-grade strip: no basement hole. Remove debris/stumps/organics; compact granular fill; set finish floor high enough for drainage. CMHC Ch7 Slabs-on-ground (Canadian / NBC — confirm AHJ; not IRC); ORNL Ch 4 / HUD §4.1 slab as South/SW habit (Fontana). Alt to the full basement hole. Depth still follows the P05 slab type on the drawings.",
+  "alt_to": [
+    "m-P04-full-excavation"
+  ],
+  "also_known_as": [
+    "SOG site strip",
+    "slab-on-grade excavation"
+  ],
+  "how_it_is_done": [
+    "HUD §4.1: a slab-on-grade with independent stem wall or a monolithic/thickened-edge slab is normally used in warmer regions with little or no frost depth (also used in colder climates when adequate frost protection is provided). Fontana / South habit. Not the Wasatch basement hole.",
+    "CMHC Ch7 Slabs-on-ground: 'Remove all debris, stumps and organic matter from the area below the slab and fill voids with compacted granular material to provide a smooth surface free of soft pockets.' 'The top of the slab must be at least 150 mm (6 in.) above finished grade' so finished grade drains away. Canadian / NBC — confirm AHJ; not IRC. ORNL Ch 4 elevate slab ≥8 in above grade is the US P05 slab note — do not pick a winner; confirm AHJ.",
+    "ORNL: compact fill under slab (FLOOR SLAB checklist). AF&PA: compact fill / stripped-root areas before pour.",
+    "No foundation drain as habit if the floor is above grade (ORNL Ch 4 / P05 slab). Site drainage still slopes away. Do not shop drain tile onto a Fontana valley slab as habit.",
+    "Still: utility locate (P01), no frozen subgrade if any frost-depth stem is used, footing/thickened-edge inspect before pour (ORNL)."
+  ],
+  "sequence_before": [
+    "m-P03-batter-boards"
+  ],
+  "sequence_after": [
+    "P05",
+    "m-P05-slab",
+    "P06",
+    "m-P06-underslab-prep"
+  ],
+  "can_overlap_with": [],
+  "trades": [
+    "ORNL grading contractor — no crew size"
+  ],
+  "crew_notes": "not in sources; Gap gap-crew-counts",
+  "tools_equipment": "Compaction of granular fill (CMHC/ORNL). No SKU.",
+  "inspection_hold_points": [
+    "Organics out; compacted granular; no soft pockets (CMHC). Compact fill under slab (ORNL). Footing / thickened-edge layout before pour."
+  ],
+  "material_classes": [
+    "compacted granular fill CLASS"
+  ],
+  "typical_duration_sfr": "unknown — not in sources",
+  "when_this_beats_habit": "South / Southwest / Fontana slab habit (HUD §4.1). Not the Wasatch basement hole.",
+  "when_this_is_a_bad_idea": "Forcing a SOG strip on a 30-in frost basement lot as if it were Fontana. Leaving organics under the slab.",
+  "why_tier1_never_learned_it": "Valley slab crews already strip and compact. What they skip is organics out and poly/termite before the pour (P06).",
+  "permit_gate": "should be on drawings before permit",
+  "permit_gate_notes": "Slab vs basement on the drawings. Confirm with AHJ / engineer.",
+  "risk_if_swapped_late": "Slab vs basement after permit is a type change: no joists, no basement stairs, different excavation.",
+  "sophistication_needed": 1,
+  "plain_language_summary": "Fontana does not buy a basement hole. Strip the organics, compact the granular, set the slab high enough that water runs away. Drain tile is not the valley habit. 6 in (CMHC) vs 8 in (ORNL) above grade — confirm the AHJ; do not pick a winner.",
+  "spanish_summary": "Fontana no compra hueco de sótano. Quite orgánicos, compacte el granular, deje la losa alta para que el agua corra. El drain tile no es el hábito del valle. 6 pulg (CMHC) vs 8 pulg (ORNL) — confirme el AHJ.",
+  "scribd_sources": [
+    "src-cmhc-wood-frame",
+    "src-ornl-bfh",
+    "src-hud-rsdg",
+    "src-afpa-details"
+  ],
+  "locators": [
+    "CMHC Ch7 Slabs-on-ground (printed p 82): debris/stumps/organics out; compacted granular; slab ≥150 mm (6 in) above finished grade",
+    "HUD RSDG §4.1 slab-on-grade in warmer regions; ORNL Ch 4 compact fill under slab / ≥8 in above grade"
+  ],
+  "market_notes": [
+    "mn-fontana"
+  ],
+  "constraints": [],
+  "confidence": "high",
+  "confidence_notes": "SOG strip sequence sourced. 6 in vs 8 in both printed — do not pick a winner. Drain tile not this Method.",
+  "open_gaps": [
+    "gap-crew-counts",
+    "gap-sop-labor-crew",
+    "gap-sop-walkthroughs",
+    "gap-inspector-fail-list-unsourced",
+    "gap-P04-walkthrough-sog-strip"
+  ],
+  "remodel_note": "Remodel extras (matching, occupied-site, shoring, demo of an existing house) are not a sequence in CMHC/ORNL/HUD/FM — Gap, do not invent remodel-only methods. Essential Guide is framing-only (opened 2026-08-30; silent on site/layout). B&D Room Additions not used as a P00–P06 sequence.",
+  "last_updated": "2026-08-30",
+  "fastener_schedule": [],
+  "tools": [
+    "compactor",
+    "excavator"
+  ],
+  "labor": {
+    "crew": null,
+    "certs": [],
+    "gap": "gap-crew-counts"
+  },
+  "labor_notes": "Crew Gap.",
+  "layering": [
+    "Strip organics → compacted granular → (P06 poly/termite/radon/plumbing) → slab pour. Canadian 6 in above grade vs ORNL ≥8 in — both sourced; confirm AHJ; do not pick a winner."
+  ],
+  "build_size_alts": "not in sources",
+  "code_to_check": [
+    "CMHC 6 in above grade is Canadian / NBC — confirm AHJ; not IRC. ORNL ≥8 in is US handbook. Confirm with AHJ / engineer. Do not invent R506."
+  ],
+  "time_money": "No basement hole. No dollars.",
+  "walkthroughs": [],
+  "images": [
+    {
+      "path": "kb/images/m-P04-sog-strip/cmhc-fig-49-sog-independent-slab.png",
+      "caption": "CMHC Fig 49: independent slab and foundation wall; well-compacted fill under slab; dampproofing; floor-to-wall joint and caulking; 150 mm (6 in) min above grade. Canadian / NBC — confirm AHJ; not IRC. ORNL Ch 4 ≥8 in is the US handbook number — do not pick a winner."
+    }
+  ],
+  "inspector_looks_for": [
+    "Debris, stumps, organics gone under the slab (CMHC). Compacted granular, no soft pockets. Finish floor high enough that grade drains away."
+  ],
+  "inspector_fails": [],
+  "common_messups": [],
+  "do_not_cheap": [
+    "Do not leave organics under the slab (CMHC). Compact the granular (ORNL/CMHC). Do not shop P05 drain tile onto an above-grade SOG as habit."
+  ],
+  "smart_save": [
+    "No basement hole on a Fontana/South SOG. No drain tile if the floor is above grade (ORNL Ch 4). No dollars. Late swap vs basement is a type change."
+  ],
+  "sop_gap_note": "walkthroughs []. Compaction % Gap — do not invent Proctor."
+}

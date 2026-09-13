@@ -1,0 +1,228 @@
+{
+  "id": "m-P08-advanced-24oc-2x6",
+  "type": "Method",
+  "practice_id": "pr-P08-advanced-framing-24oc",
+  "practice_name": "Advanced framing 24 o.c. (SFR)",
+  "phase_id": "P08",
+  "building_types": [
+    "bt-sfr-new",
+    "bt-sfr-remodel",
+    "bt-adu"
+  ],
+  "tier": "A",
+  "is_habit": false,
+  "habit_or_alt": "alt",
+  "habit_scope": "Next-Gen CZ 3–5 2x6 @ 24 in OC for 1–2 story (w/ or w/o habitable attic). ALTERNATIVE_TO m-P08-stick-16oc-2x4. Not the 16 in 2x4 habit. 3-story bottom stays 16 in.",
+  "alt_to": [
+    "m-P08-stick-16oc-2x4"
+  ],
+  "also_known_as": [
+    "advanced framing",
+    "OVE 24 OC",
+    "2x6 24 OC walls",
+    "Next-Gen 2x6"
+  ],
+  "how_it_is_done": [
+    "Same platform raise as stick (plates on deck, square, tilt) but 2x6 @ 24 in OC. Permitted 1- and 2-story (with or without habitable attic) per Next-Gen Tables 2–3. 3-story bottom story 2x6 or 3x4 @ 16 in OC — not this 24 in habit. Nonbearing 2x6 exterior @ 24 in, height <=20 ft (Table 3).",
+    "Double 2x6 top plate skips in-line framing at 24 in (Next-Gen p 4). 2x4 @ 24 in still needs joists/trusses/rafters >16 in OC landing within 5 in of stud (IRC 602.3.3 via Next-Gen) — that 2x4@24 path is not this method (AF&PA: 2x4 @ 24 one-story only if sheathing/siding spans).",
+    "Sheathing STILL 6 in edge / 12 in field (Next-Gen Table 12). 6d common N/P at 24 in for 3/8 in WSP; 3/8 in at 24 in only to 100B with 8d. 7/16 in @ 24 in: 8d common 6/12 is the ABTG WSP match. Fasteners 3/8 in from panel edges (APA). Do not glue wall panels. Cladding fasteners that must hit framing can force 16 in — stay 16 when the cladding schedule says so (Next-Gen).",
+    "Interior GWB min 1/2 in; at 24 in, screws-only 12 in OC (not 16) (Next-Gen p 24). D6: IRC WSP lengths still assume interior GWB — if omitted, lengthen bracing (ABTG).",
+    "Headers: Table 11 conventional (not rim) — most 4-ft openings one 2x6 jack + one king; larger typical-house openings a double jack. Nonbearing: no header; one king; >8 ft opening needs double 2x top plate or structural sheathing. Load-bearing alts named: insulated single (1-story/top, sawn <=6 ft / SCL <=7 ft); box header 3–5 ft with WSP 3 in OC (15/32 in Exposure 1, strong axis horizontal); insulated double (2-1/2 in rigid in 2x6 cavity).",
+    "Rim header sits on KINGS (not jacks) — openings <=4 ft often one 2x6 each side. Rim plies continuous, extend to kings; double rim >=6 in past king. Hangers if joist is over/next to opening or bearing <1-1/2 in sawn / <1-3/4 in I-joist. Table 5: 16 ft joist @ 16 in → 560 lb hanger; @ 24 in → 830 lb (40/12 psf). Do not mix sawn joists with EWP rim. 1st-floor rim + 2nd-floor single headers is a named combo. Hangers are CLASS (c-P08-connector-class), not the stick sit-on-jack habit.",
+    "2-stud corner: 16d box @ 12 in OC (Next-Gen Figs 2–4). Layout module 24 in with trusses (AF&PA; ch16 15-1/4 in first stud becomes the 24 in equivalent).",
+    "Raise sequence still Gap on YouTube (gap-yt-24oc-field-raise). Use ch16 tilt/brace holds; do not invent a 24 OC field-raise video."
+  ],
+  "sequence_before": [
+    "P07",
+    "m-P07-i-joist",
+    "m-P07-sawn",
+    "m-P07-floor-truss",
+    "m-P05-slab"
+  ],
+  "sequence_after": [
+    "P09",
+    "m-P08-bwl-wsp"
+  ],
+  "can_overlap_with": [
+    "m-P08-bwl-wsp"
+  ],
+  "trades": [
+    "framing subcontractors (Next-Gen names electricians/plumbers/insulators/drywall as downstream efficiency — not a wall-crew count)"
+  ],
+  "crew_notes": "Gap gap-crew-counts. Next-Gen names trade efficiency (fewer holes, fewer cavities) — not a headcount. Do not invent.",
+  "tools_equipment": "Raise tools not re-specified. Not a tool list in Next-Gen. No YouTube field-raise (gap-yt-24oc-field-raise).",
+  "inspection_hold_points": [
+    "Story count: 24 in only 1–2 story; 3-story bottom 16 in (Next-Gen Tables 2–3).",
+    "Double 2x6 plate if skipping in-line.",
+    "Sheathing still 6/12; 6d common N/P at 3/8 in / 24 in.",
+    "GWB 1/2 in min; screws-only 12 in OC at 24 in.",
+    "Rim header >=6 in past king; do not mix sawn joists with EWP rim.",
+    "Cladding-into-framing may force 16."
+  ],
+  "material_classes": [
+    "2x6 studs",
+    "2x6 plates",
+    "WSP sheathing",
+    "8d common nails",
+    "16d box nails",
+    "1/2 in GWB",
+    "SCL / rim header",
+    "joist hangers (rim-header CLASS)"
+  ],
+  "typical_duration_sfr": "unknown — not in sources",
+  "when_this_beats_habit": "1–2 story when the program wants 2x6 cavities and fewer studs (Next-Gen CZ 3–5). Double 2x6 plate is what unlocks 24 in without in-line. Not the default.",
+  "when_this_is_a_bad_idea": "3-story bottom at 24 in (tables say 16). Cladding that must hit framing at 16. 2x4 @ 24 without in-line. Mixing this with Glencoe 8d@3. Treating 24 in as if sheathing nails change off 6/12.",
+  "why_tier1_never_learned_it": "Habit is 16 in 2x4 (ch16 / AF&PA; AWC example even keeps 16 as practice). 24 in 2x6 is the energy/labor ALT, not what the carpenter learned first.",
+  "permit_gate": "should be on drawings before permit",
+  "permit_gate_notes": "24 vs 16 is permit-gate (stud pack, headers, GWB screw spacing, cladding). Confirm with AHJ / engineer. Next-Gen is IRC-based CZ 3–5.",
+  "risk_if_swapped_late": "24 vs 16 after permit changes studs, plates, headers, drywall screws, and maybe cladding. Catch before permit.",
+  "sophistication_needed": 2,
+  "plain_language_summary": "This is the 2x6 at 24-inch alternate, not the usual 2x4 at 16. OK on 1- and 2-story; bottom of a 3-story stays 16. Double 2x6 plate so you do not have to line studs under joists. Sheathing nails are still 6 and 12 — 6d common is not permitted on 3/8 at 24. Most 4-foot holes get one jack and one king. A rim header sits on the kings and runs at least 6 inches past. If the siding has to hit a stud, you may be back to 16.",
+  "spanish_summary": "Esta es la alternativa 2x6 a 24 pulgadas, no el 2x4 a 16 de siempre. Sirve en 1 y 2 pisos; el piso de abajo de 3 pisos se queda a 16. Doble placa 2x6 para no alinear postes con viguetas. Los clavos del forro siguen 6 y 12 — 6d common no va en 3/8 a 24. Un hueco de 4 pies lleva un jack y un king. El rim header apoya en los king y pasa 6 pulgadas. Si el revestimiento tiene que picar poste, vuelve a 16.",
+  "scribd_sources": [
+    "src-nextgen-2x6-2017",
+    "src-apa-e30x",
+    "src-abtg-irc-bracing",
+    "src-glencoe-ch16",
+    "src-afpa-details"
+  ],
+  "locators": [
+    "Next-Gen Tables 2–3, 11, 12; p 4 double plate; p 24 GWB; Figs 2–4 corners",
+    "APA Fig 13 advanced framing as optional suite",
+    "ABTG Method WSP 7/16 @ 24 in: 8d common 6/12",
+    "ch16 / AF&PA: 16 in is conventional — this method is the ALT"
+  ],
+  "constraints": [
+    "c-P08-D2-double-vs-single-top-plate",
+    "c-P08-D3-16-vs-24",
+    "c-P08-D4-header-3ft-vs-6ft",
+    "c-P08-D6-interior-gwb-bracing",
+    "c-P08-connector-class"
+  ],
+  "confidence": "high",
+  "confidence_notes": "Next-Gen tables high for 1–2 story CZ 3–5. YouTube field-raise still Gap.",
+  "open_gaps": [
+    "gap-crew-counts",
+    "gap-sop-labor-crew",
+    "gap-yt-24oc-field-raise",
+    "gap-inspector-fail-list-unsourced",
+    "Gap — book did not name a fail item"
+  ],
+  "remodel_note": "Not a remodel tie-in method.",
+  "last_updated": "2026-08-30",
+  "fastener_schedule": [
+    {
+      "what": "WSP @ 24 in studs (3/8 in)",
+      "size": "8d class (6d common N/P)",
+      "pattern": "WSP to framing",
+      "oc": "6 in edge / 12 in field",
+      "edge_distance": "3/8 in from panel edges (APA)",
+      "end_distance": null,
+      "source": "Next-Gen Table 12: 6d common N/P at 3/8 in / 24 in; 3/8 at 24 only to 100B with 8d"
+    },
+    {
+      "what": "WSP @ 24 in studs (7/16 in)",
+      "size": "8d common (2.5 x 0.131)",
+      "pattern": "WSP to framing",
+      "oc": "6 in edge / 12 in field",
+      "edge_distance": "3/8 in from panel edges",
+      "end_distance": null,
+      "source": "ABTG Method WSP; Next-Gen Table 12"
+    },
+    {
+      "what": "2-stud corner",
+      "size": "16d box",
+      "pattern": "corner studs",
+      "oc": "12 in OC",
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "Next-Gen Figs 2–4"
+    },
+    {
+      "what": "box header WSP (named alt, 3–5 ft)",
+      "size": "WSP nails",
+      "pattern": "15/32 in Exposure 1, strong axis horizontal",
+      "oc": "3 in OC",
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "Next-Gen. Not BWL 6/12; this is the box-header face."
+    },
+    {
+      "what": "GWB @ 24 in",
+      "size": "screws (class not penny-named)",
+      "pattern": "interior GWB min 1/2 in",
+      "oc": "12 in OC screws-only (not 16)",
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "Next-Gen p 24"
+    }
+  ],
+  "tools": [],
+  "labor": {
+    "crew": null,
+    "certs": [
+      "PE when IRC/Next-Gen tables fail"
+    ],
+    "gap": "gap-crew-counts"
+  },
+  "labor_notes": "Next-Gen names downstream trade efficiency, not wall-crew headcount. YouTube field-raise Gap.",
+  "layering": [
+    "24 in for 1–2 story; 16 in on 3-story bottom; nonbearing 2x6@24 to 20 ft.",
+    "Double 2x6 plate skips in-line.",
+    "Sheathing still 6/12; 6d common N/P at 3/8 in / 24 in.",
+    "GWB 1/2 in min; screws-only 12 in OC at 24 in.",
+    "Rim header >=6 in past king; sits on kings not jacks.",
+    "Do not mix sawn joists with EWP rim.",
+    "Cladding into framing can force 16.",
+    "APA 1/8 in sheathing gaps; do not glue wall panels."
+  ],
+  "build_size_alts": "Story count sourced (Next-Gen Tables 2–3: 24 in 1–2 story; 16 in 3-story bottom; nonbearing 20 ft). Custom vs spec vs ADU not in sources.",
+  "code_to_check": [
+    "Next-Gen based on IRC — confirm with AHJ / engineer.",
+    "IRC R602.10 / ABTG for bracing lengths on 24 in walls. Confirm with AHJ / engineer.",
+    "IRC 602.3.3 in-line is for 2x4@24, not this double-2x6 method. Confirm with AHJ / engineer."
+  ],
+  "time_money": "Next-Gen: lumber count drops; fewer holes/cavities for MEP/insulation/drywall. No dollars named. Bad idea late, on 3-story bottom, or when cladding forces 16. Not a nail-schedule change off 6/12.",
+  "walkthroughs": [],
+  "images": [
+    {
+      "path": "kb/images/m-P08-advanced-24oc-2x6/nextgen-fig-1-advanced-framing.png",
+      "caption": "Next-Gen Fig 1: 2x6 @ 24 in OC advanced framing. Double top plate skips in-line. Rim headers. Fewer jack/king. Not the 16 in 2x4 habit."
+    },
+    {
+      "path": "kb/images/m-P08-advanced-24oc-2x6/nextgen-table-2-3-24oc-stories.png",
+      "caption": "Next-Gen Table 2–3 (printed p 3 / PDF p 7): 1- and 2-story 2x6 bearing 24 in o.c. OK; 3-story bottom story max 16 in o.c.; nonbearing 2x6 @ 24 in up to 20 ft."
+    },
+    {
+      "path": "kb/images/m-P08-advanced-24oc-2x6/nextgen-table-12-sheathing-16-vs-24.png",
+      "caption": "Next-Gen Table 12 (printed p 23 / PDF p 27): WSP 6 in edge / 12 in field at both 16 in and 24 in; 6d common N/P at 24 in o.c.; 3/8 in 24/0 N/P in Exp C at 24 in."
+    }
+  ],
+  "climate_zones": "3–5 (book scope). Do not invent Utah/CA zone numbers.",
+  "inspector_looks_for": [
+    "Story count: 24 in only 1–2 story; 3-story bottom 16 in (Next-Gen Tables 2–3).",
+    "Double 2x6 plate if skipping in-line.",
+    "Sheathing still 6/12; 6d common N/P at 3/8 in / 24 in.",
+    "GWB 1/2 in min; screws-only 12 in OC at 24 in.",
+    "Rim header ≥6 in past king; do not mix sawn joists with EWP rim.",
+    "Cladding-into-framing may force 16."
+  ],
+  "inspector_fails": [],
+  "common_messups": [],
+  "do_not_cheap": [
+    "Sheathing still 6/12 (hold + layering + SOP). 6d common N/P at 3/8 in / 24 in. Do not treat 24 in as if sheathing nails change off 6/12.",
+    "Double 2x6 plate if skipping in-line (hold + layering).",
+    "GWB 1/2 in min; screws-only 12 in OC at 24 in (hold + layering).",
+    "Rim header sits on kings not jacks; ≥6 in past king (hold + layering).",
+    "Do not mix sawn joists with EWP rim (hold + layering).",
+    "APA 1/8 in sheathing gaps; do not glue wall panels (layering).",
+    "Cladding into framing can force 16 (hold + layering).",
+    "Permit gate: 24 vs 16 on drawings before permit.",
+    "24 in on a 3-story bottom is not this method (hold). First pass is 2-story."
+  ],
+  "smart_save": [
+    "Next-Gen: lumber count drops; fewer holes/cavities for MEP/insulation/drywall. No dollars named. Bad idea late, on 3-story bottom, or when cladding forces 16. Not a nail-schedule change off 6/12.",
+    "Late swap: 24 vs 16 after permit changes studs, plates, headers, drywall screws, and maybe cladding. Catch before permit."
+  ],
+  "sop_gap_note": "inspector_fails and common_messups unsourced. bible/inspectors.html is book hold points, not a stamp. See gap-inspector-fail-list-unsourced. Do not invent correction-notice language."
+}

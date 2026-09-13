@@ -1,0 +1,203 @@
+{
+  "id": "m-P17-site-finish",
+  "type": "Method",
+  "practice_id": "pr-P17-site-finish",
+  "practice_name": "Site finish / drive / walks / grade (SFR)",
+  "phase_id": "P17",
+  "building_types": [
+    "bt-sfr-new",
+    "bt-sfr-remodel",
+    "bt-adu"
+  ],
+  "tier": "A",
+  "is_habit": true,
+  "habit_or_alt": "habit",
+  "habit_scope": "Final grade, drive, walks, eavestroughs after the 2-story house is up. NOT P01 site prep. CMHC Ch28 + Ch25 + Ch2 Landscaping. Decks Ch26 not this first pass unless site.",
+  "alt_to": [],
+  "also_known_as": [
+    "final grade",
+    "drive and walks",
+    "gutters and downspouts"
+  ],
+  "how_it_is_done": [
+    "CMHC Ch2 Landscaping: finished grading, driveways, steps, walkways, ground cover, shrubs and trees. Deck framing usually while landscaping — Ch26 decks are NOT this first pass. About one week; delayed until warm weather if the house finishes in fall/winter. Not a lag-day invention — a weather hold named by the book. This is not P01 site prep.",
+    "Ch28: slope all surfaces away from foundation walls at least 5 percent; 10 percent for the first 2 m (6 ft 6 in) to stay positive after backfill settles. Impermeable surfaces next to the house (driveways) ≥2 percent. Swale where a reverse slope meets the house drainage (Fig 3). Direct roof and driveway water away from the house — not into the foundation drain (Ch2 printed 13). AF&PA (US): grade to drain away. Ch29: first-year settlement may pond — restore slope. Canadian slopes — confirm AHJ.",
+    "Driveway ≥2.4 m (8 ft); 3 m (10 ft) if it is also the walk. Suggested max gradient 5 percent, cross slope 2 percent. Compacted uniform surface; gravel/crushed stone ≥100 mm (4 in) after compaction. Asphalt ≥40 mm (1-1/2 in); concrete ≥100 mm (4 in). Concrete control joints 3–3.5 m (10–12 ft); 6–12 mm (1/4–1/2 in) pre-moulded filler isolating from curbs, garage floor, and foundation wall. Placing/finishing/curing as Ch7. HUD §4.6 (US): nominal 4 in (ACI 302) for drives/garages/sidewalks. Keep both thickness stories. CMHC Ch3 32 MPa (4,600 psi) air-entrained for drives — Canadian, confirm AHJ.",
+    "Walks: concrete / pavers / flagstone on a compacted base; max 5 percent along, 2 percent cross. Concrete walks ≥100 mm (4 in); control joints about 1.5× walk width. Pavers/flagstones on compacted sand or stone dust.",
+    "Ch25 eavestroughs: not required by NBC but recommended. Install AFTER exterior finish is complete. On the fascia, close to the shingle overhang, slight slope to downspouts. Metal brackets inside the trough; corrosion-resistant spikes 150 mm (6 in) long about 750 mm (30 in) apart with a spacer tube, through the trough into the fascia. Downspouts: ≥two hooks/straps per 3 m (10 ft). If not to a storm sewer: elbow + extension or splash block, away from the foundation. Ice-damming note points at Fig 100 — that ice detail is P09, not a Fontana snow pack. No Ch25 gutter figure this pass — OC is text."
+  ],
+  "sequence_before": [
+    "P11",
+    "m-P11-siding-over-wrb"
+  ],
+  "sequence_after": [
+    "P18"
+  ],
+  "can_overlap_with": [
+    "P15",
+    "P16",
+    "m-P16-mep-trim"
+  ],
+  "trades": [
+    "excavator / grader",
+    "concrete / paving sub",
+    "gutter installer"
+  ],
+  "crew_notes": "Gap gap-crew-counts.",
+  "tools_equipment": "Named: gutter spikes/brackets; splash block. Not a SKU list.",
+  "inspection_hold_points": [
+    "Positive slope away from the foundation: 5 percent general, 10 percent first 6 ft 6 in (Ch28).",
+    "Drive/walk base 4 in compacted gravel; concrete 4 in; asphalt 1-1/2 in (Ch28).",
+    "Isolation joint at garage slab and foundation (Ch28).",
+    "Gutters after exterior finish (Ch25).",
+    "Do not dump roof water into the foundation drain (Ch2)."
+  ],
+  "material_classes": [
+    "compacted gravel / crushed stone base",
+    "asphalt CLASS",
+    "concrete CLASS",
+    "interlocking pavers CLASS",
+    "pre-moulded expansion joint filler",
+    "eavestrough / downspout CLASS",
+    "corrosion-resistant gutter spikes",
+    "splash block CLASS"
+  ],
+  "typical_duration_sfr": "CMHC Ch2: about one week for landscaping — Canadian sample; delayed to warm weather if winter finish. No lag days invented.",
+  "when_this_beats_habit": "This is the habit. Decks are Ch26, not this first pass.",
+  "when_this_is_a_bad_idea": "Mixing this with P01 site prep. Draining roofs into the footing drain. Skipping the 10 percent near the wall after backfill settles.",
+  "why_tier1_never_learned_it": "They pour a drive. What they skip is 10 percent in the first 6 feet and gutters after siding, not before.",
+  "permit_gate": "drive/approach as AHJ requires",
+  "permit_gate_notes": "CMHC Canadian slopes. Confirm AHJ. Isolation joints at the house.",
+  "risk_if_swapped_late": "Regrading after landscaping is a tear-up. Catch the 10 percent while the dirt is still loose.",
+  "sophistication_needed": 1,
+  "plain_language_summary": "This is not site prep. Dirt slopes away — 10 percent in the first six feet. Four inches of rock, then four inches of concrete or an inch and a half of asphalt. Gutters after the siding, spikes every 30 inches, water onto a splash block, not into the footing drain.",
+  "spanish_summary": "Esto no es P01. El terreno cae lejos — 10 por ciento en los primeros seis pies. Cuatro pulgadas de piedra, luego concreto de 4 o asfalto de 1-1/2. Canalones despues del siding, clavos cada 30 pulgadas, agua a un splash block, no al drain del cimiento.",
+  "scribd_sources": [
+    "src-cmhc-wood-frame"
+  ],
+  "locators": [
+    "CMHC Ch28 Surface Drainage, Driveways and Walkways (printed 259): 5 percent / 10 percent first 2 m (6 ft 6 in); 4 in base; concrete 4 in; asphalt 1-1/2 in",
+    "CMHC Ch25 Eavestroughs — after exterior finish; spikes 6 in long about 30 in OC",
+    "CMHC Ch2 Landscaping; Fig 3; do not lead roof/driveway water into the foundation drainage system"
+  ],
+  "constraints": [],
+  "confidence": "high",
+  "confidence_notes": "Slopes, thicknesses, gutter spike OC printed. Canadian. HUD 4 in US labeled. Decks not filed. No Wasatch/Fontana split named in these chapters.",
+  "open_gaps": [
+    "gap-crew-counts",
+    "gap-inspector-fail-list-unsourced",
+    "gap-ch25-gutter-figure",
+    "gap-decks-ch26-not-this-pass",
+    "gap-P17-walkthrough-none",
+    "gap-P17-walkthrough-flags"
+  ],
+  "remodel_note": null,
+  "last_updated": "2026-08-31",
+  "fastener_schedule": [
+    {
+      "what": "eavestrough to fascia",
+      "size": "corrosion-resistant spikes 150 mm (6 in) long with spacer tube; or metal brackets inside the trough",
+      "pattern": "through trough and spacer into fascia",
+      "oc": "about 750 mm (30 in)",
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "CMHC Ch25"
+    },
+    {
+      "what": "downspout to wall",
+      "size": "straps and hooks (size not printed)",
+      "pattern": "at least two hooks or straps per 3 m (10 ft) length",
+      "oc": null,
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "CMHC Ch25"
+    },
+    {
+      "what": "drive / walk compacted base",
+      "size": "gravel or crushed stone ≥100 mm (4 in) after compaction",
+      "pattern": "uniform smooth compacted surface",
+      "oc": null,
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "CMHC Ch28"
+    },
+    {
+      "what": "drive / walk concrete",
+      "size": "≥100 mm (4 in) deep. HUD (US): nominal 4 in (ACI 302)",
+      "pattern": "control joints 3–3.5 m (10–12 ft) on drives; ~1.5 × width on walks",
+      "oc": null,
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "CMHC Ch28; HUD §4.6"
+    },
+    {
+      "what": "drive asphalt",
+      "size": "≥40 mm (1-1/2 in)",
+      "pattern": "over the 4 in compacted base",
+      "oc": null,
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "CMHC Ch28"
+    },
+    {
+      "what": "isolation at house / garage / curb",
+      "size": "6–12 mm (1/4–1/2 in) pre-moulded joint filler",
+      "pattern": "isolate concrete from curbs, garage floor, foundation wall",
+      "oc": null,
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "CMHC Ch28"
+    }
+  ],
+  "tools": [],
+  "labor": {
+    "crew": null,
+    "certs": [
+      "Confirm with AHJ / engineer. CMHC is Canadian NBC — not IRC."
+    ],
+    "gap": "gap-crew-counts",
+    "named_not_headcount": "Books name trades, not a headcount."
+  },
+  "labor_notes": "Do not invent crew counts.",
+  "layering": [
+    "Not P01.",
+    "5 percent away; 10 percent first 6 ft 6 in.",
+    "4 in compacted base; 4 in concrete / 1-1/2 in asphalt.",
+    "Isolation filler at house/garage/curb.",
+    "Gutters after exterior finish.",
+    "Roof water not into the foundation drain."
+  ],
+  "build_size_alts": "not in sources",
+  "code_to_check": [
+    "AHJ grade/drive. CMHC NBC slopes — confirm AHJ."
+  ],
+  "time_money": "Winter finish delays landscaping to warm weather (Ch2) — named weather hold, not an invented lag.",
+  "walkthroughs": [],
+  "images": [
+    {
+      "path": "kb/images/m-P17-site-finish/cmhc-fig3-site-drainage.png",
+      "caption": "CMHC Fig 3 (printed p 13): surface drainage to street / catch basin. Perimeter drain tile separate. Do not lead roof water into the foundation drain. Ch28: 5 percent away; 10 percent first 2 m (6 ft 6 in). Canadian — confirm AHJ."
+    }
+  ],
+  "inspector_looks_for": [
+    "Positive drainage 5 percent / 10 percent first 6 ft 6 in (Ch28). Canadian — confirm AHJ.",
+    "Base 4 in; concrete 4 in; asphalt 1-1/2 in.",
+    "Isolation joints at the house.",
+    "Gutters after siding; slight slope to downspouts; spikes ~30 in (Ch25).",
+    "Roof water not into the footing drain (Ch2)."
+  ],
+  "inspector_fails": [],
+  "common_messups": [
+    "First-year settlement around the foundation can pond surface water against the wall — restore slope with additional fill (CMHC Ch29)."
+  ],
+  "do_not_cheap": [
+    "10 percent slope in the first 6 ft 6 in (Ch28 layering).",
+    "4 in base (layering).",
+    "Do not dump roof water into the footing drain (Ch2).",
+    "Gutters after exterior finish (Ch25)."
+  ],
+  "smart_save": [
+    "Porous paving named as an environmental option (Ch28) — not a price. Winter delay is a weather hold."
+  ],
+  "sop_gap_note": "No Ch25 gutter figure this pass (OC is text). Decks Ch26 not this first pass. inspector_fails unsourced. Landscape plant list / irrigation spec Gap."
+}

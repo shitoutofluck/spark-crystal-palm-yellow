@@ -1,0 +1,163 @@
+{
+  "tier": "A",
+  "building_types": [
+    "bt-sfr-new",
+    "bt-sfr-remodel",
+    "bt-adu"
+  ],
+  "alt_to": [],
+  "can_overlap_with": [
+    "m-P06-radon-subslab",
+    "m-P06-termite-soil-treat",
+    "m-P05-slab"
+  ],
+  "typical_duration_sfr": "unknown — not in sources",
+  "fastener_schedule": [],
+  "walkthroughs": [
+    {
+      "url": "https://www.youtube.com/watch?v=YbfvddQyl6c",
+      "title": "Perkins Builder Brothers Ep.4 (6 mil)",
+      "channel": "Perkins Builder Brothers",
+      "platform": "youtube",
+      "duration_or_pages": "10:11",
+      "what_it_shows": "Spoken 6 mil, laps a couple feet. Field 2-story. Book hold is 12-in laps — confirm AHJ, do not invent a winner from “a couple feet.”",
+      "timestamp_if_any": null,
+      "flags": [
+        "field",
+        "6 mil spoken",
+        "laps a couple feet — book is 12-in"
+      ]
+    }
+  ],
+  "images": [],
+  "labor": {
+    "crew": null,
+    "certs": [],
+    "gap": "gap-crew-counts",
+    "named_not_headcount": "ORNL checklist names construction contractor; AF&PA names job foreman, subcontractors, building inspector — not a headcount"
+  },
+  "labor_notes": "Do not invent crew counts.",
+  "build_size_alts": "not in sources",
+  "last_updated": "2026-08-30",
+  "inspector_fails": [],
+  "remodel_note": "Remodel extras not in these books — Gap, do not invent.",
+  "id": "m-P06-vapor-retarder",
+  "type": "Method",
+  "practice_id": "pr-P06-underslab",
+  "practice_name": "Underslab vapor / radon / termite (SFR)",
+  "phase_id": "P06",
+  "is_habit": true,
+  "habit_or_alt": "habit",
+  "habit_scope": "6-mil polyethylene under basement slab and SOG, before the pour. Poly 12-in laps already named on P05; this Method is the underslab sequence. 1–2 story wood SFR / ADU.",
+  "also_known_as": [
+    "6-mil poly",
+    "vapor retarder under slab",
+    "underslab poly"
+  ],
+  "how_it_is_done": [
+    "Compact fill under slab (ORNL FLOOR SLAB). Then a minimum 4-inch-thick layer of coarse, clean gravel under the slab (ORNL RADON CONTROL MEASURES / FLOOR SLAB). HUD §4.6: 2–3 in washed gravel or sand + 6-mil poly; gravel is the capillary break.",
+    "Lay 6-mil (minimum) polyethylene on top of the gravel (ORNL radon sealing the floor; Ch 4 slab). Film is a radon and moisture retarder and keeps concrete out of the aggregate as it is cast.",
+    "Lap edges at least 12 inches (ORNL Ch 2 radon; Ch 4 slab). Extend poly over the top of the footing / sealed to the foundation wall, or over the top of the foundation wall, or to the outer bottom edge of a monolithic slab-grade beam (ORNL Ch 2 / Ch 4).",
+    "Slit an 'x' at penetrations; turn up the tabs and tape them. Do not puncture; consider rounded riverbed gravel (ORNL Ch 2 / Ch 4).",
+    "Optional 2-inch sand layer on top of the polyethylene improves curing and puncture protection. Dampen the sand, do not saturate, before the pour (ORNL Ch 4).",
+    "Locate plumbing, electrical service, and gas service to be cast in the slab (ORNL slab checklist). Caulk joints around pipes and conduits (ORNL RADON CONTROL MEASURES). Form a gap of at least 1/2 inch around plumbing/utility lead-ins through the slab to a depth of at least 1/2 inch; fill with polyurethane or similar (ORNL Ch 2 sealing the basement floor item 9).",
+    "Remove all grade stakes, spreader sticks, and wood embedded in concrete during the pour (ORNL RADON / TERMITE checklists). That is a pour-day hold, shared with P05.",
+    "12-in laps and 6-mil class are already on P05 methods. This Method does not change the class — it times the placement before the pour (P06)."
+  ],
+  "sequence_before": [
+    "P04",
+    "m-P04-excavation",
+    "P05",
+    "m-P05-slab",
+    "m-P05-basement-cip-cmu"
+  ],
+  "sequence_after": [
+    "P07",
+    "P08"
+  ],
+  "trades": [
+    "construction contractor — named, not a headcount"
+  ],
+  "crew_notes": "not in sources; Gap gap-crew-counts",
+  "tools_equipment": "Not a tool list. Named: poly placement; tape at penetration tabs.",
+  "inspection_hold_points": [
+    "Vapor retarder in place under slab; 6-mil; 12-in laps (ORNL; HUD §4.6).",
+    "Poly sealed to wall / over footing / over top of foundation wall / to outer bottom edge of monolithic grade beam (ORNL Ch 2 / Ch 4).",
+    "4-in coarse clean gravel under the slab (ORNL).",
+    "Fill compacted under slab (ORNL FLOOR SLAB).",
+    "Plumbing/electrical/gas located before the pour (ORNL slab checklist).",
+    "Grade stakes / spreader sticks / wood out of the pour (ORNL)."
+  ],
+  "inspector_looks_for": [
+    "6-mil poly down, 12-in laps, sealed to wall or over footing (ORNL).",
+    "Gravel bed under the poly (ORNL 4-in coarse clean).",
+    "Penetrations X-cut, tabs taped (ORNL).",
+    "No wood left in the pour (ORNL)."
+  ],
+  "common_messups": [
+    "Puncturing the poly on sharp gravel (ORNL: consider riverbed gravel).",
+    "Skipping 12-in laps (ORNL).",
+    "Leaving grade stakes / spreader sticks in the slab (ORNL).",
+    "Saturating the optional sand layer before the pour (ORNL: dampen, do not saturate)."
+  ],
+  "smart_save": "Gap — book did not name a dollar save on poly. Riverbed gravel is named as a puncture/soil-gas path, not a cheap skip.",
+  "do_not_cheap": [
+    "6-mil polyethylene (ORNL minimum).",
+    "12-in laps (ORNL).",
+    "4-in coarse clean gravel under the slab (ORNL).",
+    "Poly sealed to the wall / over the footing (ORNL).",
+    "Wood out of the pour (ORNL)."
+  ],
+  "material_classes": [
+    "6-mil poly",
+    "gravel drainage",
+    "sand (optional 2-in over poly)",
+    "polyurethane caulk"
+  ],
+  "when_this_beats_habit": "This is the habit under basement slabs and SOG. Not an alt.",
+  "when_this_is_a_bad_idea": "Skipping poly because P05 already named the class — the class still has to be on the dirt before the pour. Skipping laps.",
+  "why_tier1_never_learned_it": "They did — plastic under the slab. What they skip is 12-in laps, sealing to the wall, and getting the stakes out.",
+  "permit_gate": "should be on drawings before permit",
+  "permit_gate_notes": "Vapor retarder / gravel under slab on the drawings. Confirm with AHJ / engineer.",
+  "risk_if_swapped_late": "You cannot add 12-in laps after the pour. Catch before the truck.",
+  "sophistication_needed": 1,
+  "plain_language_summary": "Before the slab truck, compact the fill, put down at least 4 inches of clean gravel, then 6-mil plastic with 12-inch laps, sealed to the wall. Cut an X at pipes and tape the tabs. Optional 2 inches of damp sand on the plastic so it does not puncture. Get the wood stakes out. The plastic class is the same one P05 already named — this is when it goes down.",
+  "spanish_summary": "Antes del camión de losa, compacte, ponga al menos 4 pulgadas de grava limpia, luego plástico 6 mil con traslapes de 12 pulgadas, sellado a la pared. X en los tubos y tape las pestañas. Arena húmeda opcional de 2 pulgadas para no pinchar. Estacas de madera fuera. La clase de plástico ya está en P05 — aquí es cuándo se pone.",
+  "scribd_sources": [
+    "src-ornl-bfh",
+    "src-hud-rsdg"
+  ],
+  "locators": [
+    "ORNL BFH Ch 2 RADON CONTROL TECHNIQUES: 6-mil poly, 12-in laps, sealed to wall / over footing; 2-in sand optional",
+    "ORNL BFH Ch 4 RADON CONTROL TECHNIQUES: 6-mil on gravel; 12-in laps; extend over top of foundation wall or to outer bottom edge of monolithic grade beam",
+    "ORNL FLOOR SLAB / RADON CONTROL MEASURES: vapor retarder under slab; compact fill; 4-in gravel; locate plumbing/electrical/gas; remove grade stakes",
+    "HUD RSDG §4.6: 2–3 in washed gravel or sand + 6-mil poly"
+  ],
+  "constraints": [
+    "c-P07-no-joists-on-sog"
+  ],
+  "confidence": "high",
+  "confidence_notes": "6-mil + 12-in laps printed in ORNL Ch 2 and Ch 4. HUD 2–3 in gravel vs ORNL 4-in radon gravel — do not pick a winner; follow the radon/underslab path when radon is in play (4-in) and HUD §4.6 2–3 in as capillary-break habit. Confirm with AHJ.",
+  "open_gaps": [
+    "gap-crew-counts",
+    "gap-sop-labor-crew",
+    "gap-sop-build-size-alts",
+    "gap-sop-walkthroughs",
+    "gap-inspector-fail-list-unsourced",
+    "gap-yt-sog-poly-lap",
+    "gap-sop-irc-section-numbers"
+  ],
+  "tools": [
+    "poly placement",
+    "tape at penetration tabs"
+  ],
+  "layering": [
+    "Compact fill → gravel (4-in coarse clean for radon path / HUD 2–3 in capillary) → 6-mil poly 12-in laps sealed to wall → optional 2-in damp sand → pour.",
+    "X-cut + taped tabs at penetrations (ORNL).",
+    "1/2 in gap around slab penetrations filled with polyurethane (ORNL Ch 2 item 9)."
+  ],
+  "code_to_check": [
+    "Adopted vapor-retarder / under-slab gravel thickness at the AHJ. HUD §4.6 prints 2–3 in; ORNL radon path prints 4-in coarse clean. Do not pick a winner. Confirm with AHJ / engineer."
+  ],
+  "time_money": "Gap — no dollars. Completing poly before the pour is the book sequence, not a named save."
+}

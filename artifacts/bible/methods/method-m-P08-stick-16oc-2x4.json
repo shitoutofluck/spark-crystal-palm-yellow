@@ -1,0 +1,298 @@
+{
+  "id": "m-P08-stick-16oc-2x4",
+  "type": "Method",
+  "practice_id": "pr-P08-stick-frame",
+  "practice_name": "Stick-frame walls (SFR)",
+  "phase_id": "P08",
+  "building_types": [
+    "bt-sfr-new",
+    "bt-sfr-remodel",
+    "bt-adu"
+  ],
+  "tier": "A",
+  "is_habit": true,
+  "habit_or_alt": "habit",
+  "habit_scope": "Platform 2x4 @ 16 in OC, double top plate, sit-on-jack header. Glencoe ch16 §16.1–16.3; AF&PA Exterior Wall Framing. 1–2 story wood SFR. Not 24 in OC (that is m-P08-advanced-24oc-2x6). Not balloon frame.",
+  "alt_to": [],
+  "also_known_as": [
+    "platform stick walls",
+    "2x4 16 OC walls",
+    "conventional wall framing"
+  ],
+  "how_it_is_done": [
+    "Floor done. Walls start only after the platform/subfloor is in (Carpentry 16.1; AF&PA Platform).",
+    "Layout. Lead carpenter chalks walls. Bottom plate flush with future sheathing edge (3.5 in in for 2x4, 5.5 in for 2x6). Cut plates; breaks over a stud. Tack top+bottom with 2–3 8d; mark openings/studs on both. Do not flip plates (Carpentry 16.2).",
+    "Cut list. Precut studs (often 92-5/8 in); headers, trimmers/jacks, kings, cripples, sills, corner posts / partition-T. Header habit folded here: header sits on jack/trimmer; king full-height beside the RO. Length RO+3 in (one jack/end, openings <6 ft) or RO+6 in (two jacks/end). Header must bear on all trimmers. Snug fit. Hanger class is c-P08-connector-class, not this method.",
+    "Assemble on deck. Spread plates ~8 ft. Two 16d through each plate into each stud. Opening nails Fig 16-22/23: king-to-header 4-16d; king-to-trimmer 10d @ 16 in o.c. (window) or 16d staggered 16 in o.c. (door). Keep edges flush. Header plies 16d @ 16 in o.c. edges/staggered; 2-16d near each end; 1/2 in spacer in a 2x4 wall.",
+    "Square (equal diagonals) before sheathing (Fig 16-24). Hold: wall assembled, flush, squared; corner brace ready.",
+    "Sheathe now or later. Flat = easier nailing, heavier lift — preferred. After raise = lighter lift, needs ladders. Vertical WSP, perimeter nailing; horizontal joints on blocking. Know BWL vs engineered shear before choosing sheathing nail spacing (D1).",
+    "Raise. By-walls then butt-walls. Pry + scrap blocks; rim-joist safety cleats; temp braces already nailed (one nail) so they swing in. Align to chalk. 16d @ 16 in o.c. staggered plate to floor (Carpentry). IRC BWP: 3-16d box @ 16 in o.c. or 1/2 in bolts (IRC Guide §2.4) — stricter BWP sole, not D4 header.",
+    "Plumb and line. Corners on two faces; string + 3/4 in blocks. Leave braces until roof/ceiling is on and sheathing is on. Door sole / kerf cut AFTER raise. Do not cut door sole early.",
+    "Interiors after exteriors are plumbed: longest center partition out (Fig 16-31). Double top plate after plumb/line. Laps corners and intersecting bearing partitions (Figs 16-29/30; AF&PA). 10d @ 16 in o.c. staggered; laps 2-16d each (Carpentry). AF&PA 2x4 normally 16 in o.c."
+  ],
+  "sequence_before": [
+    "P07",
+    "m-P07-i-joist",
+    "m-P07-sawn",
+    "m-P07-floor-truss",
+    "m-P05-slab"
+  ],
+  "sequence_after": [
+    "P09",
+    "m-P08-bwl-wsp"
+  ],
+  "can_overlap_with": [
+    "m-P08-bwl-wsp"
+  ],
+  "trades": [
+    "framing subcontractors (ch16 names lead carpenter + apprentice for layout and several carpenters to raise — not a headcount; AF&PA names job foreman, subcontractors, building inspector)"
+  ],
+  "crew_notes": "Gap gap-crew-counts. ch16 names lead carpenter + apprentice for layout and several carpenters to raise a wall — that is NOT a headcount. Do not invent.",
+  "tools_equipment": "Named in ch16: story pole; prybar; 2x4 scraps; 2x4 rim cleats; temporary 2x4/2x6 braces; plumb bob + gauge blocks; 8-ft level; string + 3/4 in blocks. Not a SKU list.",
+  "inspection_hold_points": [
+    "Square by equal diagonals before sheathing (ch16).",
+    "Door bottom plate uncut until after raise (ch16).",
+    "Temporary braces ready before tilt; stay until ceiling/roof AND exterior sheathing exist (ch16).",
+    "Header bears on all trimmers; RO+3 / RO+6 (D4).",
+    "Double top plate last unless D2 single-plate conditions are met.",
+    "BWLs/methods on drawings before permit when this house uses IRC bracing (ABTG) — see m-P08-bwl-wsp."
+  ],
+  "material_classes": [
+    "2x4 studs",
+    "2x plates",
+    "built-up 2x headers",
+    "1/2 in plywood spacer",
+    "16d nails",
+    "10d nails",
+    "8d nails",
+    "WSP sheathing (plywood/OSB)",
+    "LVL / solid 4x headers"
+  ],
+  "typical_duration_sfr": "unknown — not in sources",
+  "when_this_beats_habit": "This is the habit. 24 in 2x6 is the documented ALT when the IRC story/height tables allow it (m-P08-advanced-24oc-2x6).",
+  "when_this_is_a_bad_idea": "Treating Glencoe 8d@3 as BWL habit (D1). Cutting the door kerf before raise. Gluing wall panels (APA). Mixing Simpson no-trimmer hangers into this sit-on-jack sequence. Balloon frame is legacy (AF&PA), not this method. SIP/panelized/stairs not this method.",
+  "why_tier1_never_learned_it": "They did — this is the carpentry habit. What they skip is square-before-sheathing, door plate after raise, and 6/12 bracing vs 8d@3.",
+  "permit_gate": "should be on drawings before permit",
+  "permit_gate_notes": "16 vs 24 OC and header/jack counts are permit-gate. Engineer when IRC/WFCM tables fail. Confirm with AHJ / engineer.",
+  "risk_if_swapped_late": "16 OC 2x4 vs 24 OC 2x6 after permit changes stud pack, plates, headers, sheathing nail class, and in-line rules. Catch before permit.",
+  "sophistication_needed": 1,
+  "plain_language_summary": "This is how most houses get walls: 2x4s at 16 inches, plates on the deck, header sits on the jacks. Header is about the rough opening plus 3 inches if you have one jack each side, plus 6 if two jacks — and it has to sit on every jack. Square the wall before you sheathe. Do not cut the door plate until the wall is up. Double plate last. Sheathing nails for bracing are 6 and 12, not 8d every 3 inches.",
+  "spanish_summary": "Asi se arman las paredes de siempre: 2x4 a 16 pulgadas, placas en la plataforma, dintel sobre los jack. El dintel es el hueco mas 3 pulgadas con un jack por lado, mas 6 con dos — y tiene que apoyar en todos. Cuadre antes de forrar. No corte la placa de la puerta hasta levantar. Doble placa al final. Clavos de riostra 6 y 12, no 8d a cada 3 pulgadas.",
+  "scribd_sources": [
+    "src-glencoe-ch16",
+    "src-afpa-details",
+    "src-apa-e30x"
+  ],
+  "locators": [
+    "Glencoe ch16 §16.1–16.3; Figs 16-3, 16-20, 16-22, 16-23",
+    "AF&PA Details: Exterior Wall Framing; headers 3 ft / 6 ft stud rules",
+    "APA E30X: 1/8 in gaps; do not glue wall panels"
+  ],
+  "constraints": [
+    "c-P08-D1-shear-vocabulary",
+    "c-P08-D2-double-vs-single-top-plate",
+    "c-P08-D3-16-vs-24",
+    "c-P08-D4-header-3ft-vs-6ft",
+    "c-P08-connector-class"
+  ],
+  "confidence": "high",
+  "confidence_notes": "ch16 10-step sequence + nail table high. Header RO+3/RO+6 habit; AF&PA 3 ft/6 ft kept as D4 variants. No crew count.",
+  "open_gaps": [
+    "gap-crew-counts",
+    "gap-sop-labor-crew",
+    "gap-sop-build-size-alts",
+    "gap-P08-panelized-sip-remodel",
+    "gap-inspector-fail-list-unsourced",
+    "Gap — book did not name a fail item",
+    "gap-P08-walkthrough-2x4-16oc"
+  ],
+  "remodel_note": "ch16 names metal brackets as a remodel option (Fig 16-21); no remodel tie-in procedure. Gap, do not invent. Simpson hangers are CLASS not habit.",
+  "last_updated": "2026-08-30",
+  "fastener_schedule": [
+    {
+      "what": "stud to plate (through plate, wall on deck)",
+      "size": "16d",
+      "pattern": "two through each plate into each stud",
+      "oc": null,
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "ch16 §16.3"
+    },
+    {
+      "what": "stud to plate (toenail if plate already down)",
+      "size": "8d",
+      "pattern": "two toenails",
+      "oc": null,
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "ch16 door B"
+    },
+    {
+      "what": "cripple toenail to header/sill",
+      "size": "8d",
+      "pattern": "four, two per side",
+      "oc": null,
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "ch16 window/door A"
+    },
+    {
+      "what": "king/full stud to header",
+      "size": "16d",
+      "pattern": "four each side",
+      "oc": null,
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "ch16 B"
+    },
+    {
+      "what": "trimmer (jack) to king",
+      "size": "16d",
+      "pattern": "staggered",
+      "oc": "16 in OC",
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "ch16 C"
+    },
+    {
+      "what": "lower sill into cripple ends",
+      "size": "10d",
+      "pattern": "two",
+      "oc": null,
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "ch16 D"
+    },
+    {
+      "what": "double rough sill plies",
+      "size": "10d",
+      "pattern": "staggered",
+      "oc": "8 in OC",
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "ch16 E"
+    },
+    {
+      "what": "sill ends through trimmer",
+      "size": "16d",
+      "pattern": "two each end",
+      "oc": null,
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "ch16 F"
+    },
+    {
+      "what": "built-up 2x header plies",
+      "size": "16d",
+      "pattern": "two near each end, stagger; 1/2 in plywood spacer to 3-1/2 in in a 2x4 wall",
+      "oc": "16 in OC stagger",
+      "edge_distance": null,
+      "end_distance": "two near each end",
+      "source": "ch16 Fig 16-20"
+    },
+    {
+      "what": "double plate to top plate",
+      "size": "10d",
+      "pattern": "staggered; two 16d each end lap; joints >=4 ft from lower-plate joints",
+      "oc": "16 in OC",
+      "edge_distance": null,
+      "end_distance": "two 16d each end lap",
+      "source": "ch16 §16.3"
+    },
+    {
+      "what": "bottom plate to floor (whole plate carpentry habit)",
+      "size": "16d",
+      "pattern": "staggered",
+      "oc": "16 in OC",
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "ch16 §16.3. At BWPs follow ABTG 3-16d box @ 16 in OC (stricter)."
+    },
+    {
+      "what": "plates tacked for layout",
+      "size": "8d",
+      "pattern": "tack top+bottom together for layout",
+      "oc": null,
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "ch16 §16.2"
+    }
+  ],
+  "tools": [
+    "story pole",
+    "prybar",
+    "2x4 scraps",
+    "2x4 rim cleats",
+    "temporary 2x4/2x6 braces",
+    "plumb bob",
+    "gauge blocks",
+    "8-ft level",
+    "string line",
+    "3/4 in blocks"
+  ],
+  "labor": {
+    "crew": null,
+    "certs": [
+      "PE when IRC/WFCM tables fail"
+    ],
+    "gap": "gap-crew-counts",
+    "named_not_headcount": "ch16 lead carpenter + apprentice for layout; several carpenters to raise — not a headcount"
+  },
+  "labor_notes": "Do not invent crew counts. AF&PA names job foreman, subcontractors, building inspector. Special inspector not named for this habit.",
+  "layering": [
+    "Header length approx RO+3 in (1 trimmer/end, typically <6 ft) or RO+6 in (2 trimmers, typically >=6 ft). Must bear on all trimmers.",
+    "Built-up 2x header: 1/2 in plywood spacer to 3-1/2 in in a 2x4 wall.",
+    "APA: 1/8 in gap at sheathing edges/ends; do not glue wall panels.",
+    "Door kerf AFTER raise.",
+    "Double-plate joints >=4 ft from lower-plate joints; laps corners and intersecting partitions.",
+    "Temporary braces below top of plate until ceiling/roof AND exterior sheathing exist.",
+    "Slab bolts within 12 in of each plate end (ch16)."
+  ],
+  "build_size_alts": "not in sources",
+  "code_to_check": [
+    "IRC R602.10 (named) for bracing that goes on these walls — confirm with AHJ / engineer.",
+    "Adopted header/jack tables when they conflict with the carpentry 6-ft rule of thumb (D4). Confirm with AHJ / engineer.",
+    "APA wall-sheathing 1/8 in gaps; do not glue. Confirm with AHJ / engineer."
+  ],
+  "time_money": "LVL/solid 4x named as time-savers vs built-up 2x + spacer. Sheathing while flat is easier nailing, heavier lift; after tilt is lighter. No dollars in sources. 16 vs 24 is a permit-gate swap, not a field save.",
+  "walkthroughs": [],
+  "images": [
+    {
+      "path": "kb/images/m-P08-stick-16oc-2x4/ch16-fig-16-20-headers.png",
+      "caption": "Built-up 2x header: 1/2 in plywood spacer to 3-1/2 in in a 2x4 wall; 16d two near each end, stagger 16 in OC (ch16 Fig 16-20). Header must bear on all trimmers (RO+3 one jack/end typically <6 ft; RO+6 two jacks typically >=6 ft)."
+    },
+    {
+      "path": "kb/images/m-P08-stick-16oc-2x4/ch16-fig-16-3-framed-wall.png",
+      "caption": "Framed wall members at 16 in o.c.: bottom/top/double top plates, king/trimmer/cripple, header on jacks (Carpentry Fig 16-3, printed p 433 / PDF p 6). Double top plate laps. Hold: square + corner brace before the wall stands."
+    },
+    {
+      "path": "kb/images/m-P08-stick-16oc-2x4/ch16-fig-16-22-23-window-door-nails.png",
+      "caption": "Window/door nail table (Carpentry Fig 16-22/23, printed p 449 / PDF p 22): king-to-header 4-16d; king-to-trimmer 10d @ 16 in o.c. (window) or 16d staggered 16 in o.c. (door); door sole cut after erect."
+    }
+  ],
+  "inspector_looks_for": [
+    "Square by equal diagonals before sheathing (ch16).",
+    "Door bottom plate uncut until after raise (ch16).",
+    "Temporary braces ready before tilt; stay until ceiling/roof AND exterior sheathing exist (ch16).",
+    "Header bears on all trimmers; RO+3 / RO+6 (D4).",
+    "Double top plate last unless D2 single-plate conditions are met.",
+    "BWLs/methods on drawings before permit when this house uses IRC bracing (ABTG) — see m-P08-bwl-wsp."
+  ],
+  "inspector_fails": [],
+  "common_messups": [],
+  "do_not_cheap": [
+    "Header sits on jacks / trimmers (hold + layering + SOP). Length approx RO+3 in (1 trimmer/end, typically <6 ft) or RO+6 in (2 trimmers, typically ≥6 ft). Must bear on all trimmers.",
+    "Built-up 2x header: 1/2 in plywood spacer to 3-1/2 in in a 2x4 wall (layering).",
+    "APA: 1/8 in gap at sheathing edges/ends; do not glue wall panels (layering).",
+    "Door kerf AFTER raise (hold + layering).",
+    "Temporary braces below top of plate until ceiling/roof AND exterior sheathing exist (hold + layering).",
+    "Slab bolts within 12 in of each plate end (layering, ch16).",
+    "Permit gate: 16 vs 24 OC and header/jack counts on drawings.",
+    "Sheathing nails for bracing live on m-P08-bwl-wsp — habit is 6/12, not 8d@3."
+  ],
+  "smart_save": [
+    "LVL/solid 4x named as time-savers vs built-up 2x + spacer. Sheathing while flat is easier nailing, heavier lift; after tilt is lighter. No dollars in sources. 16 vs 24 is a permit-gate swap, not a field save.",
+    "Late swap: 16 OC 2x4 vs 24 OC 2x6 after permit changes stud pack, plates, headers, sheathing nail class, and in-line rules. Catch before permit."
+  ],
+  "sop_gap_note": "inspector_fails and common_messups unsourced. bible/inspectors.html is book hold points, not a stamp. See gap-inspector-fail-list-unsourced. Do not invent correction-notice language."
+}

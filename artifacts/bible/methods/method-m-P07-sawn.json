@@ -1,0 +1,231 @@
+{
+  "id": "m-P07-sawn",
+  "type": "Method",
+  "practice_id": "pr-P07-sawn",
+  "practice_name": "Sawn-lumber floor structure (SFR)",
+  "phase_id": "P07",
+  "building_types": [
+    "bt-sfr-new",
+    "bt-sfr-remodel",
+    "bt-adu"
+  ],
+  "tier": "A",
+  "is_habit": false,
+  "habit_or_alt": "alt",
+  "habit_scope": "traditional / IRC-table path (AF&PA Platform Frame; HUD RSDG §§1.1, 5.4.2). Still fully legal. Volume habit is I-joist (D4).",
+  "alt_to": [
+    "m-P07-i-joist"
+  ],
+  "also_known_as": [
+    "solid-sawn joists",
+    "2x8/10/12 floor",
+    "platform-frame sawn floor"
+  ],
+  "how_it_is_done": [
+    "Sill/anchors on the cured wall (AF&PA Sills; ORNL notes 11, 13, 31). Embed D2 follow adopted code (c-P05-D2-sill-bolt-embed).",
+    "Girders: solid, built-up nailed, or glulam (AF&PA Beams); steel W house beam / flitch / box beam as girder alts (HUD §5.4.3) — girder only, not a floor habit. Bar joists rejected. D5: AF&PA two rows 20d at 32 in o.c. vs HUD 10d staggered 12 in o.c. Keep both; do not mix on one beam; follow NDS/IRC (c-P07-D5-girder-nailing). Joints over supports; adjacent joints ≥16 in apart (AF&PA). Bearing ≥4 in (AF&PA).",
+    "Joists crown up; two toenails or hangers. Bearing ≥1½ in on wood/metal, ≥3 in on masonry (AF&PA). Do not apply this 1½ in under I-joists (D10 is the I-joist rule).",
+    "Prefer framing into girder sides (ledger, hangers, or hangers to steel) vs sitting on top to reduce shrinkage stack (AF&PA). Platform frame: first-floor joists fully sheathed, then walls tilt up (AF&PA Fig 1) — all four sources agree platform is the erection method.",
+    "Rim/band nailing. Openings: double trimmer/header when header >4 ft; hangers when header >6 ft or tails >12 ft (AF&PA).",
+    "Bridging D3 / c-P07-D3-sawn-bridging: skip intermediate bridging if subfloor and band are well nailed unless depth/thickness >6 or twisting is a known problem (then 8 ft, 1x4 or solid 2x) vs HUD NAHB 1961 negligible for 2x6–2x12 with panel subfloor, NDS 4.4.1 still ≤8 ft on 2x10/2x12. Keep both. Not a separate method. Does not apply to I-joists.",
+    "Sawn hole/notch rules only (AF&PA Notching): no holes/notches in middle third; outer-third notch ≤1/6 depth; end notch ≤1/4; hole ≤1/3 depth and ≥2 in from edges. Do not mix with I-joist web-hole tables.",
+    "Subfloor: panels long way across joists, continuous ≥2 spans, ~1/8 in gap (AF&PA Sub-flooring). T&G 5/8 or 3/4 typical (HUD §5.4.4). Glue + nails recommended by AF&PA (squeaks) and HUD (stiffness) — not the PJI catalog-span requirement. Fastener grid 6 in edge / 12 in field (HUD Table 5.5). IRC/sawn tables ~L/360 live (HUD Table 5.4).",
+    "Crawl clearances 12 in earth-to-girder, 18 in earth-to-joist (AF&PA). Floor in before significant basement backfill (HUD §4.5)."
+  ],
+  "sequence_before": [
+    "P05",
+    "m-P05-basement-cip-cmu",
+    "m-P05-crawl",
+    "m-P05-pwf"
+  ],
+  "sequence_after": [
+    "P08",
+    "P05-significant-basement-backfill"
+  ],
+  "can_overlap_with": [],
+  "trades": [
+    "framing subcontractors (AF&PA names subcontractors / job foreman / inspector — no crew size)"
+  ],
+  "crew_notes": "not in sources; Gap gap-crew-counts",
+  "tools_equipment": "Not a tool list in sources. Named: hangers as an opening/girder option (AF&PA).",
+  "inspection_hold_points": [
+    "Grade-marked lumber (AF&PA).",
+    "Sawn hole/notch rules — do not use I-joist tables.",
+    "Girder nail schedule is one schedule per beam (D5).",
+    "Floor in before significant basement backfill (HUD §4.5)."
+  ],
+  "material_classes": [
+    "sawn joists",
+    "subfloor panels",
+    "joist hangers",
+    "construction adhesive (APA AFG-01 class)",
+    "sill plate treated",
+    "anchor bolts"
+  ],
+  "typical_duration_sfr": "unknown — not in sources",
+  "when_this_beats_habit": "Still the IRC-table path when the job wants any lumberyard stock, no proprietary ESR, or conventional spans. Legal everywhere these books reach. Not the volume habit (D4).",
+  "when_this_is_a_bad_idea": "Long spans / fewer interior bearings — that is the floor-truss alt. Mixing I-joist hole or bearing rules. SOG South — no joist package. Balloon frame is legacy (AF&PA Balloon; HUD §1.1), not this method. Plank-and-beam points to AF&PA WCD 4, not detailed here — not a Method.",
+  "why_tier1_never_learned_it": "They learned it — it is the old habit. What changed is volume share, not legality.",
+  "permit_gate": "should be on drawings before permit",
+  "permit_gate_notes": "Sawn vs I-joist is a permit-gate framing choice. Engineer when tables fail (HUD).",
+  "risk_if_swapped_late": "Sawn vs I-joist after permit changes spans, hangers, hole rules, and subfloor glue spec. Catch before permit.",
+  "sophistication_needed": 1,
+  "plain_language_summary": "Regular 2x joists, still in the code tables. Crown up, sit them 1½ inches on wood, do not notch the middle third. Bridging is optional or at 8 feet depending which book you follow — do not fight it on the job, pick one. This is not the volume floor anymore, but it is still legal. Do not use these hole rules on I-joists.",
+  "spanish_summary": "Viguetas de 2x de siempre, todavía en las tablas del código. Corona arriba, 1½ pulgadas de apoyo en madera, sin recortes en el tercio de en medio. El bridging o se omite o va a 8 pies según el libro — no mezcle. Ya no es lo que más se usa, pero es legal. No aplique estas reglas de huecos a las viguetas en I.",
+  "scribd_sources": [
+    "src-afpa-details",
+    "src-hud-rsdg"
+  ],
+  "locators": [
+    "AF&PA Details: Platform Frame; Sills; Beams; Bridging; Notching; Sub-flooring; openings",
+    "HUD RSDG §§1.1, 5.3, 5.4.2, 5.4.3, Table 5.4, Table 5.5"
+  ],
+  "constraints": [
+    "c-P07-D3-sawn-bridging",
+    "c-P07-D5-girder-nailing",
+    "c-P07-D10-bearing-split",
+    "c-P07-no-joists-on-sog"
+  ],
+  "confidence": "high",
+  "confidence_notes": "AF&PA + HUD sequence and hole/notch rules high. D3/D5 kept as variants, not winners.",
+  "open_gaps": [
+    "gap-crew-counts",
+    "gap-P07-methods-unsourced",
+    "gap-sop-labor-crew",
+    "gap-sop-build-size-alts",
+    "gap-sop-irc-section-numbers",
+    "gap-inspector-fail-list-unsourced",
+    "Gap — book did not name a fail item"
+  ],
+  "remodel_note": "Remodel extras (matching, occupied-site, shoring) not in these four books — Gap, do not invent remodel-only methods.",
+  "last_updated": "2026-08-30",
+  "fastener_schedule": [
+    {
+      "what": "sill anchor bolts",
+      "size": "1/2 in",
+      "pattern": "through treated sill into wall (CIP/CMU, crawl wall, or slab stem/edge)",
+      "oc": "~6 ft o.c.",
+      "edge_distance": "≤1 ft from corners",
+      "end_distance": "≤1 ft from corners",
+      "source": "ORNL notes 13/31; AF&PA Sills. Embed D2 both variants (AF&PA ≥6 in CIP / ≥15 in block vs ORNL most codes ≥7 in / some 15 in masonry for uplift) — follow AHJ. Do not pick a winner."
+    },
+    {
+      "what": "joist-to-bearing toenails or hangers",
+      "size": "not named in extract (two toenails or hangers)",
+      "pattern": "two toenails or hangers",
+      "oc": null,
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "AF&PA"
+    },
+    {
+      "what": "built-up girder face nails (AF&PA D5 variant)",
+      "size": "20d",
+      "pattern": "two rows; plies vertical; joints over supports; adjacent joints ≥16 in apart",
+      "oc": "32 in o.c.",
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "AF&PA Beams. D5 — do not mix with HUD 10d/12 on one beam. Follow NDS/IRC."
+    },
+    {
+      "what": "built-up girder face nails (HUD D5 variant)",
+      "size": "10d",
+      "pattern": "staggered; butts at/near supports, staggered plies",
+      "oc": "12 in o.c.",
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "HUD §5.4.3. D5 — do not mix with AF&PA 20d/32 on one beam. Follow NDS/IRC."
+    },
+    {
+      "what": "subfloor panel fasteners",
+      "size": "not named in extract (grid only; no brand)",
+      "pattern": "panels long way across supports, ≥2 spans",
+      "oc": "6 in edge / 12 in field",
+      "edge_distance": "6 in o.c. at panel edges",
+      "end_distance": null,
+      "source": "HUD Table 5.5"
+    }
+  ],
+  "tools": [
+    "joist hangers"
+  ],
+  "labor": {
+    "crew": null,
+    "certs": [
+      "PE when IRC/HUD tables fail"
+    ],
+    "gap": "gap-crew-counts"
+  },
+  "labor_notes": "Licensed applicator for termiticide is not named in the four books (termiticide itself is). Special inspector is not named. Crew counts: gap-crew-counts.",
+  "layering": [
+    "Sawn bearing ≥1½ in on wood/metal, ≥3 in on masonry (AF&PA). D10 — do not apply 1½ in under I-joists.",
+    "Subfloor ~1/8 in gap (AF&PA Sub-flooring).",
+    "Crawl clearances 12 in earth-to-girder, 18 in earth-to-joist (AF&PA).",
+    "Sawn hole/notch: no holes/notches in middle third; outer-third notch ≤1/6 depth; end notch ≤1/4; hole ≤1/3 depth and ≥2 in from edges (AF&PA). Do not mix with I-joist tables."
+  ],
+  "build_size_alts": "not in sources",
+  "code_to_check": [
+    "HUD RSDG is an IRC companion. Confirm with AHJ / engineer. HUD prints no R502/R503 for floors (gap-sop-irc-section-numbers). Do not invent R502.",
+    "NDS 4.4.1 still wants ≥8 ft bridging on 2x10/2x12 (HUD §5.4.2 D3). Confirm with AHJ / engineer.",
+    "APA AFG-01 glue recommended by AF&PA/HUD (squeaks/stiffness) — not the PJI catalog-span requirement. Confirm with AHJ / engineer."
+  ],
+  "time_money": "I-joist vs sawn is a permit-gate framing choice. Hole/notch and bearing rules do not swap between the two. No dollars in sources.",
+  "walkthroughs": [
+    {
+      "url": "https://www.youtube.com/watch?v=iOh2kBY1RIU",
+      "title": "How to Frame a Floor for a House | Step-by-Step for Beginners!",
+      "channel": "The Excellent Laborer",
+      "platform": "youtube",
+      "duration_or_pages": "56:25",
+      "what_it_shows": "Field sawn house floor: 2x10, crown up, hangers, glue, 6/12. 1½ in end-bearing is unspoken. Not a deck.",
+      "timestamp_if_any": null,
+      "flags": [
+        "field",
+        "1½ in bearing is NOT spoken",
+        "not a deck",
+        "from cw-P07-leftover-2026-08-30"
+      ]
+    }
+  ],
+  "images": [
+    {
+      "path": "kb/images/m-P07-sawn/afpa-fig-17-built-up-girder-20d-32oc.png",
+      "caption": "Built-up girder AF&PA schedule: 20d two rows 32 in o.c. (AF&PA Fig 17). D5 vs HUD 10d stagger 12 in o.c. — do not mix on one beam."
+    },
+    {
+      "path": "kb/images/m-P07-sawn/afpa-fig-18-joist-end-bearing.png",
+      "caption": "Sawn joist end bearing: ≥1½ in on wood/metal, ≥3 in on masonry (AF&PA Fig 18). D10 — not for I-joists."
+    },
+    {
+      "path": "kb/images/m-P07-sawn/afpa-fig-28-sawn-notch-hole-rules.png",
+      "caption": "Sawn notch/hole rules: no holes/notches in middle third; outer-third notch ≤1/6 depth; end notch ≤1/4; hole ≤1/3 depth and ≥2 in from edges (AF&PA Fig 28). Do not mix with I-joist tables."
+    },
+    {
+      "path": "kb/images/m-P07-sawn/afpa-fig-16-sill-anchor-bolts.png",
+      "caption": "Treated sill: 1/2-in anchor bolts ~6 ft o.c., ≤1 ft from corners (AF&PA Fig 16). Embed D2 — follow AHJ."
+    }
+  ],
+  "inspector_looks_for": [
+    "Grade-marked lumber (AF&PA).",
+    "Sawn hole/notch rules — do not use I-joist tables.",
+    "Girder nail schedule is one schedule per beam (D5).",
+    "Floor in before significant basement backfill (HUD §4.5).",
+    "Fasteners named: sill 1/2-in bolts; two toenails or hangers (size not named); built-up girder D5 AF&PA 20d / 32 vs HUD 10d / 12 — do not mix; subfloor 6 in edge / 12 in field (HUD Table 5.5)."
+  ],
+  "inspector_fails": [],
+  "common_messups": [],
+  "do_not_cheap": [
+    "Sawn bearing ≥1½ in on wood/metal, ≥3 in on masonry (layering). D10 — do not apply 1½ in under I-joists.",
+    "Sawn hole/notch: no holes/notches in middle third; outer-third notch ≤1/6 depth; end notch ≤1/4; hole ≤1/3 depth and ≥2 in from edges (hold + layering). Do not mix with I-joist tables.",
+    "Subfloor ~1/8 in gap (layering). Grid 6/12 (fastener).",
+    "Crawl clearances 12 in earth-to-girder, 18 in earth-to-joist (layering).",
+    "Floor in before significant basement backfill (hold).",
+    "Permit gate: sawn vs I-joist on drawings before permit.",
+    "No joist truck on Fontana SOG."
+  ],
+  "smart_save": [
+    "I-joist vs sawn is a permit-gate framing choice. Hole/notch and bearing rules do not swap between the two. No dollars in sources.",
+    "Late swap: sawn vs I-joist after permit changes spans, hangers, hole rules, and subfloor glue spec. Catch before permit."
+  ],
+  "sop_gap_note": "inspector_fails and common_messups unsourced. bible/inspectors.html is book hold points, not a stamp. See gap-inspector-fail-list-unsourced. Do not invent correction-notice language."
+}

@@ -1,0 +1,237 @@
+{
+  "id": "m-P12-mep-rough",
+  "type": "Method",
+  "practice_id": "pr-P12-mep-rough",
+  "practice_name": "MEP rough (SFR)",
+  "phase_id": "P12",
+  "building_types": [
+    "bt-sfr-new",
+    "bt-sfr-remodel",
+    "bt-adu"
+  ],
+  "tier": "A",
+  "is_habit": true,
+  "habit_or_alt": "habit",
+  "habit_scope": "Hold points for plumbing/electrical/HVAC rough after framing and windows, before insulation and drywall. 2-story light-wood. Not a how-to for the trades. CMHC Ch2+19+20. Notching limits are the carpenter hold.",
+  "alt_to": [],
+  "also_known_as": [
+    "rough-in",
+    "MEP top-out / electric rough / HVAC rough"
+  ],
+  "how_it_is_done": [
+    "CMHC Ch2 sequence: after Doors and Windows comes Plumbing, Heating and Electrical Rough-In. Then Insulation, Air and Vapour Barriers. Exterior finishes can overlap insulation if protected from rain. About two weeks is the Canadian sample — not a headcount. No lag days invented. (Ch2 printed 21)",
+    "Plumbing (Ch19): begins after framing is complete. Roughing-in = vents, drains, and hot/cold piping that will be enclosed, plus the bathtub (tub before wall finish). Fixtures and accessories AFTER interior finish (that leftover is P16). 140 mm (6 in) stud partitions when the soil stack continues to another floor (Figs 151, 154). Horizontal soil stacks: headers between joists or a bulkhead (Fig 156) — do not sawzall the joists around them.",
+    "Electrical (Ch19): wiring usually after the house is enclosed. Roughing-in = wiring and boxes for switches, lights, outlets. Before inside finish and usually before insulation. Devices/plates after interior finish and painting (P16). 2-story: three-way switches at top and bottom of the stair. Smoke alarms hard-wired, in or near each bedroom on each storey including basements, on or near the ceiling — boxes in the rough; devices at trim. Airtight boxes in insulated exterior walls and ceilings. Switch height 1.4 m (4 ft 6 in) is CMHC Canadian — US device heights stay a Gap. Confirm AHJ.",
+    "HVAC (Ch20): qualified mechanical contractor. Map furnace, venting, supply/return trunks during framing to cut less later. Rough the ducts/piping. Combustion-air hole in foundation/rim/exterior wall as needed. Equipment set is P16. Keep construction drywall dust out of ductwork (Ch20 insight).",
+    "NOTCHING CMHC (carpenter hold, Ch19 Figs 148–150): never notch the underside of a joist. Upper-side notches near ends: within 1/2 joist depth of the bearing, depth ≤1/3 joist depth. Elsewhere on top: use a deeper joist so net depth ≥ required. Holes ≤1/4 joist depth, ≥50 mm (2 in) from either edge. I-joist flanges and truss chords/webs: do not notch or cut; manufacturer. Roof trusses: cannot be notched or drilled. Load-bearing studs notched/drilled >1/3 depth: reinforce with 38 mm (2 in nom) lumber nailed to the side, extending ≥600 mm (24 in) each side. Partition remaining ≥40 mm (1-9/16 in) need not be reinforced; bearing remaining ≥2/3 depth need not. Top plates in bearing walls: reinforce with 38 mm (2 in nom) if remaining solid wood <50 mm (2 in). Sheet metal may protect plumbing/electrical from gypsum fasteners. Holes closer than 30 mm (1-1/4 in) to a stud edge: metal protection plates (Fig 159). Penny not printed.",
+    "NOTCHING HUD / AF&PA US sawn VARIANT (already filed P07 — keep both, do not mix on one member): HUD RSDG §5.3.1 holes ≤1/3 member depth, along the center line. AF&PA Fig 28: no holes/notches in middle third; outer-third notch ≤1/6 depth; end notch ≤1/4; hole ≤1/3 depth and ≥2 in from edges. Confirm AHJ. One member, one table.",
+    "Wherever plumbing reduces insulation or cuts an air barrier: extra exterior insulation and keep the air barrier continuous (Ch19). Airtight electrical boxes in insulated exterior walls and ceilings (Ch19).",
+    "HUD RSDG OPENED: not a rough-in SOP (loads) — 1/3-hole is the US sawn variant above. Essential Guide OPENED: I-joist boring/notching is a framing book — already P07; drywall named as load/fire-stop, not a P12 hole chart. FM 5-426 OPENED: silent on MEP rough (names drywall hang in Ch 9 — that is P14)."
+  ],
+  "sequence_before": [
+    "P10",
+    "P08",
+    "P09",
+    "m-P10-windows-wrb-flashing"
+  ],
+  "sequence_after": [
+    "P13",
+    "m-P13-batt-air-seal"
+  ],
+  "can_overlap_with": [
+    "P11",
+    "m-P11-siding-over-wrb"
+  ],
+  "trades": [
+    "plumber",
+    "electrician",
+    "heating / mechanical contractor",
+    "building official (plumbing, heating, electrical rough-in inspection — CMHC Ch2 Fig 2)"
+  ],
+  "crew_notes": "Gap gap-crew-counts. Ch2: this work takes about two weeks — Canadian sample, not a headcount.",
+  "tools_equipment": "Trades' tools. Carpenter: reinforcing lumber; nail plates CLASS. Not a SKU list.",
+  "inspection_hold_points": [
+    "Rough-in before insulation and before interior finish (Ch2/Ch19).",
+    "Bathtub in before wall finish (Ch19).",
+    "Building official inspects completed plumbing, electrical and mechanical systems (Ch2). Fig 2: Plumbing, Heating and Electrical Rough-In Inspection. No skip-inspection.",
+    "Never notch joist underside. Hole ≤1/4 depth, ≥2 in from edges. I-joist/truss: manufacturer / no cuts (Ch19).",
+    "Airtight boxes in exterior walls/ceilings (Ch19)."
+  ],
+  "material_classes": [
+    "DWV / water piping CLASS (trade)",
+    "electrical cable and boxes CLASS",
+    "airtight electrical boxes CLASS",
+    "ductwork CLASS",
+    "38 mm (2 in nom) reinforcing lumber for notched studs/plates",
+    "sheet-metal nail plates CLASS",
+    "bathtub (set at rough)"
+  ],
+  "typical_duration_sfr": "CMHC Ch2: about two weeks — Canadian sample. No lag days invented.",
+  "when_this_beats_habit": "This is the habit hold. Not a competing method.",
+  "when_this_is_a_bad_idea": "Insulating before rough inspection. Notching I-joist flanges. Skipping the bathtub until after drywall. Inventing IRC P-numbers.",
+  "why_tier1_never_learned_it": "They know rough-in. What they skip is the joist-underside never-notch and the inspection before insulation.",
+  "permit_gate": "MEP on drawings; trade permits as AHJ requires (Ch2 names plumbing/heating/electrical/gas permits — Canadian list, confirm AHJ)",
+  "permit_gate_notes": "CMHC Fig 2 permit list is Canadian. Confirm AHJ. No skip-inspection.",
+  "risk_if_swapped_late": "Moving baths/stacks after framing is a joist/wall cut. Catch in framing.",
+  "sophistication_needed": 2,
+  "plain_language_summary": "After the roof and windows, the plumber, electrician, and heat man rough the pipes, wires, and ducts. Tub in now. Do not notch the bottom of a joist. Do not cut I-joist flanges. Inspector looks before insulation. Fixtures wait until after paint.",
+  "spanish_summary": "Despues del techo y las ventanas, plomero, electricista y calor hacen el rough. Tina ahora. No recorte el fondo del joist. No corte alas de I-joist. Inspector antes del aislamiento. Fixtures despues de pintura.",
+  "scribd_sources": [
+    "src-cmhc-wood-frame",
+    "src-hud-rsdg",
+    "src-afpa-details"
+  ],
+  "locators": [
+    "CMHC Ch2 Fig 2 / Fig 4 printed 21 — rough-in then insulation; official inspects completed plumbing, electrical and mechanical",
+    "CMHC Ch19 notching Figs 148–150 printed 203–204; Fig 159 printed 211 nail plates 1-1/4 in; plumbing/electrical rough-in",
+    "CMHC Ch20 space heating layout during framing; drywall-dust insight",
+    "HUD RSDG §5.3.1 hole ≤1/3 depth center line — US sawn variant, already P07",
+    "AF&PA Fig 28 sawn hole/notch — already P07"
+  ],
+  "constraints": [],
+  "confidence": "high",
+  "confidence_notes": "Sequence and notching high. Trade fastener pennies not in the carpentry book — not invented. Canadian NBC labeled. HUD 1/3-hole kept as a variant, not mixed with CMHC 1/4-hole.",
+  "open_gaps": [
+    "gap-crew-counts",
+    "gap-inspector-fail-list-unsourced",
+    "gap-sop-irc-section-numbers",
+    "gap-P12-device-heights-us",
+    "gap-P12-pipe-wire-duct-sizes",
+    "gap-P12-walkthrough-flags"
+  ],
+  "remodel_note": null,
+  "last_updated": "2026-08-30",
+  "fastener_schedule": [
+    {
+      "what": "stud reinforcing beside a deep notch/hole",
+      "size": "38 mm (2 in nom) lumber nailed to the side (penny not printed)",
+      "pattern": "extend ≥600 mm (24 in) each side of the notch or hole",
+      "oc": null,
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "CMHC Ch19 Notching and Drilling of Studs"
+    },
+    {
+      "what": "bearing top plate reinforcing",
+      "size": "38 mm (2 in nom) lumber (penny not printed)",
+      "pattern": "when remaining solid wood in the plates <50 mm (2 in)",
+      "oc": null,
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "CMHC Ch19 Top Plates"
+    },
+    {
+      "what": "metal protection plate at a stud edge",
+      "size": "sheet-metal nail plate CLASS (penny not printed)",
+      "pattern": "when holes are closer than 30 mm (1-1/4 in) to the stud edge",
+      "oc": null,
+      "edge_distance": "30 mm (1-1/4 in) from stud edge triggers the plate",
+      "end_distance": null,
+      "source": "CMHC Ch19 Fig 159"
+    }
+  ],
+  "tools": [],
+  "labor": {
+    "crew": null,
+    "certs": [
+      "Confirm with AHJ / engineer. Licensed trades as required by AHJ. CMHC is Canadian NBC — not IRC."
+    ],
+    "gap": "gap-crew-counts",
+    "named_not_headcount": "Books name plumber, electrician, heating contractor, building official — not a headcount."
+  },
+  "labor_notes": "Licensed trades as AHJ requires. No crew count.",
+  "layering": [
+    "Framing + windows before rough. Rough before insulation and drywall.",
+    "Tub at rough.",
+    "Never notch joist underside. Holes CMHC ≤1/4 depth ≥2 in from edges OR HUD 1/3 center line — do not mix on one member.",
+    "I-joist/truss: manufacturer / no flange or web cuts.",
+    "Airtight boxes in exterior walls. Air barrier continuous at plumbing.",
+    "Nail plates when holes are closer than 1-1/4 in to a stud edge."
+  ],
+  "build_size_alts": "not in sources",
+  "code_to_check": [
+    "AHJ plumbing/electrical/mechanical. CMHC NBC — not IRC. Do not invent P/E/M section numbers. Confirm AHJ."
+  ],
+  "time_money": "About two weeks (CMHC Ch2 Canadian sample). No dollars. Plan ducts during framing to cut less later (Ch20).",
+  "walkthroughs": [
+    {
+      "url": "https://www.youtube.com/watch?v=y-rK8ZcxO7g",
+      "title": "Check In-Wall Before You Drywall: Spec House Build",
+      "channel": "AndrewBuilt",
+      "platform": "youtube",
+      "duration_or_pages": "9:05",
+      "what_it_shows": "Field spec house. HVAC then plumbing then electrical still open. Plumbing + HVAC inspector-approved. Before drywall. 2-story from sister 39aS9vDBSOA (bathtub upstairs), not spoken this cut. Do not invent IRC. No skip-inspection. Hunt cw-P12-2026-08-30. File IDs win; W4YozokJjOA is not a keeper.",
+      "timestamp_if_any": null,
+      "flags": [
+        "field",
+        "before drywall",
+        "2-story from sister not spoken",
+        "from cw-P12-2026-08-30"
+      ]
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=FNdH-lCZwEs",
+      "title": "Plumbing Top Out - Waste, Drain, and Vent Ep.88",
+      "channel": "Essential Craftsman",
+      "platform": "youtube",
+      "duration_or_pages": "31:58",
+      "what_it_shows": "Field 2-story Roseburg spec house DWV top-out. Tub trap in. Inspector water test. Nail plates CLASS after nail-through-pipe. Electrical/HVAC later EC cuts, not this keeper. Do not invent IRC. No skip-inspection. Hunt cw-P12-2026-08-30.",
+      "timestamp_if_any": null,
+      "flags": [
+        "field",
+        "2-story spec",
+        "tub at rough",
+        "inspector water test",
+        "from cw-P12-2026-08-30"
+      ]
+    }
+  ],
+  "images": [
+    {
+      "path": "kb/images/m-P12-mep-rough/cmhc-fig148-joist-notch.png",
+      "caption": "CMHC Fig 148 Example of notch limitations (printed p 203 / PDF p 222): top end-notch within 1/2 joist depth of bearing, depth ≤1/3 joist depth; never notch the underside. Canadian NBC — confirm AHJ."
+    },
+    {
+      "path": "kb/images/m-P12-mep-rough/cmhc-fig149-joist-holes.png",
+      "caption": "CMHC Fig 149 holes ≤1/4 joist depth, ≥50 mm (2 in) from either edge; Fig 150 partition remaining ≥40 mm (1-9/16 in), bearing remaining ≥2/3 or sister 38 mm ≥24 in each side (printed p 204 / PDF p 223). Do not mix 1/4-hole with HUD 1/3-hole on one member."
+    },
+    {
+      "path": "kb/images/m-P12-mep-rough/cmhc-fig159-nail-plates.png",
+      "caption": "CMHC Fig 159 (printed p 211 / PDF p 230): metal protection plate when holes are closer than 30 mm (1-1/4 in) to the stud edge. Penny not printed. Canadian NBC — confirm AHJ."
+    },
+    {
+      "path": "kb/images/m-P12-mep-rough/cmhc-fig2-rough-in-inspection.png",
+      "caption": "CMHC Fig 2 / Ch2: Plumbing, Heating and Electrical Rough-In Inspection after doors/windows, before insulation. Canadian NBC — confirm AHJ. No skip-inspection."
+    },
+    {
+      "path": "kb/images/m-P12-mep-rough/cmhc-fig150-stud-notch.png",
+      "caption": "CMHC Fig 150 (printed p 204): partition remaining ≥40 mm (1-9/16 in); bearing remaining ≥2/3 or sister 38 mm ≥24 in each side."
+    },
+    {
+      "path": "kb/images/m-P12-mep-rough/afpa-fig-28-sawn-notch-hole-rules.png",
+      "caption": "AF&PA Fig 28 (US conventional, already P07): no holes/notches in middle third; outer-third notch ≤1/6; end notch ≤1/4; hole ≤1/3 depth ≥2 in from edges. Keep both with CMHC 1/4-hole."
+    }
+  ],
+  "inspector_looks_for": [
+    "Rough-in complete before insulation (Ch2).",
+    "Tub in (Ch19).",
+    "No underside joist notches; CMHC hole ≤1/4 depth ≥2 in from edges (Figs 148–149) OR HUD/AF&PA 1/3-hole — one member, one table.",
+    "I-joist/truss uncut except manufacturer (Ch19).",
+    "Sisters on over-cut studs/plates; nail plates inside 1-1/4 in of a stud edge (Figs 150, 159).",
+    "Airtight boxes in exterior walls/ceilings (Ch19).",
+    "Plumbing/heating/electrical rough-in inspection (Fig 2). No skip-inspection."
+  ],
+  "inspector_fails": [],
+  "common_messups": [],
+  "do_not_cheap": [
+    "Inspection before insulation (Ch2 hold). No skip-inspection.",
+    "Never notch joist underside (Ch19).",
+    "I-joist flanges / truss webs not cut (Ch19 / P07).",
+    "Tub before wall finish (Ch19).",
+    "Airtight boxes in exterior walls (Ch19)."
+  ],
+  "smart_save": [
+    "Plan ducts during framing (Ch20) so you cut less later. No dollars."
+  ],
+  "sop_gap_note": "Trade fastener pennies not in this book. inspector_fails unsourced. Canadian NBC."
+}

@@ -41,13 +41,19 @@ function LayersPanel({ onClose }: { onClose?: () => void }) {
   const stop = useBim((s) => s.stopSequence);
   const seqT = useBim((s) => s.seqT);
   const sequenceOn = useBim((s) => s.sequenceOn);
+  const workMode = useBim((s) => s.workMode);
+  const stepIndex = useBim((s) => s.stepIndex);
+  const setStep = useBim((s) => s.setStep);
+  const nextStep = useBim((s) => s.nextStep);
+  const prevStep = useBim((s) => s.prevStep);
+  const enterLive = useBim((s) => s.enterLive);
   const filter = useBim((s) => s.treeFilter);
   const setFilter = useBim((s) => s.setTreeFilter);
   const showLabels = useBim((s) => s.showLabels);
   const setShowLabels = useBim((s) => s.setShowLabels);
   const focusKind = useBim((s) => s.focusKind);
   const setFocusKind = useBim((s) => s.setFocusKind);
-  const activePhase = sequenceOn
+  const activePhase = workMode === "step" ? BUILD_SEQUENCE[stepIndex] : sequenceOn
     ? BUILD_SEQUENCE[Math.min(BUILD_SEQUENCE.length - 1, Math.max(0, Math.floor(seqT)))]
     : null;
   const note = activePhase ? PHASE_NOTES[activePhase] : null;
@@ -153,8 +159,43 @@ function LayersPanel({ onClose }: { onClose?: () => void }) {
           onClick={() => (playing ? stop() : play())}
         >
           <Play className="size-3.5" />
-          {playing ? "Stop sequence" : "Play build sequence"}
+          {playing ? "Stop sequence" : "Play one step at a time"}
         </Button>
+        <div className="flex gap-1.5">
+          <Button variant="quiet" className="flex-1" onClick={prevStep} disabled={workMode === "step" && stepIndex <= 0}>
+            Prev
+          </Button>
+          <Button variant="quiet" className="flex-1" onClick={nextStep}>
+            {workMode === "step" && stepIndex >= BUILD_SEQUENCE.length - 1 ? "Live view" : "Next step"}
+          </Button>
+          <Button variant={workMode === "live" ? "outline" : "quiet"} className="flex-1" onClick={enterLive}>
+            <Eye className="size-3.5" />
+            Live
+          </Button>
+        </div>
+        <div className="flex flex-wrap gap-1">
+          {BUILD_SEQUENCE.map((id, i) => (
+            <button
+              key={id}
+              type="button"
+              onClick={() => setStep(i)}
+              className={cn(
+                "h-7 rounded px-1.5 font-mono text-[10px]",
+                workMode === "step" && i === stepIndex
+                  ? "bg-paper text-ink"
+                  : "text-paper-muted shadow-[var(--shadow-border)] hover:bg-paper/10",
+              )}
+              title={LAYER_META[id].label}
+            >
+              {LAYER_META[id].phase}
+            </button>
+          ))}
+        </div>
+        <p className="px-1 text-[10px] text-paper-muted">
+          {workMode === "live"
+            ? "Live vantage — only nearby pieces draw. [ ] steps · L live"
+            : `Working ${LAYER_META[BUILD_SEQUENCE[stepIndex]].phase} ${LAYER_META[BUILD_SEQUENCE[stepIndex]].label} only`}
+        </p>
       </div>
     </aside>
   );

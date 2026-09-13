@@ -1,8 +1,9 @@
 import * as THREE from "three";
 import { finishOf, tintedFinish, type Finish } from "./catalog";
+import { liteGpu } from "./gpu";
 import { mapsFor } from "./textures";
 
-const matCache = new Map<string, THREE.MeshStandardMaterial | THREE.MeshPhysicalMaterial>();
+const matCache = new Map<string, THREE.Material>();
 
 let white: THREE.DataTexture | null = null;
 function whiteTex() {
@@ -102,26 +103,47 @@ export function acquireMaterial(
   finish: Finish,
   plane: THREE.Plane,
   opts?: { wire?: boolean },
-): THREE.MeshStandardMaterial | THREE.MeshPhysicalMaterial {
-  const key = `${finish.id}|${finish.hex}|${opts?.wire ? "w" : "s"}|pbr4`;
+): THREE.MeshStandardMaterial | THREE.MeshPhysicalMaterial | THREE.MeshLambertMaterial | THREE.MeshBasicMaterial {
+  const key = `${finish.id}|${finish.hex}|${opts?.wire ? "w" : "s"}|${liteGpu ? "lite" : "pbr5"}`;
   const hit = matCache.get(key);
   if (hit) {
-    hit.clippingPlanes = [plane];
-    return hit;
+    if ("clippingPlanes" in hit) (hit as THREE.MeshBasicMaterial).clippingPlanes = [plane];
+    return hit as THREE.MeshStandardMaterial | THREE.MeshPhysicalMaterial | THREE.MeshLambertMaterial | THREE.MeshBasicMaterial;
+  }
+
+  if (liteGpu) {
+    const maps = mapsFor(finish.proc, finish.hex);
+    const transparent = finish.opacity < 0.99 || finish.proc === "glass";
+    const hasMap = Boolean(maps?.albedo) && finish.proc !== "glass" && finish.proc !== "metal";
+    const mat = new THREE.MeshLambertMaterial({
+      color: hasMap ? "#ffffff" : finish.hex,
+      map: hasMap ? maps!.albedo : null,
+      transparent,
+      opacity: finish.proc === "glass" ? 0.38 : finish.opacity,
+      depthWrite: !transparent,
+      side: transparent ? THREE.DoubleSide : THREE.FrontSide,
+      clippingPlanes: [],
+      wireframe: !!opts?.wire,
+      emissive: finish.proc === "glass" ? new THREE.Color(finish.hex) : new THREE.Color("#000000"),
+      emissiveIntensity: finish.proc === "glass" ? 0.12 : 0,
+    });
+    matCache.set(key, mat);
+    return mat;
   }
 
   if (finish.proc === "glass") {
     const glass = new THREE.MeshPhysicalMaterial({
       color: finish.hex,
-      roughness: 0.04,
-      metalness: 0.04,
-      transmission: 0.86,
-      thickness: 0.035,
+      roughness: 0.03,
+      metalness: 0.02,
+      transmission: 0.92,
+      thickness: 0.018,
       ior: 1.52,
+      specularIntensity: 1,
       transparent: true,
       opacity: 1,
       depthWrite: false,
-      envMapIntensity: 1.35,
+      envMapIntensity: 1.55,
       side: THREE.DoubleSide,
       clippingPlanes: [plane],
       clipShadows: true,
@@ -135,14 +157,20 @@ export function acquireMaterial(
 
   const maps = mapsFor(finish.proc, finish.hex);
   const transparent = finish.opacity < 0.99;
-  const mat = new THREE.MeshStandardMaterial({
+  const isWood = finish.proc === "wood" || finish.proc === "plank";
+  const isMetal = finish.metalness > 0.35;
+  const mat = new THREE.MeshPhysicalMaterial({
     color: maps ? "#ffffff" : finish.hex,
     roughness: finish.roughness,
     metalness: finish.metalness,
+    clearcoat: isWood ? 0.32 : isMetal ? 0.18 : finish.proc === "tile" ? 0.22 : 0,
+    clearcoatRoughness: isWood ? 0.4 : 0.5,
+    sheen: isWood ? 0.08 : 0,
+    sheenColor: isWood ? new THREE.Color("#d4c4a8") : undefined,
+    envMapIntensity: isMetal ? 1.65 : isWood ? 0.78 : 0.62,
     transparent,
     opacity: finish.opacity,
     depthWrite: !transparent,
-    envMapIntensity: finish.metalness > 0.2 ? 1.05 : 0.55,
     side: transparent ? THREE.DoubleSide : THREE.FrontSide,
     clippingPlanes: [plane],
     clipShadows: true,
@@ -150,15 +178,15 @@ export function acquireMaterial(
     polygonOffsetFactor: 1,
     polygonOffsetUnits: 1,
   });
-  mat.customProgramCacheKey = () => "lw-triplanar-v4";
+  mat.customProgramCacheKey = () => "lw-triplanar-v5";
   const tile = finish.tileM;
-  const str = finish.proc === "brick" || finish.proc === "osb" || finish.proc === "gravel" ? 0.85 : 0.62;
+  const str = finish.proc === "brick" || finish.proc === "osb" || finish.proc === "gravel" || finish.proc === "wood" ? 0.92 : 0.68;
   mat.onBeforeCompile = (shader) => compile(shader, maps, tile, str);
   matCache.set(key, mat);
   return mat;
 }
 
-export function materialFor(matId: string, plane: THREE.Plane, tintHex?: string): THREE.MeshStandardMaterial | THREE.MeshPhysicalMaterial {
+export function materialFor(matId: string, plane: THREE.Plane, tintHex?: string): THREE.MeshStandardMaterial | THREE.MeshPhysicalMaterial | THREE.MeshLambertMaterial | THREE.MeshBasicMaterial {
   const base = finishOf(matId);
   const finish = tintHex ? tintedFinish(base, tintHex) : base;
   return acquireMaterial(finish, plane);

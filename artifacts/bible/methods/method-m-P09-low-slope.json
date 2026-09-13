@@ -1,0 +1,158 @@
+{
+  "id": "m-P09-low-slope",
+  "type": "Method",
+  "practice_id": "pr-P09-low-slope",
+  "practice_name": "Low-slope / flat roof joists (SFR)",
+  "phase_id": "P09",
+  "building_types": [
+    "bt-sfr-new",
+    "bt-sfr-remodel",
+    "bt-adu"
+  ],
+  "tier": "A",
+  "is_habit": false,
+  "habit_or_alt": "alt",
+  "habit_scope": "Low-slope or flat: roof joists serve as ceiling joists. CMHC Ch11 Low-Slope Roofs is a real construction type (slope at least 1:50). AF&PA Flat Roofs: should be avoided if possible (vent, insulation, weatherproofing). HUD lists timber framing separately — not this method. Not the volume truss habit. Not Fontana snow-pack related.",
+  "alt_to": [
+    "m-P09-roof-truss"
+  ],
+  "also_known_as": [
+    "flat roof joists",
+    "low-slope roof joists",
+    "roof-ceiling joists"
+  ],
+  "how_it_is_done": [
+    "Walls complete. AF&PA: where flat roofs are used, rafters or roof joists serve as ceiling joists for the space below (Fig 59). Nail to exterior wall plates and to each other where they join over interior partitions.",
+    "CMHC: size from roof AND ceiling loads (Tables 29-30 Canadian). Depth may need to grow for insulation + ventilation even if structure is OK. Slope at least 1:50 for drainage — ledger strip at the bearing wall or tapered strip on the joists.",
+    "Lookout rafters for the overhang (CMHC Fig 91; AF&PA Fig 59 lookouts to a double trimmer). If lookouts project more than one-and-one-half joist spaces, double the inner joists as a header.",
+    "Ventilate. AF&PA: blocking/bridging/insulation arranged so air is not blocked; eave soffit net open area 1/250 of the ceiling; vapor retarder 1 perm or less under the ceiling finish. CMHC: 63 mm (2-1/2 in) ventilated space above batt insulation; or rigid insulation on top of the sheathing (then the space above the ceiling is not ventilated). Confirm AHJ. Attic vent ratios live partly in P13 — do not invent IRC R806.",
+    "AF&PA: avoid if possible. This is the sourced SFR alt when the drawings are flat/low-slope, not a cheaper skip of a pitched truss.",
+    "Sheathing is m-P09-roof-sheathing. Built-up / membrane coverings named in CMHC/FM are P11 finish, not this framing method."
+  ],
+  "sequence_before": [
+    "P08",
+    "m-P08-stick-16oc-2x4"
+  ],
+  "sequence_after": [
+    "m-P09-roof-sheathing",
+    "P10"
+  ],
+  "can_overlap_with": [
+    "m-P09-roof-sheathing"
+  ],
+  "trades": [
+    "framing subcontractors (AF&PA — no crew size)"
+  ],
+  "crew_notes": "not in sources; Gap gap-crew-counts",
+  "tools_equipment": "Not a tool list in sources.",
+  "inspection_hold_points": [
+    "Roof joists nailed to plates and over interior partitions (AF&PA).",
+    "Drainage slope at least 1:50 (CMHC) — Canadian / confirm AHJ.",
+    "Vent path not blocked (AF&PA 1/250 eaves; CMHC 2-1/2 in over batts).",
+    "Lookouts to a doubled trimmer when they run past 1.5 spaces (CMHC; AF&PA Fig 59)."
+  ],
+  "material_classes": [
+    "roof joists",
+    "lookout rafters",
+    "double trimmer / header",
+    "band / rim",
+    "tapered strip or ledger for drainage slope",
+    "vapor retarder (flat-roof ceiling)"
+  ],
+  "typical_duration_sfr": "unknown — not in sources",
+  "when_this_beats_habit": "When the drawings are a deck, terrace, or low-slope (CMHC). Not because it is cheaper than trusses.",
+  "when_this_is_a_bad_idea": "AF&PA: avoid if possible — hard to vent, insulate, and weatherproof. Using it to skip a pitched truss on a 2-story habit house. Copying Utah ice onto Fontana. Built-up tar as this framing method.",
+  "why_tier1_never_learned_it": "They frame decks. What they skip is the 1:50 drain slope and the vent gap above the insulation.",
+  "permit_gate": "should be on drawings before permit",
+  "permit_gate_notes": "Low-slope vs pitched is permit-gate. Confirm with AHJ / engineer. CMHC tables are Canadian. Do not invent IRC R803.",
+  "risk_if_swapped_late": "Flat vs pitched after permit changes drainage, insulation depth, and covering class. Catch before permit.",
+  "sophistication_needed": 2,
+  "plain_language_summary": "A low-slope or flat roof uses joists that are also the ceiling. Drain it at least 1 in 50. Leave a vent gap over the insulation. The AF&PA book says avoid a flat roof if you can — this is the alt when the drawings are actually flat, not a cheaper skip of trusses.",
+  "spanish_summary": "Techo plano o de poca pendiente: las viguetas son tambien el cielo. Drenaje minimo 1 en 50. Deje hueco de ventilacion sobre el aislante. AF&PA dice evitarlo si puede — es la alternativa cuando el plano es plano, no un ahorro de cerchas.",
+  "scribd_sources": [
+    "src-cmhc-wood-frame",
+    "src-afpa-details",
+    "src-hud-rsdg"
+  ],
+  "locators": [
+    "CMHC Ch11 Low-Slope Roofs (txt 7411-7474, Fig 91); slope 1:50; lookouts.",
+    "AF&PA Flat Roofs (txt 808-815) and Fig 59; avoid if possible; nail to plates and over partitions.",
+    "AF&PA ventilation of flat roofs 1/250 at eaves (txt 847-851)."
+  ],
+  "market_notes": [
+    "mn-fontana",
+    "mn-logan"
+  ],
+  "constraints": [],
+  "confidence": "med",
+  "confidence_notes": "Sourced as a real SFR construction type (CMHC) and as 'avoid if possible' (AF&PA). Not volume habit.",
+  "open_gaps": [
+    "gap-crew-counts",
+    "gap-sop-labor-crew",
+    "gap-sop-build-size-alts",
+    "gap-sop-walkthroughs",
+    "gap-sop-irc-section-numbers",
+    "gap-inspector-fail-list-unsourced"
+  ],
+  "remodel_note": "Not in these books as a remodel-only method.",
+  "last_updated": "2026-08-30",
+  "fastener_schedule": [
+    {
+      "what": "flat roof joists to plates / over partitions",
+      "size": "not printed as a penny",
+      "pattern": "securely nailed to exterior wall plates and to each other where they join over interior partitions",
+      "oc": null,
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "AF&PA Flat Roofs txt 814-815. Do not invent a penny."
+    }
+  ],
+  "tools": [],
+  "labor": {
+    "crew": null,
+    "certs": [
+      "PE when tables fail"
+    ],
+    "gap": "gap-crew-counts"
+  },
+  "labor_notes": "No headcount.",
+  "layering": [
+    "Roof joists are also the ceiling (AF&PA; CMHC).",
+    "Slope at least 1:50 (CMHC — Canadian / confirm AHJ).",
+    "Lookouts to doubled trimmer when they project >1.5 spaces (CMHC).",
+    "Vent: AF&PA 1/250 eaves; CMHC 2-1/2 in over batts. Confirm AHJ."
+  ],
+  "build_size_alts": "not in sources",
+  "code_to_check": [
+    "CMHC Tables 29-30 Canadian NBC — confirm AHJ; not IRC.",
+    "AF&PA Span Tables for Joists and Rafters. Confirm with AHJ / engineer.",
+    "No stamp. No skip-inspection."
+  ],
+  "time_money": "Not a cheaper skip of a pitched truss. No dollars in sources.",
+  "walkthroughs": [],
+  "images": [
+    {
+      "path": "kb/images/m-P09-low-slope/afpa-fig-59-flat-roof.png",
+      "caption": "AF&PA Fig 59: flat roof framing — roof rafters, lookout rafters to a double trimmer, band at the eave. Text: avoid flat roofs if possible; joists serve as ceiling joists; nail to plates and over interior partitions."
+    }
+  ],
+  "inspector_looks_for": [
+    "Joists nailed to plates and over interior partitions (AF&PA).",
+    "Drainage slope at least 1:50 (CMHC Canadian).",
+    "Vent path not blocked (AF&PA 1/250; CMHC 2-1/2 in over batts).",
+    "Lookouts to doubled trimmer (CMHC; Fig 59)."
+  ],
+  "inspector_fails": [],
+  "common_messups": [],
+  "do_not_cheap": [
+    "Drainage slope at least 1:50 (layering, CMHC).",
+    "Vent gap over insulation (hold + layering).",
+    "Permit gate: flat vs pitched on drawings.",
+    "No skip-inspection."
+  ],
+  "smart_save": [
+    "Not a cheaper skip of a pitched truss. No dollars in sources.",
+    "Late swap: flat vs pitched after permit changes drainage, insulation, and covering class. Catch before permit."
+  ],
+  "sop_gap_note": "inspector_fails and common_messups unsourced. Not a stamp."
+}

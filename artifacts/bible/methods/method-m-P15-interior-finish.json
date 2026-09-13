@@ -1,0 +1,211 @@
+{
+  "id": "m-P15-interior-finish",
+  "type": "Method",
+  "practice_id": "pr-P15-interior-finish",
+  "practice_name": "Interior finish (SFR)",
+  "phase_id": "P15",
+  "building_types": [
+    "bt-sfr-new",
+    "bt-sfr-remodel",
+    "bt-adu"
+  ],
+  "tier": "A",
+  "is_habit": true,
+  "habit_or_alt": "habit",
+  "habit_scope": "Superintendent order on 2-story light-wood: wall/ceiling finishes already hanging (P14); then interior doors/trim; coatings; floor coverings after wall/ceiling finishes. CMHC Ch2+22+23+24. Cabinets named in Ch23. No invented finish schedule.",
+  "alt_to": [],
+  "also_known_as": [
+    "trim-out carpentry",
+    "interior millwork and floors"
+  ],
+  "how_it_is_done": [
+    "CMHC Ch2 Interior Finishes: ceiling, wall and floor finishes, shelving and cabinets. Finishing carpentry for interior doors, frames and trim plus stair balusters/handrails usually immediately after floor/wall/ceiling finishes have been prepared for painting and varnishing. About two weeks. Then Paint, Cabinets and Fixtures (paint first). Cabinets named in both stage titles — quote both, do not invent which week. B&D (US): trim then paint then floor. Keep both orders; one sequence on the job. AF&PA (US): store interior doors, trim, flooring, cabinetwork in the building; wet plaster must dry first. Stair structure is P08 — do not rewrite.",
+    "Ch22: Floor coverings must not be laid until interior wall and ceiling finishes are completed. Wood strip: not until basement concrete has cured and gypsum finishing is done so humidity has moderated; keep flooring warm and dry. Installed wet, it shrinks and opens joints (named). Underlay (when required): annular grooved nails ≤150 mm (6 in) along edges and 200 mm (8 in) OC both ways in the field; nails ≥19 mm (3/4 in) for 6 mm (1/4 in) underlay, ≥22 mm (7/8 in) for 7.9 mm (5/16 in). Staples or screws may also be used. Fig 166: 6 mm (1/4 in) expansion at the plate (or manufacturer); field fasteners 45° at the tongue. AF&PA (US): 25/32 T&G may go on subfloor; underlayment for resilient/carpet; ≥1/2 in expansion at parallel partitions and exterior walls, hidden by base/toe. Keep both expansion numbers. Strip-flooring nail lengths live in Table 42 (p 309) — table not extracted this pass; CLASS annular/spiral nails, do not invent pennies. FM 5-426 8d every joist is Army TO technique, not this habit.",
+    "Ch23: Interior doors usually pre-hung. Shim (wood shingles) between jamb and RO studs at ends of jambs and at hinge and latch locations. Plumb and square; screw or nail jambs through the wedges; nails in pairs; cut wedges flush. Stops 10×32 mm (3/8 × 1-1/4 in) finishing-nailed after the door is hung. Casings 5–6 mm (3/16–1/4 in) off the inner jamb edge; finish nails to studs and jambs about 400 mm (16 in) apart; countersink and fill. Knob 860–960 mm (34–38 in) from the floor. Fig 170 clearances: 2 mm head/hinge, 1 mm latch, 19 mm bottom.",
+    "Ch24: coatings = paint, varnish, stain, lacquer. Sealers/primers seal wood grain or drywall/plaster before topcoats. Water-solvent products named. Apply ≥10°C (50°F). No invented wall-paint coat-count beyond primer-then-topcoat as composition, not a schedule. Varnish: two thin coats with light sanding between named for most residential work — varnish, not a latex wall count.",
+    "Ch2 Paint, Cabinets and Fixtures: painting at the beginning of that stage, then ceramic tile backsplashes, then electrical devices and equipment (that leftover is P16). Ch23 millwork/cabinets often with interior trim, usually before strip is sanded or resilient is laid. Kitchen base ~900 mm (36 in) high / counters ~625 mm (25 in) deep — Canadian typical, not a code. CLASS cabinets."
+  ],
+  "sequence_before": [
+    "P14",
+    "m-P14-gypsum-board"
+  ],
+  "sequence_after": [
+    "P16",
+    "m-P16-mep-trim"
+  ],
+  "can_overlap_with": [],
+  "trades": [
+    "finish carpenter",
+    "painter",
+    "flooring sub",
+    "cabinet installer"
+  ],
+  "crew_notes": "Gap gap-crew-counts.",
+  "tools_equipment": "Named: shims (wood shingles); finish nails; nail set. Not a SKU list.",
+  "inspection_hold_points": [
+    "Wall/ceiling finishes complete before floor coverings (Ch22).",
+    "Wood strip after concrete has cured and gypsum is finished (Ch22).",
+    "Door frame plumb/square; shims at hinges and latch; nails in pairs (Ch23).",
+    "Casings 3/16–1/4 in off jamb, finish nails 16 in OC (Ch23)."
+  ],
+  "material_classes": [
+    "pre-hung interior doors",
+    "door casing / trim",
+    "finish nails",
+    "wood-strip flooring CLASS",
+    "underlay panels CLASS",
+    "annular grooved nails (underlay)",
+    "primer / sealer CLASS",
+    "paint / varnish / stain CLASS",
+    "cabinets CLASS"
+  ],
+  "typical_duration_sfr": "CMHC Ch2: interior finishes about two weeks; paint/cabinets/fixtures about two weeks — Canadian sample. No lag days invented.",
+  "when_this_beats_habit": "This is the habit order.",
+  "when_this_is_a_bad_idea": "Flooring before drywall is done. Inventing a coat schedule. Selling a brand cabinet as the book SOP.",
+  "why_tier1_never_learned_it": "They know trim. What they skip is floors after walls/ceilings, and shims at hinge and latch.",
+  "permit_gate": "not a new type — finishes follow drawings",
+  "permit_gate_notes": "Confirm AHJ. CMHC Canadian.",
+  "risk_if_swapped_late": "Hardwood before humidity is down is a gap/cup callback (Ch22).",
+  "sophistication_needed": 1,
+  "plain_language_summary": "Rock is up. Then doors and casing — shims at the hinges and the latch, finish nails 16 inches. Paint. Floors last, after the walls are done and the basement slab has dried. Do not invent a paint schedule.",
+  "spanish_summary": "El drywall ya esta. Luego puertas y casing — cuñas en bisagras y cerradura, clavos de acabado a 16 pulgadas. Pintura. Pisos al final, paredes listas y la losa seca. No invente un horario de pintura.",
+  "scribd_sources": [
+    "src-cmhc-wood-frame"
+  ],
+  "locators": [
+    "CMHC Ch2 Interior Finishes then Paint Cabinets Fixtures (printed 22)",
+    "CMHC Ch22 floors after wall/ceiling finishes; underlay 6 in edge / 8 in field; Fig 166 1/4 in expansion / 45°",
+    "CMHC Ch23 pre-hung doors; shims hinge+latch; casing nails 16 in OC; Fig 168/169/170",
+    "AF&PA Flooring (US) 25/32 on subfloor; ≥1/2 in expansion — keep with CMHC 1/4 in"
+  ],
+  "constraints": [],
+  "confidence": "high",
+  "confidence_notes": "Order high. Underlay nail OC printed. Casing 16 in OC printed. Strip-flooring Table 42 not extracted — CLASS only. Expansion disagreement CMHC 1/4 in vs AF&PA 1/2 in kept. Canadian vs US labeled.",
+  "open_gaps": [
+    "gap-crew-counts",
+    "gap-inspector-fail-list-unsourced",
+    "gap-table-42-strip-pennies-not-extracted",
+    "gap-cabinet-screw-schedule",
+    "gap-paint-mil-thickness",
+    "gap-P15-walkthrough-none",
+    "gap-P15-walkthrough-flags"
+  ],
+  "remodel_note": null,
+  "last_updated": "2026-08-31",
+  "fastener_schedule": [
+    {
+      "what": "underlay to subfloor",
+      "size": "annular grooved nails ≥19 mm (3/4 in) for 1/4 in underlay; ≥22 mm (7/8 in) for 5/16 in underlay",
+      "pattern": "edges and field both ways",
+      "oc": "150 mm (6 in) edges; 200 mm (8 in) field",
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "CMHC Ch22"
+    },
+    {
+      "what": "door jambs through shims to studs",
+      "size": "screws or nails (penny not printed); nails in pairs",
+      "pattern": "at ends of jambs and at hinge and latch locations",
+      "oc": null,
+      "edge_distance": null,
+      "end_distance": null,
+      "source": "CMHC Ch23"
+    },
+    {
+      "what": "door casing to jamb and stud",
+      "size": "finish nails (penny not printed)",
+      "pattern": "countersink and fill",
+      "oc": "about 400 mm (16 in)",
+      "edge_distance": "5–6 mm (3/16–1/4 in) off inner jamb edge",
+      "end_distance": null,
+      "source": "CMHC Ch23"
+    },
+    {
+      "what": "strip flooring after first course",
+      "size": "annular/spiral CLASS — Table 42 not extracted; do not invent pennies",
+      "pattern": "45° at tongue/shoulder (Fig 166); first strip face-nailed at groove so shoe covers head, also through tongue",
+      "oc": null,
+      "edge_distance": "Fig 166: 6 mm (1/4 in) expansion at plate, or manufacturer",
+      "end_distance": null,
+      "source": "CMHC Ch22 Fig 166; Table 42 p 309 not extracted"
+    }
+  ],
+  "tools": [
+    "finish nailer or hammer and nail set",
+    "shims",
+    "level"
+  ],
+  "labor": {
+    "crew": null,
+    "certs": [
+      "Confirm with AHJ / engineer. CMHC is Canadian NBC — not IRC."
+    ],
+    "gap": "gap-crew-counts",
+    "named_not_headcount": "Books name trades, not a headcount."
+  },
+  "labor_notes": "Do not invent crew counts.",
+  "layering": [
+    "Drywall finished enough for paint before doors/trim (Ch2).",
+    "Floor coverings after wall and ceiling finishes (Ch22).",
+    "Wood strip after slab moisture and gypsum are down (Ch22).",
+    "Stops after the door is hung (Ch23).",
+    "Primer/sealer before topcoat (Ch24 composition)."
+  ],
+  "build_size_alts": "not in sources",
+  "code_to_check": [
+    "AHJ. CMHC NBC. Table 42 strip nails not extracted — do not invent pennies."
+  ],
+  "time_money": "No dollars. Wait on hardwood until humidity is down (Ch22) — not a lag-day invention, a moisture hold.",
+  "walkthroughs": [],
+  "images": [
+    {
+      "path": "kb/images/m-P15-interior-finish/cmhc-fig166-strip-floor.png",
+      "caption": "CMHC Fig 166 (printed p 234): 6 mm (1/4 in) expansion; field fasteners 45° at the tongue. Canadian — confirm AHJ. AF&PA ≥1/2 in is US — keep both."
+    },
+    {
+      "path": "kb/images/m-P15-interior-finish/cmhc-fig168-169-door-shim.png",
+      "caption": "CMHC Fig 168/169 (printed p 239): shingle wedges; nails under doorstop; casing 5–6 mm (3/16–1/4 in) off inner jamb edge."
+    },
+    {
+      "path": "kb/images/m-P15-interior-finish/cmhc-fig170-hardware.png",
+      "caption": "CMHC Fig 170 (printed p 240): clearances 1/16 in head/hinge, 1/32 in latch, 3/4 in bottom; casing finish nails ~16 in OC in the body."
+    },
+    {
+      "path": "kb/images/m-P15-interior-finish/cmhc-fig167-ceramic.png",
+      "caption": "CMHC Fig 167 (printed p 236): ceramic on mortar bed over dropped subfloor, or adhesive on plywood underlay."
+    },
+    {
+      "path": "kb/images/m-P15-interior-finish/cmhc-fig171-door-install.png",
+      "caption": "CMHC Fig 171 (printed p 241): 1 mm (1/32 in) hinge-side stop clearance; slight bevel on latch edge."
+    },
+    {
+      "path": "kb/images/m-P15-interior-finish/cmhc-fig172-base-mould.png",
+      "caption": "CMHC Fig 172 (printed p 242): two-piece base + shoe or one-piece; interior corners mitred or coped."
+    },
+    {
+      "path": "kb/images/m-P15-interior-finish/cmhc-fig173-kitchen.png",
+      "caption": "CMHC Fig 173 (printed p 243): base ~36 in high, counters ~25 in deep — Canadian typical, not a code. CLASS."
+    }
+  ],
+  "inspector_looks_for": [
+    "Floors after wall/ceiling finishes (Ch22).",
+    "Wood strip after slab/gypsum moisture is down (Ch22).",
+    "Door shims at hinges and latch; plumb/square; nails in pairs (Ch23).",
+    "Casing 16 in OC finish nails; 3/16–1/4 in off jamb (Ch23).",
+    "Millwork stored inside (AF&PA / CMHC Ch2)."
+  ],
+  "inspector_fails": [],
+  "common_messups": [
+    "Strip flooring installed with high moisture content shrinks and develops openings between joints (CMHC Ch22)."
+  ],
+  "do_not_cheap": [
+    "Floors after walls/ceilings (Ch22 hold).",
+    "Hardwood after slab/gypsum moisture is down (Ch22).",
+    "Shims at hinge and latch (Ch23).",
+    "Do not invent a paint coat-count."
+  ],
+  "smart_save": [
+    "No dollars. Prefinished products named (Ch23) — not a price."
+  ],
+  "sop_gap_note": "Table 42 strip-floor nails not extracted. inspector_fails unsourced. Cabinet screw schedule Gap. Paint mil thickness Gap. Countertop habit Fontana vs Logan Gap."
+}

@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import type { Proc } from "./catalog";
 
-const SIZE = 384;
+const SIZE = 512;
 const cache = new Map<string, { albedo: THREE.CanvasTexture; normal: THREE.CanvasTexture }>();
 
 function hash2(x: number, y: number): number {
