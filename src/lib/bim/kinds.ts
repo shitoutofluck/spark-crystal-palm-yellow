@@ -155,6 +155,7 @@ export const KIND_META: Record<string, KindMeta> = {
   poly: { label: "6-mil poly", spec: "12 in laps, sealed to wall", ifc: "IfcCovering" },
   radon: { label: "Radon stub", spec: "3–4 in PVC in gravel", ifc: "IfcPipeSegment" },
   "underslab-waste": { label: "Underslab waste", spec: "In before pour", ifc: "IfcPipeSegment" },
+  uploaded: { label: "Uploaded components", spec: "Library drop", ifc: "IfcBuildingElementProxy" },
 };
 
 export function kindMeta(kind: string): KindMeta {

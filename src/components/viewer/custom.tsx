@@ -1,6 +1,6 @@
 import { Html, TransformControls } from "@react-three/drei";
 import { useLoader, type ThreeEvent } from "@react-three/fiber";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
@@ -119,8 +119,21 @@ function Placed({ item, plane }: { item: CustomItem; plane: THREE.Plane }) {
   const select = useBim((s) => s.selectCustom);
   const update = useBim((s) => s.updateCustom);
   const showLabels = useBim((s) => s.showLabels);
+  const gizmoMode = useBim((s) => s.gizmoMode);
+  const setDragging = useBim((s) => s.setGizmoDragging);
+  const dragging = useBim((s) => s.gizmoDragging);
   const url = useObjectUrl(item.id, item.visible && on);
   const lift = LAYER_META[item.layer].order * explode * 1.45;
+  const groupRef = useRef<THREE.Group>(null);
+  const [obj, setObj] = useState<THREE.Group | null>(null);
+
+  useLayoutEffect(() => {
+    const g = groupRef.current;
+    if (!g || dragging) return;
+    g.position.set(item.x, item.y + lift, item.z);
+    g.rotation.set(item.rx, item.ry, item.rz);
+    g.scale.set(item.sx, item.sy, item.sz);
+  }, [item, lift, dragging]);
 
   if (!item.visible || !on || !url) return null;
 
@@ -129,36 +142,53 @@ function Placed({ item, plane }: { item: CustomItem; plane: THREE.Plane }) {
     select(item.id);
   };
 
-  const group = (
-    <group
-      position={[item.x, item.y + lift, item.z]}
-      rotation={[item.rx, item.ry, item.rz]}
-      scale={[item.sx, item.sy, item.sz]}
-      onPointerDown={onDown}
-    >
-      <CustomBody item={item} url={url} plane={plane} />
-      {showLabels && selected ? (
-        <Html center sprite distanceFactor={14} style={{ pointerEvents: "none" }}>
-          <div className="rounded-md bg-ink-elevated/95 px-2 py-1 font-mono text-[10px] whitespace-nowrap text-paper shadow-[var(--shadow-border)]">
-            {item.name} · {LAYER_META[item.layer].phase}
-          </div>
-        </Html>
-      ) : null}
-    </group>
-  );
+  const commit = () => {
+    const g = groupRef.current;
+    if (!g) return;
+    update(item.id, {
+      x: g.position.x,
+      y: g.position.y - lift,
+      z: g.position.z,
+      rx: g.rotation.x,
+      ry: g.rotation.y,
+      rz: g.rotation.z,
+      sx: Math.max(0.02, Math.abs(g.scale.x)),
+      sy: Math.max(0.02, Math.abs(g.scale.y)),
+      sz: Math.max(0.02, Math.abs(g.scale.z)),
+    });
+  };
 
-  if (!selected) return group;
   return (
-    <TransformControls
-      mode="translate"
-      onMouseUp={(e) => {
-        const obj = (e as unknown as { target?: { object?: THREE.Object3D } }).target?.object;
-        if (!obj) return;
-        update(item.id, { x: obj.position.x, y: obj.position.y - lift, z: obj.position.z });
-      }}
-    >
-      {group}
-    </TransformControls>
+    <>
+      <group
+        ref={(n) => {
+          groupRef.current = n;
+          setObj((prev) => (prev === n ? prev : n));
+        }}
+        onPointerDown={onDown}
+      >
+        <CustomBody item={item} url={url} plane={plane} />
+        {showLabels && selected ? (
+          <Html center sprite distanceFactor={14} style={{ pointerEvents: "none" }}>
+            <div className="rounded-md bg-ink-elevated/95 px-2 py-1 font-mono text-[10px] whitespace-nowrap text-paper shadow-[var(--shadow-border)]">
+              {item.name} · {LAYER_META[item.layer].phase}
+            </div>
+          </Html>
+        ) : null}
+      </group>
+      {selected && obj ? (
+        <TransformControls
+          object={obj}
+          mode={gizmoMode}
+          size={0.85}
+          onMouseDown={() => setDragging(true)}
+          onMouseUp={() => {
+            commit();
+            setDragging(false);
+          }}
+        />
+      ) : null}
+    </>
   );
 }
 

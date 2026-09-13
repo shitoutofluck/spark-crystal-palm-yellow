@@ -1,7 +1,7 @@
-import { ContactShadows, Environment, Html, OrbitControls, Sky, SoftShadows } from "@react-three/drei";
+import { ContactShadows, Environment, Html, OrbitControls, Sky, SoftShadows, TransformControls } from "@react-three/drei";
 import { Canvas, useFrame, useThree, type ThreeEvent } from "@react-three/fiber";
 import { Bloom, EffectComposer, N8AO, SMAA, Vignette } from "@react-three/postprocessing";
-import { useLayoutEffect, useMemo, useRef } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import { batchBoxes, type Batch } from "@/lib/bim/build";
 import { formatMm, kindMeta } from "@/lib/bim/kinds";
@@ -131,7 +131,8 @@ function LayerBatch({
       const b = batch.items[i]!;
       dummy.position.set(b.x, b.y + lift, b.z);
       dummy.rotation.set(b.rx, b.ry, b.rz);
-      dummy.scale.set(b.w, b.h, b.d);
+      const hidden = selectedHex === b.hex;
+      dummy.scale.set(hidden ? 0 : b.w, hidden ? 0 : b.h, hidden ? 0 : b.d);
       dummy.updateMatrix();
       inst.setMatrixAt(i, dummy.matrix);
       const key = `${b.layer}:${b.kind}`;
@@ -177,27 +178,95 @@ function LayerBatch({
   );
 }
 
-function Selected() {
+function Selected({ plane }: { plane: THREE.Plane }) {
   const hex = useBim((s) => s.selectedHex);
   const hover = useBim((s) => s.hoveredHex);
   const boxes = useBim((s) => s.result.boxes);
   const explode = useBim((s) => s.explode);
   const overrides = useBim((s) => s.overrides);
+  const xforms = useBim((s) => s.xforms);
   const show = useBim((s) => s.showLabels);
-  const target = hex ?? hover;
+  const gizmoMode = useBim((s) => s.gizmoMode);
+  const setDragging = useBim((s) => s.setGizmoDragging);
+  const setPieceXform = useBim((s) => s.setPieceXform);
+  const dragging = useBim((s) => s.gizmoDragging);
+  const meshRef = useRef<THREE.Mesh>(null);
+  const [obj, setObj] = useState<THREE.Mesh | null>(null);
+
   const box = useMemo(() => {
+    if (!hex && !hover) return null;
+    const target = hex ?? hover;
     if (!target) return null;
-    return resolveBoxes(boxes, overrides).find((b) => b.hex === target) ?? boxes.find((b) => b.hex === target) ?? null;
-  }, [target, boxes, overrides]);
+    return resolveBoxes(boxes, overrides, xforms).find((b) => b.hex === target) ?? null;
+  }, [hex, hover, boxes, overrides, xforms]);
+
+  const lift = box ? LAYER_META[box.layer].order * explode * 1.45 : 0;
+  const tint = box?.color.startsWith("#") && box.matId.includes("#") ? box.color : undefined;
+  const material = useMemo(() => {
+    if (!box || !hex) return null;
+    return materialFor(box.matId.split("#")[0]!, plane, tint);
+  }, [box, hex, plane, tint]);
+
+  useLayoutEffect(() => {
+    const mesh = meshRef.current;
+    if (!mesh || !box || dragging) return;
+    mesh.position.set(box.x, box.y + lift, box.z);
+    mesh.rotation.set(box.rx, box.ry, box.rz);
+    mesh.scale.set(box.w, box.h, box.d);
+  }, [box, lift, dragging]);
+
   if (!box) return null;
-  const lift = LAYER_META[box.layer].order * explode * 1.45;
   const meta = kindMeta(box.kind);
+  const selected = hex === box.hex;
+
+  const commit = () => {
+    const mesh = meshRef.current;
+    if (!mesh || !hex) return;
+    setPieceXform(hex, {
+      x: mesh.position.x,
+      y: mesh.position.y - lift,
+      z: mesh.position.z,
+      w: Math.max(0.002, Math.abs(mesh.scale.x)),
+      h: Math.max(0.002, Math.abs(mesh.scale.y)),
+      d: Math.max(0.002, Math.abs(mesh.scale.z)),
+      rx: mesh.rotation.x,
+      ry: mesh.rotation.y,
+      rz: mesh.rotation.z,
+    });
+  };
+
   return (
     <group>
-      <mesh position={[box.x, box.y + lift, box.z]} scale={[box.w * 1.02, box.h * 1.02, box.d * 1.02]} raycast={() => {}}>
-        <boxGeometry args={[1, 1, 1]} />
-        <meshBasicMaterial color="#e8e4dc" wireframe transparent opacity={hex === box.hex ? 0.9 : 0.45} depthTest={false} />
-      </mesh>
+      {selected && material ? (
+        <mesh
+          ref={(n) => {
+            meshRef.current = n;
+            setObj((prev) => (prev === n ? prev : n));
+          }}
+          castShadow
+          receiveShadow
+          material={material}
+        >
+          <GeomPrim geom={box.geom} />
+        </mesh>
+      ) : (
+        <mesh position={[box.x, box.y + lift, box.z]} scale={[box.w * 1.02, box.h * 1.02, box.d * 1.02]} raycast={() => {}}>
+          <boxGeometry args={[1, 1, 1]} />
+          <meshBasicMaterial color="#e8e4dc" wireframe transparent opacity={0.45} depthTest={false} />
+        </mesh>
+      )}
+      {selected && obj ? (
+        <TransformControls
+          object={obj}
+          mode={gizmoMode}
+          size={0.85}
+          onMouseDown={() => setDragging(true)}
+          onMouseUp={() => {
+            commit();
+            setDragging(false);
+          }}
+        />
+      ) : null}
       {show ? (
         <Html
           position={[box.x, box.y + lift + box.h * 0.55 + 0.12, box.z]}
@@ -219,6 +288,78 @@ function Selected() {
       ) : null}
     </group>
   );
+}
+
+function NudgeKeys() {
+  const camera = useThree((s) => s.camera);
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const el = e.target as HTMLElement | null;
+      if (el && (el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.tagName === "SELECT" || el.isContentEditable)) {
+        return;
+      }
+      const st = useBim.getState();
+      if (e.key === "Escape") {
+        st.selectHex(null);
+        st.selectCustom(null);
+        return;
+      }
+      if (e.key === "1") {
+        st.setGizmoMode("translate");
+        return;
+      }
+      if (e.key === "2") {
+        st.setGizmoMode("scale");
+        return;
+      }
+      if (e.key === "3") {
+        st.setGizmoMode("rotate");
+        return;
+      }
+      if (!st.selectedHex && !st.selectedCustomId) return;
+
+      const step = e.shiftKey ? 0.001 : e.altKey ? 0.25 : 0.05;
+      const away = new THREE.Vector3();
+      camera.getWorldDirection(away);
+      away.y = 0;
+      if (away.lengthSq() < 1e-8) {
+        away.set(-camera.matrixWorld.elements[8], 0, -camera.matrixWorld.elements[10]);
+        if (away.lengthSq() < 1e-8) away.set(0, 0, -1);
+      }
+      away.normalize();
+      const right = new THREE.Vector3().crossVectors(away, new THREE.Vector3(0, 1, 0));
+      if (right.lengthSq() < 1e-8) right.set(1, 0, 0);
+      else right.normalize();
+
+      let dx = 0;
+      let dy = 0;
+      let dz = 0;
+      if (e.key === "ArrowLeft") {
+        dx = -right.x * step;
+        dz = -right.z * step;
+      } else if (e.key === "ArrowRight") {
+        dx = right.x * step;
+        dz = right.z * step;
+      } else if (e.key === "ArrowUp") {
+        dx = away.x * step;
+        dz = away.z * step;
+      } else if (e.key === "ArrowDown") {
+        dx = -away.x * step;
+        dz = -away.z * step;
+      } else if (e.key === "PageUp" || e.key === "e" || e.key === "E") {
+        dy = step;
+      } else if (e.key === "PageDown" || e.key === "q" || e.key === "Q") {
+        dy = -step;
+      } else {
+        return;
+      }
+      e.preventDefault();
+      st.nudgeSelected(dx, dy, dz);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [camera]);
+  return null;
 }
 
 function LayerTags() {
@@ -266,14 +407,15 @@ function Building({ plane }: { plane: THREE.Plane }) {
   const result = useBim((s) => s.result);
   const explode = useBim((s) => s.explode);
   const overrides = useBim((s) => s.overrides);
+  const xforms = useBim((s) => s.xforms);
   const placeMode = useBim((s) => s.placeMode);
   const placeAt = useBim((s) => s.placeAt);
 
   const batches = useMemo(() => {
-    const list = batchBoxes(resolveBoxes(result.boxes, overrides));
+    const list = batchBoxes(resolveBoxes(result.boxes, overrides, xforms));
     list.sort((a, b) => b.opacity - a.opacity);
     return list;
-  }, [result, overrides]);
+  }, [result, overrides, xforms]);
 
   const onPlace = (e: ThreeEvent<MouseEvent>) => {
     if (!placeMode) return;
@@ -291,7 +433,7 @@ function Building({ plane }: { plane: THREE.Plane }) {
           plane={plane}
         />
       ))}
-      <Selected />
+      <Selected plane={plane} />
       <LayerTags />
       <CustomLayer plane={plane} />
     </group>
@@ -380,6 +522,8 @@ export function BuildingCanvas() {
   const selectCustom = useBim((s) => s.selectCustom);
   const result = useBim((s) => s.result);
   const section = useBim((s) => s.section);
+  const dragging = useBim((s) => s.gizmoDragging);
+  const placeMode = useBim((s) => s.placeMode);
   const plane = useMemo(() => new THREE.Plane(new THREE.Vector3(0, -1, 0), 80), []);
   const maxY = result.bounds.max[1];
   const minY = result.bounds.min[1];
@@ -397,7 +541,10 @@ export function BuildingCanvas() {
           gl.localClippingEnabled = true;
           gl.shadowMap.type = THREE.PCFSoftShadowMap;
         }}
-        onPointerMissed={() => {
+        onPointerMissed={(event) => {
+          if (useBim.getState().gizmoDragging) return;
+          const target = (event.nativeEvent?.target ?? null) as HTMLElement | null;
+          if (target && target.tagName !== "CANVAS") return;
           selectHex(null);
           selectCustom(null);
         }}
@@ -406,8 +553,10 @@ export function BuildingCanvas() {
         <Lights />
         <InteriorLights />
         <SequenceDriver />
+        <NudgeKeys />
         <OrbitControls
           makeDefault
+          enabled={!dragging && !placeMode}
           enableDamping
           dampingFactor={0.08}
           maxPolarAngle={Math.PI / 2.02}

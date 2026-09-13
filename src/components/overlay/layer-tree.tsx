@@ -18,10 +18,10 @@ import {
   Zap,
 } from "lucide-react";
 import type { ComponentType, SVGProps } from "react";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { formatMm } from "@/lib/bim/kinds";
 import { PHASE_NOTES } from "@/lib/bim/phases";
-import { layerIsOn, useBim } from "@/lib/bim/store";
+import { layerIsOn, resolveBoxes, useBim } from "@/lib/bim/store";
 import { buildLayerTree, kindKey, type KindNode } from "@/lib/bim/tree";
 import { LAYER_META, type LayerId } from "@/lib/bim/types";
 import { cn } from "@/lib/utils";
@@ -43,36 +43,78 @@ const ICONS: Record<LayerId, ComponentType<SVGProps<SVGSVGElement>>> = {
   exterior: Home,
 };
 
+const PAGE = 48;
+
 function PieceRows({ items, kind }: { items: KindNode["items"]; kind: string }) {
   const selectedHex = useBim((s) => s.selectedHex);
+  const selectedCustom = useBim((s) => s.selectedCustomId);
   const selectHex = useBim((s) => s.selectHex);
+  const selectCustom = useBim((s) => s.selectCustom);
   const hoverHex = useBim((s) => s.hoverHex);
-  const shown = items.slice(0, 32);
+  const filter = useBim((s) => s.treeFilter);
+  const [limit, setLimit] = useState(PAGE);
+  const q = filter.trim().toLowerCase().replace(/^0x/, "");
+
+  const filtered = useMemo(() => {
+    if (!q) return items;
+    return items.filter(
+      (p) =>
+        p.hex.toLowerCase().includes(q) ||
+        (p.label ?? "").toLowerCase().includes(q) ||
+        (p.customId ?? "").toLowerCase().includes(q),
+    );
+  }, [items, q]);
+
+  const shown = q ? filtered : filtered.slice(0, limit);
+
   return (
     <ul className="ml-8 space-y-0.5 border-l border-line pl-2">
-      {shown.map((p) => (
-        <li key={p.hex}>
+      {shown.map((p) => {
+        const active = p.customId ? selectedCustom === p.customId : selectedHex === p.hex;
+        return (
+          <li key={p.hex}>
+            <button
+              type="button"
+              onClick={() => {
+                if (p.customId) selectCustom(p.customId);
+                else selectHex(p.hex);
+              }}
+              onMouseEnter={() => {
+                if (!p.customId) hoverHex(p.hex);
+              }}
+              onMouseLeave={() => hoverHex(null)}
+              className={cn(
+                "flex min-h-9 w-full items-center justify-between gap-2 rounded-md px-2 text-left",
+                active ? "bg-paper/15 text-paper" : "text-paper-muted hover:bg-paper/8 hover:text-paper",
+              )}
+            >
+              <span className="min-w-0 truncate font-mono text-xs">
+                {p.label ?? `0x${p.hex}`}
+                {p.unit != null ? ` · U${p.unit + 1}` : ""}
+              </span>
+              <span className="shrink-0 font-mono text-[10px] tabular-nums text-paper-muted">
+                {formatMm(p.w, p.h, p.d)}
+              </span>
+            </button>
+          </li>
+        );
+      })}
+      {!q && filtered.length > shown.length ? (
+        <li>
           <button
             type="button"
-            onClick={() => selectHex(p.hex)}
-            onMouseEnter={() => hoverHex(p.hex)}
-            onMouseLeave={() => hoverHex(null)}
-            className={cn(
-              "flex min-h-9 w-full items-center justify-between gap-2 rounded-md px-2 text-left",
-              selectedHex === p.hex ? "bg-paper/15 text-paper" : "text-paper-muted hover:bg-paper/8 hover:text-paper",
-            )}
+            onClick={() => setLimit((n) => n + PAGE)}
+            className="px-2 py-1 font-mono text-[10px] text-steel hover:text-paper"
           >
-            <span className="min-w-0 truncate font-mono text-xs">
-              0x{p.hex}
-              {p.unit != null ? ` · U${p.unit + 1}` : ""}
-            </span>
-            <span className="shrink-0 font-mono text-[10px] tabular-nums text-paper-muted">{formatMm(p.w, p.h, p.d)}</span>
+            Show more · {filtered.length - shown.length} {kind.replace(/-/g, " ")}
           </button>
         </li>
-      ))}
-      {items.length > shown.length ? (
-        <li className="px-2 py-1 font-mono text-[10px] text-paper-muted">
-          +{items.length - shown.length} more {kind.replace(/-/g, " ")}
+      ) : null}
+      {!q && limit > PAGE && filtered.length <= shown.length && filtered.length > PAGE ? (
+        <li>
+          <button type="button" onClick={() => setLimit(PAGE)} className="px-2 py-1 font-mono text-[10px] text-paper-muted hover:text-paper">
+            Collapse list
+          </button>
         </li>
       ) : null}
     </ul>
@@ -86,6 +128,7 @@ function KindBlock({ layer, node }: { layer: LayerId; node: KindNode }) {
   const toggle = useBim((s) => s.toggleExpandKind);
   const isolate = useBim((s) => s.isolateKind);
   const selectHex = useBim((s) => s.selectHex);
+  const selectCustom = useBim((s) => s.selectCustom);
   const active = focus === key;
 
   return (
@@ -112,7 +155,9 @@ function KindBlock({ layer, node }: { layer: LayerId; node: KindNode }) {
           onClick={() => {
             isolate(layer, node.kind);
             const first = node.items[0];
-            if (first) selectHex(first.hex);
+            if (!first) return;
+            if (first.customId) selectCustom(first.customId);
+            else selectHex(first.hex);
           }}
           className="grid size-10 shrink-0 place-items-center rounded-md text-paper-muted opacity-70 hover:text-paper lg:opacity-0 lg:group-hover:opacity-100"
         >
@@ -198,8 +243,11 @@ function LayerBlock({ id, kinds, count }: { id: LayerId; kinds: KindNode[]; coun
 export function LayerTree() {
   const boxes = useBim((s) => s.result.boxes);
   const custom = useBim((s) => s.customItems);
+  const overrides = useBim((s) => s.overrides);
+  const xforms = useBim((s) => s.xforms);
   const filter = useBim((s) => s.treeFilter);
-  const tree = useMemo(() => buildLayerTree(boxes), [boxes]);
+  const resolved = useMemo(() => resolveBoxes(boxes, overrides, xforms), [boxes, overrides, xforms]);
+  const tree = useMemo(() => buildLayerTree(resolved, custom), [resolved, custom]);
   const q = filter.trim().toLowerCase();
 
   const filtered = useMemo(() => {
@@ -212,22 +260,21 @@ export function LayerTree() {
             k.label.toLowerCase().includes(q) ||
             k.kind.includes(q) ||
             k.spec.toLowerCase().includes(q) ||
-            k.items.some((p) => p.hex.toLowerCase().includes(q.replace(/^0x/, ""))),
+            k.items.some(
+              (p) =>
+                p.hex.toLowerCase().includes(q.replace(/^0x/, "")) ||
+                (p.label ?? "").toLowerCase().includes(q),
+            ),
         ),
       }))
       .filter((l) => l.kinds.length > 0 || LAYER_META[l.id].label.toLowerCase().includes(q));
   }, [tree, q]);
-
-  const customCount = custom.length;
 
   return (
     <div className="min-h-0 flex-1 space-y-0.5 overflow-y-auto overscroll-contain pr-1">
       {filtered.map((layer) => (
         <LayerBlock key={layer.id} id={layer.id} kinds={layer.kinds} count={layer.count} />
       ))}
-      {customCount > 0 ? (
-        <p className="px-2 pt-2 font-mono text-[10px] text-paper-muted">{customCount} uploaded component{customCount === 1 ? "" : "s"} in library</p>
-      ) : null}
     </div>
   );
 }

@@ -71,29 +71,58 @@ export const LAYER_PRESETS: { id: string; label: string; layers: Record<LayerId,
 export type RenderStyle = "studio" | "overcast" | "dusk";
 export type ViewPreset = "street" | "eye" | "iso" | "top";
 export type OverrideScope = "piece" | "kind" | "layer";
+export type GizmoMode = "translate" | "rotate" | "scale";
+export type PieceXform = {
+  x?: number;
+  y?: number;
+  z?: number;
+  w?: number;
+  h?: number;
+  d?: number;
+  rx?: number;
+  ry?: number;
+  rz?: number;
+};
 
 const LS_KEY = "lw-finishes-v1";
+const XF_KEY = "lw-xforms-v1";
 
-function loadOverrides(): Record<string, string> {
-  if (typeof window === "undefined") return {};
+function loadJson<T>(key: string, fallback: T): T {
+  if (typeof window === "undefined") return fallback;
   try {
-    const raw = window.localStorage.getItem(LS_KEY);
-    if (!raw) return {};
+    const raw = window.localStorage.getItem(key);
+    if (!raw) return fallback;
     const parsed = JSON.parse(raw) as unknown;
-    if (!parsed || typeof parsed !== "object") return {};
-    return parsed as Record<string, string>;
+    if (!parsed || typeof parsed !== "object") return fallback;
+    return parsed as T;
   } catch {
-    return {};
+    return fallback;
   }
 }
 
-function saveOverrides(o: Record<string, string>) {
+function saveJson(key: string, value: unknown) {
   if (typeof window === "undefined") return;
   try {
-    window.localStorage.setItem(LS_KEY, JSON.stringify(o));
+    window.localStorage.setItem(key, JSON.stringify(value));
   } catch {
     /* ignore quota */
   }
+}
+
+function loadOverrides(): Record<string, string> {
+  return loadJson(LS_KEY, {});
+}
+
+function saveOverrides(o: Record<string, string>) {
+  saveJson(LS_KEY, o);
+}
+
+function loadXforms(): Record<string, PieceXform> {
+  return loadJson(XF_KEY, {});
+}
+
+function saveXforms(o: Record<string, PieceXform>) {
+  saveJson(XF_KEY, o);
 }
 
 type Store = {
@@ -126,6 +155,9 @@ type Store = {
   placeMode: boolean;
   dropError: string | null;
   treeFilter: string;
+  xforms: Record<string, PieceXform>;
+  gizmoMode: GizmoMode;
+  gizmoDragging: boolean;
   setBrief: (brief: string) => void;
   toggleLayer: (id: LayerId) => void;
   isolateLayer: (id: LayerId) => void;
@@ -160,6 +192,13 @@ type Store = {
   selectCustom: (id: string | null) => void;
   setPlaceMode: (v: boolean) => void;
   placeAt: (p: { x: number; y: number; z: number }) => void;
+  setGizmoMode: (m: GizmoMode) => void;
+  setGizmoDragging: (v: boolean) => void;
+  setPieceXform: (hex: string, patch: PieceXform) => void;
+  resetPieceXform: (hex: string) => void;
+  resetAllXforms: () => void;
+  nudgeSelected: (dx: number, dy: number, dz: number) => void;
+  setPieceSize: (hex: string, w: number, h: number, d: number) => void;
 };
 
 function rebuild(program: BuildingProgram): BuildResult {
@@ -168,7 +207,8 @@ function rebuild(program: BuildingProgram): BuildResult {
 
 const closedLayers = Object.fromEntries(LAYER_IDS.map((id) => [id, false])) as Record<LayerId, boolean>;
 
-export const useBim = create<Store>((set, get) => ({
+function createBimStore() {
+  return create<Store>((set, get) => ({
   program: TERRACE_PROGRAM,
   result: rebuild(TERRACE_PROGRAM),
   visible: { ...DEFAULT_VISIBLE },
@@ -187,7 +227,7 @@ export const useBim = create<Store>((set, get) => ({
   overrides: loadOverrides(),
   renderStyle: "studio",
   viewPreset: "street",
-  overrideScope: "kind",
+  overrideScope: "piece",
   hexQuery: "",
   expandedLayers: { ...closedLayers, framing: true },
   expandedKinds: {},
@@ -198,6 +238,9 @@ export const useBim = create<Store>((set, get) => ({
   placeMode: false,
   dropError: null,
   treeFilter: "",
+  xforms: loadXforms(),
+  gizmoMode: "translate",
+  gizmoDragging: false,
   setBrief: (brief) => set({ brief }),
   toggleLayer: (id) =>
     set((s) => ({
@@ -233,18 +276,24 @@ export const useBim = create<Store>((set, get) => ({
     set({ seqT: next });
   },
   loadProgram: (program, via) =>
-    set((s) => ({
-      program,
-      result: rebuild(program),
-      via,
-      generating: false,
-      error: null,
-      cameraEpoch: s.cameraEpoch + 1,
-      sequenceOn: false,
-      playing: false,
-      selectedHex: null,
-      focusKind: null,
-    })),
+    set((s) => {
+      const keepXf = program.id === s.program.id;
+      const xforms = keepXf ? s.xforms : {};
+      if (!keepXf) saveXforms({});
+      return {
+        program,
+        result: rebuild(program),
+        via,
+        generating: false,
+        error: null,
+        cameraEpoch: s.cameraEpoch + 1,
+        sequenceOn: false,
+        playing: false,
+        selectedHex: null,
+        focusKind: null,
+        xforms,
+      };
+    }),
   resetTerrace: () => get().loadProgram(TERRACE_PROGRAM, "preset"),
   refitCamera: () => set((s) => ({ cameraEpoch: s.cameraEpoch + 1 })),
   generate: async (briefArg) => {
@@ -268,7 +317,24 @@ export const useBim = create<Store>((set, get) => ({
       });
     }
   },
-  selectHex: (hex) => set({ selectedHex: hex, selectedCustomId: hex ? null : get().selectedCustomId }),
+  selectHex: (hex) => {
+    if (!hex) {
+      set({ selectedHex: null });
+      return;
+    }
+    const box = get().result.boxes.find((b) => b.hex === hex);
+    if (!box) {
+      set({ selectedHex: hex, selectedCustomId: null });
+      return;
+    }
+    set((s) => ({
+      selectedHex: hex,
+      selectedCustomId: null,
+      visible: { ...s.visible, [box.layer]: true },
+      expandedLayers: { ...s.expandedLayers, [box.layer]: true },
+      expandedKinds: { ...s.expandedKinds, [kindKey(box.layer, box.kind)]: true },
+    }));
+  },
   hoverHex: (hex) => set({ hoveredHex: hex }),
   setOverrideScope: (overrideScope) => set({ overrideScope }),
   applyFinish: (matIdOrHex) => {
@@ -392,7 +458,24 @@ export const useBim = create<Store>((set, get) => ({
     saveLibraryMeta(next);
     set({ customItems: next, selectedCustomId: get().selectedCustomId === id ? null : get().selectedCustomId });
   },
-  selectCustom: (id) => set({ selectedCustomId: id, selectedHex: id ? null : get().selectedHex }),
+  selectCustom: (id) => {
+    if (!id) {
+      set({ selectedCustomId: null });
+      return;
+    }
+    const item = get().customItems.find((c) => c.id === id);
+    if (!item) {
+      set({ selectedCustomId: id, selectedHex: null });
+      return;
+    }
+    set((s) => ({
+      selectedCustomId: id,
+      selectedHex: null,
+      visible: { ...s.visible, [item.layer]: true },
+      expandedLayers: { ...s.expandedLayers, [item.layer]: true },
+      expandedKinds: { ...s.expandedKinds, [kindKey(item.layer, "uploaded")]: true },
+    }));
+  },
   setPlaceMode: (placeMode) => set({ placeMode }),
   placeAt: (p) => {
     const id = get().selectedCustomId;
@@ -403,7 +486,52 @@ export const useBim = create<Store>((set, get) => ({
     get().updateCustom(id, { x: p.x, y: p.y, z: p.z });
     set({ placeMode: false });
   },
-}));
+  setGizmoMode: (gizmoMode) => set({ gizmoMode }),
+  setGizmoDragging: (gizmoDragging) => set({ gizmoDragging }),
+  setPieceXform: (hex, patch) => {
+    const next = { ...get().xforms, [hex]: { ...get().xforms[hex], ...patch } };
+    saveXforms(next);
+    set({ xforms: next });
+  },
+  resetPieceXform: (hex) => {
+    const next = { ...get().xforms };
+    delete next[hex];
+    saveXforms(next);
+    set({ xforms: next });
+  },
+  resetAllXforms: () => {
+    saveXforms({});
+    set({ xforms: {} });
+  },
+  nudgeSelected: (dx, dy, dz) => {
+    const s = get();
+    if (s.selectedHex) {
+      const raw = s.result.boxes.find((b) => b.hex === s.selectedHex);
+      if (!raw) return;
+      const box = applyXform(raw, s.xforms);
+      s.setPieceXform(s.selectedHex, { x: box.x + dx, y: box.y + dy, z: box.z + dz });
+      return;
+    }
+    if (s.selectedCustomId) {
+      const item = s.customItems.find((c) => c.id === s.selectedCustomId);
+      if (!item) return;
+      s.updateCustom(item.id, { x: item.x + dx, y: item.y + dy, z: item.z + dz });
+    }
+  },
+  setPieceSize: (hex, w, h, d) => {
+    get().setPieceXform(hex, {
+      w: Math.max(0.002, w),
+      h: Math.max(0.002, h),
+      d: Math.max(0.002, d),
+    });
+  },
+  }));
+}
+
+type BimStore = ReturnType<typeof createBimStore>;
+const g = globalThis as unknown as { __lwBim?: BimStore };
+export const useBim: BimStore =
+  typeof window === "undefined" ? createBimStore() : (g.__lwBim ??= createBimStore());
 
 export function layerIsOn(state: Pick<Store, "visible" | "sequenceOn" | "seqT">, id: LayerId): boolean {
   if (state.sequenceOn) {
@@ -413,33 +541,111 @@ export function layerIsOn(state: Pick<Store, "visible" | "sequenceOn" | "seqT">,
   return state.visible[id];
 }
 
-export function resolveBox(box: BoxSpec, overrides: Record<string, string>): BoxSpec {
-  const val = overrides[`hex:${box.hex}`] ?? overrides[`kind:${box.kind}`] ?? overrides[`layer:${box.layer}`];
-  if (!val) return box;
-  if (val.startsWith("#")) {
-    const tinted = tintedFinish(finishOf(box.matId), val);
-    return {
-      ...box,
-      matId: tinted.id,
-      color: tinted.hex,
-      roughness: tinted.roughness,
-      metalness: tinted.metalness,
-      opacity: tinted.opacity,
-    };
-  }
-  const mat = CATALOG[val];
-  if (!mat) return box;
+export function applyXform(box: BoxSpec, xforms: Record<string, PieceXform>): BoxSpec {
+  const t = xforms[box.hex];
+  if (!t) return box;
   return {
     ...box,
-    matId: mat.id,
-    color: mat.hex,
-    roughness: mat.roughness,
-    metalness: mat.metalness,
-    opacity: mat.opacity,
+    x: t.x ?? box.x,
+    y: t.y ?? box.y,
+    z: t.z ?? box.z,
+    w: t.w ?? box.w,
+    h: t.h ?? box.h,
+    d: t.d ?? box.d,
+    rx: t.rx ?? box.rx,
+    ry: t.ry ?? box.ry,
+    rz: t.rz ?? box.rz,
   };
 }
 
-export function resolveBoxes(boxes: BoxSpec[], overrides: Record<string, string>): BoxSpec[] {
-  if (!overrides || Object.keys(overrides).length === 0) return boxes;
-  return boxes.map((b) => resolveBox(b, overrides));
+export function resolveBox(
+  box: BoxSpec,
+  overrides: Record<string, string>,
+  xforms: Record<string, PieceXform> = {},
+): BoxSpec {
+  let next = box;
+  const val = overrides[`hex:${box.hex}`] ?? overrides[`kind:${box.kind}`] ?? overrides[`layer:${box.layer}`];
+  if (val) {
+    if (val.startsWith("#")) {
+      const tinted = tintedFinish(finishOf(box.matId), val);
+      next = {
+        ...box,
+        matId: tinted.id,
+        color: tinted.hex,
+        roughness: tinted.roughness,
+        metalness: tinted.metalness,
+        opacity: tinted.opacity,
+      };
+    } else {
+      const mat = CATALOG[val];
+      if (mat) {
+        next = {
+          ...box,
+          matId: mat.id,
+          color: mat.hex,
+          roughness: mat.roughness,
+          metalness: mat.metalness,
+          opacity: mat.opacity,
+        };
+      }
+    }
+  }
+  return applyXform(next, xforms);
+}
+
+export function resolveBoxes(
+  boxes: BoxSpec[],
+  overrides: Record<string, string>,
+  xforms: Record<string, PieceXform> = {},
+): BoxSpec[] {
+  if ((!overrides || Object.keys(overrides).length === 0) && (!xforms || Object.keys(xforms).length === 0)) {
+    return boxes;
+  }
+  return boxes.map((b) => resolveBox(b, overrides, xforms));
+}
+
+if (typeof window !== "undefined") {
+  (window as unknown as { __bimTest?: unknown }).__bimTest = {
+    selectFirst() {
+      const b = useBim.getState().result.boxes[0];
+      if (b) useBim.getState().selectHex(b.hex);
+      return b?.hex ?? null;
+    },
+    selectHex(hex: string) {
+      useBim.getState().selectHex(hex);
+    },
+    nudge(dx: number, dy: number, dz: number) {
+      useBim.getState().nudgeSelected(dx, dy, dz);
+    },
+    selected() {
+      const s = useBim.getState();
+      const raw = s.result.boxes.find((b) => b.hex === s.selectedHex);
+      if (!raw) return null;
+      const r = resolveBox(raw, s.overrides, s.xforms);
+      return { hex: r.hex, x: r.x, y: r.y, z: r.z, w: r.w, h: r.h, d: r.d, kind: r.kind, layer: r.layer, color: r.color };
+    },
+    setSize(w: number, h: number, d: number) {
+      const hex = useBim.getState().selectedHex;
+      if (hex) useBim.getState().setPieceSize(hex, w, h, d);
+    },
+    applyFinish(id: string) {
+      useBim.getState().applyFinish(id);
+    },
+    pieceCount() {
+      return useBim.getState().result.boxes.length;
+    },
+    resetAll() {
+      useBim.getState().resetAllXforms();
+      useBim.getState().clearOverrides();
+      useBim.getState().selectHex(null);
+    },
+    selectKind(kind: string) {
+      const b = useBim.getState().result.boxes.find((x) => x.kind === kind);
+      if (b) useBim.getState().selectHex(b.hex);
+      return b?.hex ?? null;
+    },
+    treeKinds() {
+      return useBim.getState().result.boxes.reduce((n, _b, i, a) => (i === 0 ? new Set(a.map((x) => x.kind)).size : n), 0);
+    },
+  };
 }

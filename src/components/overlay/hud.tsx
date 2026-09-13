@@ -1,9 +1,11 @@
 import {
   Eye,
   Layers,
+  Move,
   PanelLeftOpen,
   Play,
   RotateCcw,
+  Scaling,
   Sun,
   X,
 } from "lucide-react";
@@ -18,6 +20,7 @@ import {
   LAYER_PRESETS,
   resolveBox,
   useBim,
+  type GizmoMode,
   type OverrideScope,
   type RenderStyle,
   type ViewPreset,
@@ -320,26 +323,70 @@ function FinishesPanel() {
 
 type SwapGroupIdLocal = keyof typeof SWAP_GROUPS;
 
+function NumField({
+  label,
+  value,
+  step,
+  onChange,
+}: {
+  label: string;
+  value: number;
+  step: number;
+  onChange: (n: number) => void;
+}) {
+  return (
+    <label className="block">
+      <span className="font-mono text-[10px] text-paper-muted">{label}</span>
+      <input
+        type="number"
+        step={step}
+        value={Number.isFinite(value) ? value : 0}
+        onChange={(e) => onChange(Number(e.target.value))}
+        className="mt-0.5 h-9 w-full rounded-md bg-ink-subtle px-1.5 font-mono text-xs text-paper shadow-[var(--shadow-border)] focus:outline-none focus:ring-2 focus:ring-steel/70"
+      />
+    </label>
+  );
+}
+
 function InspectorPanel() {
   const selectedHex = useBim((s) => s.selectedHex);
+  const selectedCustomId = useBim((s) => s.selectedCustomId);
   const boxes = useBim((s) => s.result.boxes);
   const overrides = useBim((s) => s.overrides);
+  const xforms = useBim((s) => s.xforms);
   const hexQuery = useBim((s) => s.hexQuery);
   const setHexQuery = useBim((s) => s.setHexQuery);
   const selectHex = useBim((s) => s.selectHex);
   const isolateKind = useBim((s) => s.isolateKind);
+  const setPieceXform = useBim((s) => s.setPieceXform);
+  const setPieceSize = useBim((s) => s.setPieceSize);
+  const resetPieceXform = useBim((s) => s.resetPieceXform);
+  const applyFinish = useBim((s) => s.applyFinish);
+  const gizmoMode = useBim((s) => s.gizmoMode);
+  const setGizmoMode = useBim((s) => s.setGizmoMode);
+  const customItems = useBim((s) => s.customItems);
+  const updateCustom = useBim((s) => s.updateCustom);
+  const [tint, setTint] = useState("");
 
   const box = useMemo(() => {
     const raw = boxes.find((b) => b.hex === selectedHex);
-    return raw ? resolveBox(raw, overrides) : null;
-  }, [boxes, selectedHex, overrides]);
+    return raw ? resolveBox(raw, overrides, xforms) : null;
+  }, [boxes, selectedHex, overrides, xforms]);
 
+  const custom = customItems.find((c) => c.id === selectedCustomId) ?? null;
   const phase = box ? PHASE_NOTES[box.layer] : null;
   const finish = box ? (CATALOG[box.matId.split("#")[0]!] ?? null) : null;
   const kmeta = box ? kindMeta(box.kind) : null;
+  const colorVal = box?.color?.startsWith("#") && box.color.length === 7 ? box.color : "#C9A06A";
+
+  const modes: { id: GizmoMode; label: string; icon: typeof Move }[] = [
+    { id: "translate", label: "Move", icon: Move },
+    { id: "scale", label: "Size", icon: Scaling },
+    { id: "rotate", label: "Turn", icon: RotateCcw },
+  ];
 
   return (
-    <div className="space-y-3">
+    <div className="min-h-0 flex-1 space-y-3 overflow-y-auto overscroll-contain" data-selected-hex={selectedHex ?? ""}>
       <label className="block px-1">
         <span className="text-xs text-paper-muted">Find hex</span>
         <input
@@ -350,6 +397,29 @@ function InspectorPanel() {
           suppressHydrationWarning
         />
       </label>
+
+      <div className="flex gap-1 px-1">
+        {modes.map((m) => (
+          <button
+            key={m.id}
+            type="button"
+            onClick={() => setGizmoMode(m.id)}
+            className={cn(
+              "inline-flex h-9 flex-1 items-center justify-center gap-1 rounded-md text-xs",
+              gizmoMode === m.id ? "bg-paper/15 text-paper" : "text-paper-muted shadow-[var(--shadow-border)]",
+            )}
+          >
+            <m.icon className="size-3.5" />
+            {m.label}
+          </button>
+        ))}
+      </div>
+      <p className="px-1 font-mono text-[10px] leading-snug text-paper-muted">
+        {selectedHex ? `Selected 0x${selectedHex}` : custom ? `Selected ${custom.name}` : "No piece selected"}
+        {" · "}
+        Drag the gizmo or use arrow keys. Q/E height · Shift 1 mm · Alt 250 mm · 1/2/3 mode
+      </p>
+
       {box && kmeta ? (
         <div className="space-y-2 px-1">
           <p className="font-display text-sm text-paper">{kmeta.label}</p>
@@ -367,34 +437,122 @@ function InspectorPanel() {
             </dd>
             <dt className="text-paper-muted">Type</dt>
             <dd className="text-paper">{typeHex(box.kind)}</dd>
-            <dt className="text-paper-muted">Material</dt>
-            <dd className="text-paper">{box.color}</dd>
-            <dt className="text-paper-muted">Finish</dt>
-            <dd className="truncate text-paper">{finish?.name ?? box.matId}</dd>
             <dt className="text-paper-muted">Layer</dt>
             <dd className="text-paper">
               {LAYER_META[box.layer].phase} · {LAYER_META[box.layer].label}
             </dd>
             <dt className="text-paper-muted">IFC</dt>
             <dd className="truncate text-paper">{kmeta.ifc}</dd>
-            <dt className="text-paper-muted">Size</dt>
-            <dd className="text-paper">
-              {Math.round(box.w * 1000)} × {Math.round(box.h * 1000)} × {Math.round(box.d * 1000)} mm
-            </dd>
-            {box.unit != null ? (
-              <>
-                <dt className="text-paper-muted">Unit</dt>
-                <dd className="text-paper">{box.unit + 1}</dd>
-              </>
-            ) : null}
           </dl>
-          <button
-            type="button"
-            onClick={() => isolateKind(box.layer, box.kind)}
-            className="text-xs text-steel hover:text-paper"
+
+          <p className="pt-1 font-display text-xs tracking-mark text-steel uppercase">Position m</p>
+          <div className="grid grid-cols-3 gap-1">
+            <NumField label="X" value={Number(box.x.toFixed(3))} step={0.05} onChange={(n) => setPieceXform(box.hex, { x: n })} />
+            <NumField label="Y" value={Number(box.y.toFixed(3))} step={0.05} onChange={(n) => setPieceXform(box.hex, { y: n })} />
+            <NumField label="Z" value={Number(box.z.toFixed(3))} step={0.05} onChange={(n) => setPieceXform(box.hex, { z: n })} />
+          </div>
+
+          <p className="pt-1 font-display text-xs tracking-mark text-steel uppercase">Size mm</p>
+          <div className="grid grid-cols-3 gap-1">
+            <NumField
+              label="W"
+              value={Math.round(box.w * 1000)}
+              step={1}
+              onChange={(n) => setPieceSize(box.hex, n / 1000, box.h, box.d)}
+            />
+            <NumField
+              label="H"
+              value={Math.round(box.h * 1000)}
+              step={1}
+              onChange={(n) => setPieceSize(box.hex, box.w, n / 1000, box.d)}
+            />
+            <NumField
+              label="D"
+              value={Math.round(box.d * 1000)}
+              step={1}
+              onChange={(n) => setPieceSize(box.hex, box.w, box.h, n / 1000)}
+            />
+          </div>
+
+          <p className="pt-1 font-display text-xs tracking-mark text-steel uppercase">Rotation °</p>
+          <div className="grid grid-cols-3 gap-1">
+            <NumField
+              label="Rx"
+              value={Math.round((box.rx * 180) / Math.PI)}
+              step={1}
+              onChange={(n) => setPieceXform(box.hex, { rx: (n * Math.PI) / 180 })}
+            />
+            <NumField
+              label="Ry"
+              value={Math.round((box.ry * 180) / Math.PI)}
+              step={1}
+              onChange={(n) => setPieceXform(box.hex, { ry: (n * Math.PI) / 180 })}
+            />
+            <NumField
+              label="Rz"
+              value={Math.round((box.rz * 180) / Math.PI)}
+              step={1}
+              onChange={(n) => setPieceXform(box.hex, { rz: (n * Math.PI) / 180 })}
+            />
+          </div>
+
+          <p className="pt-1 font-display text-xs tracking-mark text-steel uppercase">Color / texture</p>
+          <div className="flex items-center gap-2">
+            <input
+              type="color"
+              value={colorVal}
+              onChange={(e) => applyFinish(e.target.value.toUpperCase())}
+              className="h-9 w-11 cursor-pointer rounded-md bg-ink-subtle shadow-[var(--shadow-border)]"
+              aria-label="Piece color"
+            />
+            <span className="font-mono text-xs text-paper">{box.color}</span>
+          </div>
+          <label className="block">
+            <span className="text-[10px] text-paper-muted">Texture</span>
+            <select
+              value={box.matId.split("#")[0]}
+              onChange={(e) => applyFinish(e.target.value)}
+              className="mt-0.5 h-9 w-full rounded-md bg-ink-subtle px-2 text-xs text-paper shadow-[var(--shadow-border)]"
+            >
+              {FAMILIES.map((fam) => (
+                <optgroup key={fam} label={fam}>
+                  {FINISH_LIST.filter((f) => f.family === fam).map((f) => (
+                    <option key={f.id} value={f.id}>
+                      {f.name}
+                    </option>
+                  ))}
+                </optgroup>
+              ))}
+            </select>
+          </label>
+          <form
+            className="flex gap-1"
+            onSubmit={(e) => {
+              e.preventDefault();
+              const hex = parseUserHex(tint);
+              if (hex) applyFinish(hex);
+            }}
           >
-            Solo this kind in the tree
-          </button>
+            <input
+              value={tint}
+              onChange={(e) => setTint(e.target.value)}
+              placeholder="#C9A06A"
+              className="h-9 min-h-9 flex-1 rounded-md bg-ink-subtle px-2 font-mono text-xs text-paper placeholder:text-paper-muted shadow-[var(--shadow-border)]"
+            />
+            <Button type="submit" size="sm" disabled={!parseUserHex(tint)}>
+              Tint
+            </Button>
+          </form>
+          <p className="font-mono text-[10px] text-paper-muted">{finish?.name ?? box.matId} · {finish?.proc}</p>
+
+          <div className="flex flex-wrap gap-2 pt-1">
+            <button type="button" onClick={() => isolateKind(box.layer, box.kind)} className="text-xs text-steel hover:text-paper">
+              Solo this kind
+            </button>
+            <button type="button" onClick={() => resetPieceXform(box.hex)} className="text-xs text-paper-muted hover:text-paper">
+              Reset placement
+            </button>
+          </div>
           {phase ? (
             <div className="rounded-md bg-ink-subtle px-3 py-2">
               <p className="font-mono text-xs text-steel">
@@ -408,12 +566,38 @@ function InspectorPanel() {
             </div>
           ) : null}
         </div>
+      ) : custom ? (
+        <div className="space-y-2 px-1">
+          <p className="font-display text-sm text-paper">{custom.name}</p>
+          <p className="font-mono text-[11px] text-paper-muted">
+            {custom.ext.toUpperCase()} · {LAYER_META[custom.layer].label}
+          </p>
+          <p className="pt-1 font-display text-xs tracking-mark text-steel uppercase">Position m</p>
+          <div className="grid grid-cols-3 gap-1">
+            <NumField label="X" value={Number(custom.x.toFixed(3))} step={0.05} onChange={(n) => updateCustom(custom.id, { x: n })} />
+            <NumField label="Y" value={Number(custom.y.toFixed(3))} step={0.05} onChange={(n) => updateCustom(custom.id, { y: n })} />
+            <NumField label="Z" value={Number(custom.z.toFixed(3))} step={0.05} onChange={(n) => updateCustom(custom.id, { z: n })} />
+          </div>
+          <p className="pt-1 font-display text-xs tracking-mark text-steel uppercase">Scale</p>
+          <div className="grid grid-cols-3 gap-1">
+            <NumField label="Sx" value={Number(custom.sx.toFixed(3))} step={0.05} onChange={(n) => updateCustom(custom.id, { sx: Math.max(0.02, n) })} />
+            <NumField label="Sy" value={Number(custom.sy.toFixed(3))} step={0.05} onChange={(n) => updateCustom(custom.id, { sy: Math.max(0.02, n) })} />
+            <NumField label="Sz" value={Number(custom.sz.toFixed(3))} step={0.05} onChange={(n) => updateCustom(custom.id, { sz: Math.max(0.02, n) })} />
+          </div>
+        </div>
       ) : (
         <p className="px-1 text-xs text-paper-muted">
-          Open a layer in the assembly tree, or click a piece. Every stud, flashing, and finish has an 8-character hex ID.
+          Open a layer in the assembly tree, or click a piece. Every stud, flashing, and finish is selectable — drag to place, resize in the fields, swap color and texture.
         </p>
       )}
-      <button type="button" onClick={() => selectHex(null)} className="px-1 text-xs text-paper-muted hover:text-paper">
+      <button
+        type="button"
+        onClick={() => {
+          selectHex(null);
+          useBim.getState().selectCustom(null);
+        }}
+        className="px-1 text-xs text-paper-muted hover:text-paper"
+      >
         Clear selection
       </button>
     </div>
@@ -529,6 +713,43 @@ const STYLES: { id: RenderStyle; label: string }[] = [
   { id: "dusk", label: "Dusk" },
 ];
 
+function GizmoBar() {
+  const hex = useBim((s) => s.selectedHex);
+  const customId = useBim((s) => s.selectedCustomId);
+  const mode = useBim((s) => s.gizmoMode);
+  const setMode = useBim((s) => s.setGizmoMode);
+  const reset = useBim((s) => s.resetPieceXform);
+  if (!hex && !customId) return null;
+  const modes: { id: GizmoMode; label: string }[] = [
+    { id: "translate", label: "Move" },
+    { id: "scale", label: "Size" },
+    { id: "rotate", label: "Turn" },
+  ];
+  return (
+    <div className="mb-2 flex flex-wrap items-center gap-1 rounded-xl bg-ink-elevated/95 p-1 shadow-[var(--shadow-border)]">
+      {modes.map((m) => (
+        <button
+          key={m.id}
+          type="button"
+          onClick={() => setMode(m.id)}
+          className={cn(
+            "h-9 rounded-md px-3 text-xs",
+            mode === m.id ? "bg-paper/15 text-paper" : "text-paper-muted hover:text-paper",
+          )}
+        >
+          {m.label}
+        </button>
+      ))}
+      {hex ? (
+        <button type="button" onClick={() => reset(hex)} className="h-9 rounded-md px-3 text-xs text-paper-muted hover:text-paper">
+          Reset piece
+        </button>
+      ) : null}
+      <span className="px-2 font-mono text-[10px] text-paper-muted">Arrows · Q/E height · 1/2/3</span>
+    </div>
+  );
+}
+
 export function Hud() {
   const [open, setOpen] = useState<"layers" | "spec" | null>(null);
   const program = useBim((s) => s.program);
@@ -637,6 +858,7 @@ export function Hud() {
       ) : null}
 
       <div className="pointer-events-auto col-span-full max-w-4xl self-end">
+        <GizmoBar />
         <BriefBar />
       </div>
 
