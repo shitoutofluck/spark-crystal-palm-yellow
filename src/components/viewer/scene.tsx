@@ -76,28 +76,47 @@ function FitCamera() {
           maxz = Math.max(maxz, b.z + b.d / 2);
         }
       }
+    } else {
+      const built = boxes.filter((b) => b.kind !== "lawn" && b.layer !== "excavation");
+      if (built.length) {
+        minx = Infinity;
+        miny = Infinity;
+        minz = Infinity;
+        maxx = -Infinity;
+        maxy = -Infinity;
+        maxz = -Infinity;
+        for (const b of built) {
+          minx = Math.min(minx, b.x - b.w / 2);
+          miny = Math.min(miny, b.y);
+          minz = Math.min(minz, b.z - b.d / 2);
+          maxx = Math.max(maxx, b.x + b.w / 2);
+          maxy = Math.max(maxy, b.y + b.h / 2);
+          maxz = Math.max(maxz, b.z + b.d / 2);
+        }
+      }
     }
     const cx = (minx + maxx) / 2;
     const cy = (miny + maxy) / 2;
     const cz = (minz + maxz) / 2;
-    const span = Math.max(maxx - minx, maxy - miny, maxz - minz, 4);
+    const span = Math.max(maxx - minx, 8);
+    const roof = Math.max(maxy, 6);
     const target = new THREE.Vector3(cx, cy, cz);
     if (workMode === "live") {
       if (view === "eye") {
         camera.position.set(cx, 1.64, -8.2);
         target.set(cx, 1.52, 3.2);
       } else if (view === "top") {
-        camera.position.set(cx, 28, 5);
-        target.set(cx, 0.2, 5);
+        camera.position.set(cx, 32, cz);
+        target.set(cx, 0.2, cz);
       } else if (view === "iso") {
-        camera.position.set(cx + 14, Math.max(maxy, 6) + 6, -12);
-        target.set(cx, Math.max(maxy, 6) * 0.35, 4);
+        camera.position.set(cx + span * 0.55, roof + 4, minz - 8);
+        target.set(cx, roof * 0.35, 2);
       } else {
-        camera.position.set(cx + span * 0.35, Math.max(maxy, 4) * 0.72, -14);
-        target.set(cx, Math.max(maxy, 4) * 0.28, 3.2);
+        camera.position.set(cx + span * 0.42, roof * 0.38 + 2.4, minz - 6);
+        target.set(cx, 2.15, 1.4);
       }
     } else {
-      camera.position.set(cx + span * 0.9, cy + span * 0.55, cz - span * 1.05);
+      camera.position.set(cx + span * 0.9, cy + Math.max(span * 0.4, 4), cz - span * 0.95);
     }
     camera.lookAt(target);
     camera.updateProjectionMatrix();

@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { buildBuilding } from "./build";
 import { CATALOG, finishOf, tintedFinish } from "./catalog";
-import { TERRACE_PROGRAM } from "./default-program";
+import { FOURPLEX_PROGRAM, TERRACE_PROGRAM } from "./default-program";
 import { generateProgram } from "./generate-program";
 import {
   canAddItem,
@@ -16,6 +16,7 @@ import {
   type CustomItem,
 } from "./library";
 import { kindKey } from "./tree";
+import { QC_REV, verifyBuilding, type QcReport } from "./qc";
 import type { BoxSpec, BuildingProgram, BuildResult, LayerId } from "./types";
 import { BUILD_SEQUENCE, LAYER_IDS } from "./types";
 
@@ -163,6 +164,7 @@ type Store = {
   xforms: Record<string, PieceXform>;
   gizmoMode: GizmoMode;
   gizmoDragging: boolean;
+  qc: QcReport;
   setBrief: (brief: string) => void;
   toggleLayer: (id: LayerId) => void;
   isolateLayer: (id: LayerId) => void;
@@ -211,16 +213,20 @@ type Store = {
   setPieceSize: (hex: string, w: number, h: number, d: number) => void;
 };
 
-function rebuild(program: BuildingProgram): BuildResult {
-  return buildBuilding(program);
+function rebuild(program: BuildingProgram): { result: BuildResult; qc: QcReport } {
+  void QC_REV;
+  const result = buildBuilding(program);
+  return { result, qc: verifyBuilding(program, result.boxes) };
 }
 
 const closedLayers = Object.fromEntries(LAYER_IDS.map((id) => [id, false])) as Record<LayerId, boolean>;
 
 function createBimStore() {
+  const boot = rebuild(FOURPLEX_PROGRAM);
   return create<Store>((set, get) => ({
-  program: TERRACE_PROGRAM,
-  result: rebuild(TERRACE_PROGRAM),
+  program: FOURPLEX_PROGRAM,
+  result: boot.result,
+  qc: boot.qc,
   visible: { ...DEFAULT_VISIBLE },
   explode: 0,
   section: 1,
@@ -338,6 +344,8 @@ function createBimStore() {
       sequenceOn: false,
       playing: false,
       visible: { ...DEFAULT_VISIBLE },
+      renderStyle: s.renderStyle === "studio" ? "overcast" : s.renderStyle,
+      viewPreset: "street",
       focusKind: null,
       cameraEpoch: s.cameraEpoch + 1,
     })),
@@ -347,9 +355,11 @@ function createBimStore() {
       const keepXf = program.id === s.program.id;
       const xforms = keepXf ? s.xforms : {};
       if (!keepXf) saveXforms({});
+      const built = rebuild(program);
       return {
         program,
-        result: rebuild(program),
+        result: built.result,
+        qc: built.qc,
         via,
         generating: false,
         error: null,
@@ -361,7 +371,7 @@ function createBimStore() {
         xforms,
       };
     }),
-  resetTerrace: () => get().loadProgram(TERRACE_PROGRAM, "preset"),
+  resetTerrace: () => get().loadProgram(FOURPLEX_PROGRAM, "preset"),
   refitCamera: () => set((s) => ({ cameraEpoch: s.cameraEpoch + 1 })),
   generate: async (briefArg) => {
     const brief = (briefArg ?? get().brief).trim();
@@ -596,7 +606,11 @@ function createBimStore() {
 }
 
 type BimStore = ReturnType<typeof createBimStore>;
-const g = globalThis as unknown as { __lwBim?: BimStore };
+const g = globalThis as unknown as { __lwBim?: BimStore; __lwQcRev?: number };
+if (typeof window !== "undefined" && g.__lwQcRev !== QC_REV) {
+  g.__lwBim = undefined;
+  g.__lwQcRev = QC_REV;
+}
 export const useBim: BimStore =
   typeof window === "undefined" ? createBimStore() : (g.__lwBim ??= createBimStore());
 

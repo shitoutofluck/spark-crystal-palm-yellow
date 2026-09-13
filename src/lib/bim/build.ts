@@ -13,6 +13,10 @@ const HEADER = 0.235;
 const IJOIST = 0.302;
 const FROST = 0.76;
 
+function vinylGable(p: BuildingProgram) {
+  return p.facade === "siding";
+}
+
 type Hole = { x: number; y: number; w: number; h: number; kind: "window" | "door" };
 type Extra = { geom?: Geom; rx?: number; ry?: number; rz?: number };
 
@@ -245,15 +249,24 @@ function battsX(bag: Bag, zC: number, x0: number, x1: number, y0: number, y1: nu
   }
 }
 
-function openingsX(bag: Bag, zFace: number, holes: Hole[], inward: number, unit?: number) {
+function openingsX(
+  bag: Bag,
+  zFace: number,
+  holes: Hole[],
+  inward: number,
+  unit?: number,
+  trim?: { frame: string; leaf: string },
+) {
   const frame = 0.055;
+  const frameMat = trim?.frame ?? "frame-charcoal";
+  const leafMat = trim?.leaf ?? "frame-charcoal";
   for (const h of holes) {
     const z0 = zFace - 0.03;
     const t = 0.12;
-    bag.min("openings", "frame-charcoal", h.x, h.y, z0, h.w, frame, t, "frame", unit);
-    bag.min("openings", "frame-charcoal", h.x, h.y + h.h - frame, z0, h.w, frame, t, "frame", unit);
-    bag.min("openings", "frame-charcoal", h.x, h.y, z0, frame, h.h, t, "frame", unit);
-    bag.min("openings", "frame-charcoal", h.x + h.w - frame, h.y, z0, frame, h.h, t, "frame", unit);
+    bag.min("openings", frameMat, h.x, h.y, z0, h.w, frame, t, "frame", unit);
+    bag.min("openings", frameMat, h.x, h.y + h.h - frame, z0, h.w, frame, t, "frame", unit);
+    bag.min("openings", frameMat, h.x, h.y, z0, frame, h.h, t, "frame", unit);
+    bag.min("openings", frameMat, h.x + h.w - frame, h.y, z0, frame, h.h, t, "frame", unit);
     bag.min(
       "openings",
       "steel-galv",
@@ -278,40 +291,40 @@ function openingsX(bag: Bag, zFace: number, holes: Hole[], inward: number, unit?
       "head-flash",
       unit,
     );
-    bag.min(
-      "openings",
-      "glass-clear",
-      h.x + frame,
-      h.y + frame,
-      zFace - 0.01,
-      h.w - 2 * frame,
-      h.h - 2 * frame,
-      0.018,
-      h.kind === "door" ? "door-glass" : "glass",
-      unit,
-    );
-    if (h.kind === "window" && h.w > 1.4) {
+    if (h.kind === "window") {
+      bag.min(
+        "openings",
+        "glass-clear",
+        h.x + frame,
+        h.y + frame,
+        zFace - 0.01,
+        h.w - 2 * frame,
+        h.h - 2 * frame,
+        0.018,
+        "glass",
+        unit,
+      );
       const mullions = h.w > 2.8 ? 2 : 1;
       for (let m = 1; m <= mullions; m++) {
         bag.min(
           "openings",
-          "frame-charcoal",
-          h.x + (h.w * m) / (mullions + 1) - 0.018,
+          frameMat,
+          h.x + (h.w * m) / (mullions + 1) - 0.016,
           h.y,
           z0,
-          0.036,
+          0.032,
           h.h,
           t + 0.01,
           "mullion",
           unit,
         );
       }
-      bag.min("openings", "frame-charcoal", h.x, h.y + h.h * 0.48, z0, h.w, 0.032, t + 0.01, "transom", unit);
+      bag.min("openings", frameMat, h.x, h.y + h.h * 0.5 - 0.014, z0, h.w, 0.028, t + 0.01, "transom", unit);
     }
     if (h.kind === "door") {
       bag.min(
         "openings",
-        "frame-charcoal",
+        leafMat,
         h.x + frame,
         h.y + frame,
         zFace + inward * 0.05,
@@ -321,11 +334,34 @@ function openingsX(bag: Bag, zFace: number, holes: Hole[], inward: number, unit?
         "leaf",
         unit,
       );
+      if (leafMat === "steel-dark") {
+        const lw = (h.w - 2 * frame) * 0.94;
+        const lh = h.h - 2 * frame;
+        for (let p = 0; p < 3; p++) {
+          bag.min(
+            "openings",
+            "steel-dark",
+            h.x + frame + lw * 0.12,
+            h.y + frame + 0.12 + p * (lh * 0.3),
+            zFace + inward * 0.07,
+            lw * 0.76,
+            lh * 0.22,
+            0.012,
+            "door-panel",
+            unit,
+          );
+        }
+      }
       bag.min("openings", "oak-natural", h.x, h.y - 0.012, zFace - 0.04, h.w, 0.018, 0.14, "threshold", unit);
     }
-    bag.min("finishes", "mill-oat", h.x - 0.05, h.y, zFace + inward * 0.09, 0.05, h.h, 0.018, "casing", unit);
-    bag.min("finishes", "mill-oat", h.x + h.w, h.y, zFace + inward * 0.09, 0.05, h.h, 0.018, "casing", unit);
-    bag.min("finishes", "mill-oat", h.x - 0.05, h.y + h.h, zFace + inward * 0.09, h.w + 0.1, 0.05, 0.018, "casing", unit);
+    const caseMat = frameMat === "mill-white" ? "mill-white" : "mill-oat";
+    const cw = frameMat === "mill-white" ? 0.08 : 0.05;
+    bag.min("finishes", caseMat, h.x - cw, h.y, zFace + inward * 0.09, cw, h.h, 0.022, "casing", unit);
+    bag.min("finishes", caseMat, h.x + h.w, h.y, zFace + inward * 0.09, cw, h.h, 0.022, "casing", unit);
+    bag.min("finishes", caseMat, h.x - cw, h.y + h.h, zFace + inward * 0.09, h.w + cw * 2, cw, 0.022, "casing", unit);
+    if (h.kind === "window") {
+      bag.min("finishes", caseMat, h.x - cw, h.y - cw, zFace + inward * 0.09, h.w + cw * 2, cw, 0.022, "casing", unit);
+    }
   }
 }
 
@@ -333,6 +369,39 @@ function unitHoles(p: BuildingProgram, storey: number, x0: number): { front: Hol
   const W = p.unitWidth;
   const H = p.storeyHeight;
   const y0 = storey * H;
+  if (vinylGable(p)) {
+    const winW = Math.min(1.42, W * 0.23);
+    const doorW = 0.91;
+    const doorX = x0 + W * 0.5 - doorW / 2;
+    const leftX = x0 + 0.42;
+    const rightX = x0 + W - 0.42 - winW;
+    const winY = y0 + 0.82;
+    const winH = 1.42;
+    if (storey === 0) {
+      return {
+        front: [
+          { x: leftX, y: winY, w: winW, h: winH, kind: "window" },
+          { x: doorX, y: y0, w: doorW, h: 2.13, kind: "door" },
+          { x: rightX, y: winY, w: winW, h: winH, kind: "window" },
+        ],
+        rear: [
+          { x: x0 + 0.45, y: winY, w: winW, h: winH, kind: "window" },
+          { x: x0 + W - 0.45 - winW, y: winY, w: winW, h: winH, kind: "window" },
+        ],
+      };
+    }
+    return {
+      front: [
+        { x: leftX, y: winY, w: winW, h: winH, kind: "window" },
+        { x: doorX, y: y0, w: doorW, h: 2.13, kind: "door" },
+        { x: rightX, y: winY, w: winW, h: winH, kind: "window" },
+      ],
+      rear: [
+        { x: x0 + 0.45, y: winY, w: winW, h: winH, kind: "window" },
+        { x: x0 + W - 0.45 - winW, y: winY, w: winW, h: winH, kind: "window" },
+      ],
+    };
+  }
   if (storey === 0) {
     return {
       front: [
@@ -344,27 +413,36 @@ function unitHoles(p: BuildingProgram, storey: number, x0: number): { front: Hol
   }
   return {
     front: [
-      { x: x0 + 0.45, y: y0 + 0.9, w: 2.2, h: 1.45, kind: "window" },
-      { x: x0 + 3.15, y: y0 + 0.9, w: 2.4, h: 1.45, kind: "window" },
+      { x: x0 + 0.55, y: y0 + 0.9, w: 1.45, h: 1.35, kind: "window" },
+      { x: x0 + 2.45, y: y0 + 0.9, w: 1.45, h: 1.35, kind: "window" },
+      { x: x0 + 4.25, y: y0 + 0.9, w: 1.25, h: 1.35, kind: "window" },
     ],
     rear: [
-      { x: x0 + 0.5, y: y0 + 0.9, w: 2.3, h: 1.4, kind: "window" },
-      { x: x0 + 3.2, y: y0 + 0.9, w: 2.3, h: 1.4, kind: "window" },
+      { x: x0 + 0.7, y: y0 + 0.9, w: 1.6, h: 1.25, kind: "window" },
+      { x: x0 + 3.4, y: y0 + 0.9, w: 1.8, h: 1.25, kind: "window" },
     ],
   };
 }
 
 function buildSite(bag: Bag, p: BuildingProgram, ox: number, totalW: number) {
   const D = p.unitDepth;
-  bag.min("site", "grass", ox - 8, -0.07, -9, totalW + 16, 0.07, D + 22, "lawn");
-  bag.min("site", "asphalt", ox - 8, -0.04, -8.4, totalW + 16, 0.05, 6.2, "street");
-  bag.min("site", "paving", ox - 1.2, 0, -1.85, totalW + 2.4, 0.06, 1.9, "sidewalk");
-  bag.min("site", "concrete-cip", ox - 1.4, -0.12, -2.05, totalW + 2.8, 0.18, 0.22, "curb");
+  bag.min("site", "grass", ox - 16, -0.05, -14, totalW + 32, 0.09, D + 36, "lawn");
+  bag.min("site", "grass", ox - 15.5, -0.02, -13.5, totalW + 31, 0.05, D + 35, "lawn");
+  if (!vinylGable(p)) {
+    bag.min("site", "asphalt", ox - 8, -0.04, -8.4, totalW + 16, 0.05, 6.2, "street");
+    bag.min("site", "paving", ox - 1.2, 0, -1.85, totalW + 2.4, 0.06, 1.9, "sidewalk");
+    bag.min("site", "concrete-cip", ox - 1.4, -0.12, -2.05, totalW + 2.8, 0.18, 0.22, "curb");
+  } else {
+    bag.min("site", "paving", ox - 2.4, 0.01, -3.4, totalW + 4.8, 0.05, 1.15, "sidewalk");
+  }
   for (let i = 0; i < p.units; i++) {
     const x0 = ox + i * p.unitWidth;
-    bag.min("site", "paving", x0 + 0.35, 0.01, 0.05, 1.5, 0.05, 1.1, "stoop", i);
-    bag.min("site", "soil", x0 + 2.1, 0.02, 0.15, p.unitWidth - 2.5, 0.18, 0.85, "planter", i);
-    bag.min("site", "foliage", x0 + 2.15, 0.2, 0.2, p.unitWidth - 2.6, 0.42, 0.75, "hedge", i, { geom: "ico" });
+    bag.min("site", "paving", x0 + p.unitWidth * 0.32, 0.02, -2.3, 1.15, 0.05, 2.4, "walk", i);
+    bag.min("site", "paving", x0 + 0.35, 0.03, -0.15, vinylGable(p) ? 2.2 : 1.5, 0.05, 1.1, "stoop", i);
+    if (!vinylGable(p)) {
+      bag.min("site", "soil", x0 + 2.1, 0.02, 0.15, p.unitWidth - 2.5, 0.18, 0.85, "planter", i);
+      bag.min("site", "foliage", x0 + 2.15, 0.2, 0.2, p.unitWidth - 2.6, 0.42, 0.75, "hedge", i, { geom: "ico" });
+    }
     if (p.hasRearGarden) {
       bag.min("site", "paving", x0 + 0.4, 0.02, D + 0.05, p.unitWidth - 0.8, 0.05, 2.4, "patio", i);
       bag.min("site", "foliage", x0 + 0.3, 0.05, D + 6.4, p.unitWidth - 0.6, 0.85, 0.42, "rear-hedge", i, { geom: "ico" });
@@ -376,6 +454,29 @@ function buildSite(bag: Bag, p: BuildingProgram, ox: number, totalW: number) {
       bag.add("site", "foliage", tx + 0.55, 2.05, tz + 0.28, 1.25, 1.15, 1.25, "canopy", i, { geom: "ico" });
       bag.add("site", "foliage", tx - 0.48, 2.15, tz - 0.32, 1.15, 1.05, 1.15, "canopy", i, { geom: "ico" });
     }
+    const stx = x0 + p.unitWidth * 0.18;
+    const stz = -5.6;
+    bag.add("site", "bark", stx, 1.05, stz, 0.32, 2.1, 0.32, "tree-trunk", i, { geom: "cyl" });
+    bag.add("site", "foliage", stx, 2.85, stz, 2.6, 2.4, 2.6, "canopy", i, { geom: "ico" });
+    bag.add("site", "foliage", stx + 0.7, 2.45, stz + 0.35, 1.6, 1.5, 1.6, "canopy", i, { geom: "ico" });
+    bag.min("site", "soil", stx - 0.55, 0.01, stz - 0.55, 1.2, 0.12, 1.2, "planter", i);
+  }
+  if (vinylGable(p)) {
+    const trees: [number, number, number][] = [
+      [ox - 4.2, 0, D * 0.2],
+      [ox - 5.5, 0, D * 0.55],
+      [ox - 3.6, 0, D + 2.4],
+      [ox + totalW + 4.1, 0, D * 0.15],
+      [ox + totalW + 5.4, 0, D * 0.7],
+      [ox + totalW * 0.25, 0, D + 5.8],
+      [ox + totalW * 0.72, 0, D + 6.2],
+    ];
+    trees.forEach(([tx, , tz], n) => {
+      const h = 4.2 + (n % 3) * 0.7;
+      bag.add("site", "bark", tx, h * 0.22, tz, 0.38, h * 0.45, 0.38, "tree-trunk", undefined, { geom: "cyl" });
+      bag.add("site", "foliage", tx, h * 0.62, tz, 3.4, h * 0.7, 3.4, "canopy", undefined, { geom: "ico" });
+      bag.add("site", "foliage", tx + 0.8, h * 0.52, tz + 0.4, 2.1, h * 0.45, 2.1, "canopy", undefined, { geom: "ico" });
+    });
   }
 }
 
@@ -626,13 +727,13 @@ function buildStairs(bag: Bag, p: BuildingProgram, x0: number, unit: number) {
   bag.min("interior", "steel-dark", sx + 0.96, 0.9, sz, 0.03, H - 1, treads * run, "rail", unit);
 }
 
-function buildInteriors(bag: Bag, p: BuildingProgram, x0: number, unit: number) {
+function placeTerraceFloor(bag: Bag, p: BuildingProgram, x0: number, y: number, unit: number) {
   const W = p.unitWidth;
   const D = p.unitDepth;
   const H = p.storeyHeight;
   const t = 0.1;
-  wallZ(bag, "interior", "paint-alabaster", x0 + 1.5, 0.25, 4.4, 0, H, t, [], "hall-wall", unit);
-  wallX(bag, "interior", "paint-alabaster", 4.4, x0 + 0.12, x0 + 1.55, 0, H, t, [], "wc-wall", unit);
+  wallZ(bag, "interior", "paint-alabaster", x0 + 1.5, 0.25, 4.4, y, y + H, t, [], "hall-wall", unit);
+  wallX(bag, "interior", "paint-alabaster", 4.4, x0 + 0.12, x0 + 1.55, y, y + H, t, [], "wc-wall", unit);
   wallZ(
     bag,
     "interior",
@@ -640,75 +741,129 @@ function buildInteriors(bag: Bag, p: BuildingProgram, x0: number, unit: number) 
     x0 + 1.55,
     4.4,
     6.05,
-    0,
-    H,
+    y,
+    y + H,
     t,
-    [{ x: 4.7, y: 0, w: 0.8, h: 2.05, kind: "door" }],
+    [{ x: 4.7, y, w: 0.8, h: 2.05, kind: "door" }],
     "wc-door-wall",
     unit,
   );
-  bag.min("interior", "mill-white", x0 + 1.52, 0, 4.72, 0.04, 2.05, 0.78, "door-interior", unit);
-  bag.min("interior", "tile-porcelain", x0 + 0.18, 0.01, 4.5, 1.28, 0.02, 1.45, "wc-pan", unit);
-  bag.add("interior", "mill-white", x0 + 0.45, 0.42, 5.55, 0.38, 0.42, 0.52, "toilet", unit);
-  bag.min("interior", "mill-white", x0 + 0.22, 0.78, 4.62, 0.5, 0.12, 0.4, "wc-vanity", unit);
+  bag.min("interior", "mill-white", x0 + 1.52, y, 4.72, 0.04, 2.05, 0.78, "door-interior", unit);
+  bag.min("interior", "tile-porcelain", x0 + 0.18, y + 0.01, 4.5, 1.28, 0.02, 1.45, "wc-pan", unit);
+  fixtureToilet(bag, x0 + 0.45, y, 5.55, unit);
+  fixtureSink(bag, x0 + 0.18, y, 4.55, unit);
 
-  bag.min("interior", "mill-oat", x0 + 0.2, 0, D - 3.55, 0.6, 0.9, 3.1, "base-cab", unit);
-  bag.min("finishes", "quartz-calacatta", x0 + 0.2, 0.9, D - 3.55, 0.62, 0.04, 3.1, "counter", unit);
-  bag.min("interior", "mill-oat", x0 + 0.2, 1.45, D - 3.55, 0.38, 0.7, 3.1, "upper-cab", unit);
-  bag.min("interior", "steel-dark", x0 + 0.48, 0.55, D - 2.2, 0.52, 1.72, 0.58, "fridge", unit);
-  bag.min("interior", "steel-galv", x0 + 0.42, 0.92, D - 3.05, 0.42, 0.14, 0.48, "sink", unit);
-  bag.min("interior", "steel-dark", x0 + 0.38, 0.94, D - 2.55, 0.5, 0.04, 0.52, "cooktop", unit);
-  bag.min("interior", "steel-dark", x0 + 0.4, 1.55, D - 2.55, 0.48, 0.12, 0.5, "hood", unit);
-  bag.min("interior", "mill-oat", x0 + 2.15, 0, D - 2.55, 1.7, 0.9, 0.85, "island", unit);
-  bag.min("finishes", "quartz-calacatta", x0 + 2.15, 0.9, D - 2.55, 1.7, 0.04, 0.85, "island-top", unit);
+  bag.min("interior", "mill-oat", x0 + 0.2, y, D - 3.55, 0.6, 0.9, 3.1, "base-cab", unit);
+  bag.min("finishes", "quartz-calacatta", x0 + 0.2, y + 0.9, D - 3.55, 0.62, 0.04, 3.1, "counter", unit);
+  bag.min("interior", "mill-oat", x0 + 0.2, y + 1.45, D - 3.55, 0.38, 0.7, 3.1, "upper-cab", unit);
+  bag.min("interior", "steel-dark", x0 + 0.48, y + 0.55, D - 2.2, 0.52, 1.72, 0.58, "fridge", unit);
+  bag.min("interior", "steel-galv", x0 + 0.42, y + 0.92, D - 3.05, 0.42, 0.14, 0.48, "sink", unit);
+  bag.min("interior", "steel-dark", x0 + 0.38, y + 0.94, D - 2.55, 0.5, 0.04, 0.52, "cooktop", unit);
+  bag.min("interior", "steel-dark", x0 + 0.4, y + 1.55, D - 2.55, 0.48, 0.12, 0.5, "hood", unit);
+  bag.min("interior", "mill-oat", x0 + 2.15, y, D - 2.55, 1.7, 0.9, 0.85, "island", unit);
+  bag.min("finishes", "quartz-calacatta", x0 + 2.15, y + 0.9, D - 2.55, 1.7, 0.04, 0.85, "island-top", unit);
 
-  bag.min("interior", "fabric", x0 + 2.6, 0.38, 2.5, 2.4, 0.55, 0.95, "sofa", unit);
-  bag.min("interior", "fabric", x0 + 2.7, 0.62, 2.42, 2.2, 0.22, 0.28, "sofa", unit);
-  bag.min("interior", "oak-natural", x0 + 3.1, 0.32, 4.0, 1.35, 0.08, 0.75, "table", unit);
+  bag.min("interior", "fabric", x0 + 2.6, y + 0.38, 2.5, 2.4, 0.55, 0.95, "sofa", unit);
+  bag.min("interior", "fabric", x0 + 2.7, y + 0.62, 2.42, 2.2, 0.22, 0.28, "sofa", unit);
+  bag.min("interior", "oak-natural", x0 + 3.1, y + 0.32, 4.0, 1.35, 0.08, 0.75, "table", unit);
 
-  bag.min("finishes", "mill-oat", x0 + 0.14, 0, 0.14, W - 0.28, 0.08, 0.014, "baseboard", unit);
-  bag.min("finishes", "mill-oat", x0 + 0.14, 0, D - 0.16, W - 0.28, 0.08, 0.014, "baseboard", unit);
+  bag.min("finishes", "mill-oat", x0 + 0.14, y, 0.14, W - 0.28, 0.08, 0.014, "baseboard", unit);
+  bag.min("finishes", "mill-oat", x0 + 0.14, y, D - 0.16, W - 0.28, 0.08, 0.014, "baseboard", unit);
+  bag.min("finishes", "tile-limestone", x0 + 0.15, y + 0.014, D - 3.7, W - 0.3, 0.016, 3.4, "kitchen-tile", unit);
+}
 
-  if (p.storeys > 1) {
-    const y = H;
-    wallZ(
-      bag,
-      "interior",
-      "paint-alabaster",
-      x0 + W * 0.5,
-      0.25,
-      5.2,
-      y,
-      y + H,
-      t,
-      [{ x: 2.2, y: y, w: 0.85, h: 2.05, kind: "door" }],
-      "bed-split",
-      unit,
-    );
-    wallX(
-      bag,
-      "interior",
-      "paint-alabaster",
-      5.25,
-      x0 + 0.15,
-      x0 + W - 0.15,
-      y,
-      y + H,
-      t,
-      [{ x: x0 + W - 2.3, y: y, w: 0.85, h: 2.05, kind: "door" }],
-      "bath-wall",
-      unit,
-    );
-    bag.min("interior", "linen", x0 + 0.4, y + 0.28, 0.7, 1.9, 0.28, 1.6, "bed-a", unit);
-    bag.min("interior", "linen", x0 + W * 0.5 + 0.35, y + 0.28, 0.7, 1.9, 0.28, 1.6, "bed-b", unit);
-    bag.min("interior", "mill-oat", x0 + 0.3, y, 3.4, 1.1, 1.15, 0.5, "wardrobe", unit);
-    bag.min("interior", "tile-porcelain", x0 + W - 2.55, y + 0.01, 5.4, 2.3, 0.02, D - 5.7, "bath-tile", unit);
-    bag.min("interior", "mill-white", x0 + W - 2.4, y + 0.4, 5.55, 0.95, 0.55, 0.45, "tub", unit);
-    bag.min("interior", "mill-white", x0 + W - 0.85, y + 0.42, 6.4, 0.38, 0.42, 0.52, "toilet-up", unit);
-    bag.min("interior", "mill-white", x0 + W - 2.35, y + 0.8, 6.85, 0.9, 0.12, 0.42, "vanity", unit);
-    bag.min("interior", "glass-clear", x0 + W - 1.35, y + 0.95, 5.5, 0.02, 1.85, 0.9, "shower-glass", unit);
-    bag.min("finishes", "mill-oat", x0 + 0.14, y, 0.14, W - 0.28, 0.08, 0.014, "baseboard", unit);
+function fixtureToilet(bag: Bag, x: number, y: number, z: number, unit?: number) {
+  bag.add("interior", "mill-white", x, y + 0.2, z, 0.36, 0.4, 0.52, "toilet", unit);
+  bag.min("interior", "mill-white", x - 0.02, y + 0.38, z + 0.32, 0.4, 0.38, 0.16, "toilet", unit);
+}
+
+function fixtureSink(bag: Bag, x: number, y: number, z: number, unit?: number) {
+  bag.min("interior", "mill-white", x, y, z, 0.55, 0.78, 0.42, "wc-vanity", unit);
+  bag.add("interior", "steel-galv", x + 0.27, y + 0.82, z + 0.2, 0.32, 0.08, 0.28, "sink", unit, { geom: "cyl" });
+  bag.min("interior", "steel-dark", x + 0.24, y + 0.86, z + 0.12, 0.04, 0.12, 0.04, "sink", unit);
+}
+
+function placeUpperFloor(bag: Bag, p: BuildingProgram, x0: number, y: number, unit: number) {
+  const W = p.unitWidth;
+  const D = p.unitDepth;
+  const H = p.storeyHeight;
+  const t = 0.1;
+  wallZ(
+    bag,
+    "interior",
+    "paint-alabaster",
+    x0 + W * 0.48,
+    0.25,
+    5.15,
+    y,
+    y + H,
+    t,
+    [{ x: 2.15, y, w: 0.82, h: 2.05, kind: "door" }],
+    "bed-split",
+    unit,
+  );
+  wallX(
+    bag,
+    "interior",
+    "paint-alabaster",
+    5.2,
+    x0 + 0.12,
+    x0 + W - 0.12,
+    y,
+    y + H,
+    t,
+    [{ x: x0 + W - 2.15, y, w: 0.82, h: 2.05, kind: "door" }],
+    "bath-wall",
+    unit,
+  );
+  bag.min("interior", "mill-white", x0 + W * 0.48 - 0.02, y, 2.2, 0.04, 2.05, 0.8, "door-interior", unit);
+  bag.min("interior", "linen", x0 + 0.35, y + 0.28, 0.7, 1.95, 0.32, 1.7, "bed-a", unit);
+  bag.min("interior", "linen", x0 + W * 0.48 + 0.3, y + 0.28, 0.7, 1.95, 0.32, 1.7, "bed-b", unit);
+  bag.min("interior", "mill-oat", x0 + 0.28, y, 3.35, 1.15, 1.2, 0.52, "wardrobe", unit);
+  bag.min("interior", "mill-oat", x0 + W * 0.48 + 0.25, y, 3.35, 1.15, 1.2, 0.52, "wardrobe", unit);
+  bag.min("interior", "tile-porcelain", x0 + W - 2.5, y + 0.01, 5.25, 2.25, 0.02, D - 5.45, "bath-tile", unit);
+  bag.min("interior", "mill-white", x0 + W - 2.35, y + 0.38, 5.45, 1.05, 0.52, 0.55, "tub", unit);
+  fixtureToilet(bag, x0 + W - 0.78, y, 6.55, unit);
+  fixtureSink(bag, x0 + W - 2.25, y, 6.85, unit);
+  bag.min("interior", "glass-clear", x0 + W - 1.28, y + 0.9, 5.42, 0.02, 1.85, 0.95, "shower-glass", unit);
+  bag.min("finishes", "mill-oat", x0 + 0.14, y, 0.14, W - 0.28, 0.08, 0.014, "baseboard", unit);
+}
+
+function buildInteriors(bag: Bag, p: BuildingProgram, x0: number, unit: number) {
+  const W = p.unitWidth;
+  const D = p.unitDepth;
+  const H = p.storeyHeight;
+  const t = 0.1;
+  if (vinylGable(p)) {
+    for (let s = 0; s < p.storeys; s++) {
+      const y = s * H;
+      const kitZ = 5.4;
+      const bedZ = 8.6;
+      wallX(bag, "interior", "paint-alabaster", kitZ, x0 + 0.12, x0 + W - 0.12, y, y + H, t, [{ x: x0 + 0.9, y, w: 0.82, h: 2.05, kind: "door" }], "hall-wall", unit);
+      wallZ(bag, "interior", "paint-alabaster", x0 + W * 0.58, kitZ, bedZ, y, y + H, t, [{ x: kitZ + 0.9, y, w: 0.8, h: 2.05, kind: "door" }], "bed-split", unit);
+      wallX(bag, "interior", "paint-alabaster", bedZ, x0 + 0.12, x0 + W - 0.12, y, y + H, t, [{ x: x0 + W - 2.0, y, w: 0.82, h: 2.05, kind: "door" }], "bath-wall", unit);
+      wallZ(bag, "interior", "paint-alabaster", x0 + 1.55, 0.3, kitZ, y, y + H, t, [], "wc-wall", unit);
+
+      bag.min("interior", "fabric", x0 + 1.9, y + 0.38, 1.95, 2.5, 0.52, 1.05, "sofa", unit);
+      bag.min("interior", "oak-natural", x0 + 2.3, y + 0.32, 3.25, 1.4, 0.08, 0.7, "table", unit);
+      bag.min("interior", "mill-oat", x0 + 0.22, y, kitZ + 0.15, 0.58, 0.9, 3.0, "base-cab", unit);
+      bag.min("finishes", "quartz-calacatta", x0 + 0.22, y + 0.9, kitZ + 0.15, 0.6, 0.04, 3.0, "counter", unit);
+      bag.min("interior", "mill-oat", x0 + 0.22, y + 1.45, kitZ + 0.15, 0.36, 0.7, 3.0, "upper-cab", unit);
+      bag.min("interior", "steel-dark", x0 + 0.5, y + 0.55, kitZ + 2.4, 0.52, 1.72, 0.58, "fridge", unit);
+      bag.min("interior", "steel-galv", x0 + 0.44, y + 0.92, kitZ + 1.1, 0.42, 0.14, 0.48, "sink", unit);
+      bag.min("interior", "steel-dark", x0 + 0.4, y + 0.94, kitZ + 1.7, 0.5, 0.04, 0.52, "cooktop", unit);
+      bag.min("interior", "linen", x0 + 0.35, y + 0.28, bedZ + 0.35, 1.9, 0.28, 1.55, "bed-a", unit);
+      bag.min("interior", "linen", x0 + W * 0.58 + 0.25, y + 0.28, bedZ + 0.35, 1.9, 0.28, 1.55, "bed-b", unit);
+      bag.min("interior", "tile-porcelain", x0 + W - 2.35, y + 0.01, bedZ + 0.1, 2.1, 0.02, D - bedZ - 0.3, "bath-tile", unit);
+      bag.min("interior", "mill-white", x0 + W - 2.15, y + 0.4, bedZ + 0.35, 0.95, 0.55, 0.45, "tub", unit);
+      fixtureToilet(bag, x0 + W - 0.85, y, bedZ + 1.3, unit);
+      fixtureSink(bag, x0 + W - 2.15, y, D - 0.85, unit);
+      bag.min("finishes", "mill-oat", x0 + 0.14, y, 0.14, W - 0.28, 0.08, 0.014, "baseboard", unit);
+    }
+    return;
   }
+  placeTerraceFloor(bag, p, x0, 0, unit);
+  if (p.storeys > 1) placeUpperFloor(bag, p, x0, H, unit);
 }
 
 function buildMep(bag: Bag, p: BuildingProgram, x0: number, unit: number) {
@@ -810,20 +965,82 @@ function buildRoof(bag: Bag, p: BuildingProgram, ox: number, totalW: number) {
   const face = facadeMatId(p.facade);
   const roof = roofMatId(p.roof);
   if (p.roof === "gable") {
-    const rise = 1.7;
-    bag.min("envelope", "osb-716", ox - 0.2, top, -0.15, totalW + 0.4, 0.05, D + 0.3, "ceiling-deck");
-    bag.min("envelope", "osb-716", ox - 0.25, top + 0.04, -0.35, totalW + 0.5, 0.018, D / 2 + 0.5, "roof-deck");
-    bag.add("exterior", face, ox + totalW / 2, top + rise / 2, -0.12, totalW + 0.2, rise, 0.12, "gable-front");
-    bag.add("exterior", face, ox + totalW / 2, top + rise / 2, D + 0.12, totalW + 0.2, rise, 0.12, "gable-rear");
-    bag.min("exterior", roof, ox - 0.35, top + 0.18, -0.45, totalW + 0.7, 0.08, D / 2 + 0.6, "slope-a");
-    bag.min("exterior", roof, ox - 0.35, top + 0.18, D / 2 - 0.15, totalW + 0.7, 0.08, D / 2 + 0.6, "slope-b");
-    bag.min("framing", "timber-spf", ox, top, D / 2 - 0.05, totalW, rise, 0.1, "ridge");
-    bag.min("exterior", "frame-charcoal", ox - 0.38, top + 0.1, -0.48, totalW + 0.76, 0.12, 0.04, "fascia");
+    const over = 0.55;
+    const run = D / 2 + over;
+    const rise = vinylGable(p) ? run * 0.48 : run * 0.36;
+    const eaveY = top + 0.04;
+    const ridgeY = top + rise;
+    const ridgeZ = D / 2;
+    const frontEaveZ = -over;
+    const rearEaveZ = D + over;
+    const courses = 18;
+
+    bag.min("framing", "osb-716", ox - 0.12, top, -0.05, totalW + 0.24, 0.02, D + 0.1, "ceiling-deck");
+    bag.min("framing", "timber-spf", ox - 0.08, ridgeY - 0.09, ridgeZ - 0.045, totalW + 0.16, 0.184, 0.09, "ridge");
+
+    const courseSlope = (eaveZ: number, tag: string) => {
+      for (let c = 0; c < courses; c++) {
+        const t0 = c / courses;
+        const t1 = (c + 1) / courses;
+        const y = eaveY + t0 * (ridgeY - eaveY);
+        const z0 = eaveZ + t0 * (ridgeZ - eaveZ);
+        const z1 = eaveZ + t1 * (ridgeZ - eaveZ);
+        const zMin = Math.min(z0, z1) - 0.04;
+        const zMax = Math.max(z0, z1) + 0.02;
+        bag.min("envelope", "osb-716", ox - 0.28, y - 0.018, zMin, totalW + 0.56, 0.016, zMax - zMin, "roof-deck");
+        bag.min("exterior", roof, ox - 0.38, y, zMin - 0.01, totalW + 0.76, 0.034, zMax - zMin + 0.05, tag);
+      }
+    };
+    courseSlope(frontEaveZ, "shingle-course");
+    courseSlope(rearEaveZ, "shingle-course");
+    bag.min("exterior", roof, ox - 0.42, ridgeY + 0.01, ridgeZ - 0.14, totalW + 0.84, 0.055, 0.28, "ridge-cap");
+    bag.min("envelope", "membrane-charcoal", ox - 0.3, eaveY + 0.01, frontEaveZ - 0.02, totalW + 0.6, 0.008, run * 0.22, "ice-barrier");
+
+    for (let c = 0; c < courses; c++) {
+      const t0 = c / courses;
+      const y = top + t0 * rise;
+      const h = rise / courses + 0.02;
+      const half = (1 - t0) * run + 0.04;
+      bag.min("exterior", face, ox - 0.2, y, ridgeZ - half, 0.16, h, half * 2, "gable-end");
+      bag.min("exterior", face, ox + totalW + 0.04, y, ridgeZ - half, 0.16, h, half * 2, "gable-end");
+    }
+
+    bag.min("exterior", "frame-charcoal", ox - 0.42, eaveY - 0.1, frontEaveZ - 0.06, totalW + 0.84, 0.18, 0.04, "fascia");
+    bag.min("exterior", "frame-charcoal", ox - 0.42, eaveY - 0.1, rearEaveZ, totalW + 0.84, 0.18, 0.04, "fascia");
+    bag.min("exterior", "mill-white", ox - 0.22, top - 0.04, frontEaveZ + 0.08, totalW + 0.44, 0.025, 0.42, "soffit");
+    bag.min("exterior", "steel-galv", ox - 0.44, eaveY - 0.16, frontEaveZ - 0.1, totalW + 0.88, 0.08, 0.11, "gutter");
+    bag.min("exterior", "steel-galv", ox - 0.22, 0.1, frontEaveZ - 0.05, 0.06, eaveY - 0.18, 0.06, "downspout", undefined, {
+      geom: "cyl",
+    });
+    bag.min("exterior", "steel-galv", ox + totalW + 0.16, 0.1, frontEaveZ - 0.05, 0.06, eaveY - 0.18, 0.06, "downspout", undefined, {
+      geom: "cyl",
+    });
+
+    if (vinylGable(p)) {
+      const W = p.unitWidth;
+      const gCourses = 8;
+      const gRise = 1.55;
+      const gRun = 1.7;
+      for (let i = 0; i < p.units; i++) {
+        const cx = ox + i * W + W / 2;
+        const gz = -0.62;
+        for (let c = 0; c < gCourses; c++) {
+          const t0 = c / gCourses;
+          const y = eaveY + t0 * gRise;
+          const half = (1 - t0) * gRun;
+          bag.min("exterior", roof, cx - half, y, gz - 0.18, half * 2, 0.03, 0.42, "gablet-shingle");
+          bag.min("exterior", face, cx - 0.07, y, gz, 0.14, gRise / gCourses + 0.02, 0.1, "gablet");
+        }
+        bag.min("exterior", "mill-white", cx - gRun - 0.05, eaveY, gz - 0.1, 0.07, gRise + 0.08, 0.07, "gablet-trim");
+        bag.min("exterior", "mill-white", cx + gRun, eaveY, gz - 0.1, 0.07, gRise + 0.08, 0.07, "gablet-trim");
+      }
+    }
     return;
   }
   if (p.roof === "shed") {
-    bag.min("envelope", "osb-716", ox - 0.2, top, -0.2, totalW + 0.4, 0.05, D + 0.4, "roof-deck");
-    bag.min("exterior", roof, ox - 0.3, top + 0.05, -0.35, totalW + 0.6, 0.08, D + 0.7, "membrane");
+    const pitch = Math.atan2(1.1, D + 0.6);
+    bag.add("envelope", "osb-716", ox + totalW / 2, top + 0.55, D / 2, totalW + 0.5, 0.02, D + 0.8, "roof-deck", { rx: pitch });
+    bag.add("exterior", roof, ox + totalW / 2, top + 0.62, D / 2, totalW + 0.7, 0.05, D + 1.0, "membrane", { rx: pitch });
     bag.min("exterior", "frame-charcoal", ox - 0.25, top, -0.25, totalW + 0.5, 0.55, 0.12, "high-parapet");
     return;
   }
@@ -847,6 +1064,51 @@ function buildRoof(bag: Bag, p: BuildingProgram, ox: number, totalW: number) {
   bag.min("exterior", "steel-galv", ox + totalW + 0.12, 0.15, -0.22, 0.06, top - 0.2, 0.06, "downspout", undefined, {
     geom: "cyl",
   });
+}
+
+function buildVinylStreet(bag: Bag, p: BuildingProgram, ox: number, totalW: number) {
+  if (!vinylGable(p)) return;
+  const H = p.storeyHeight;
+  const W = p.unitWidth;
+  const D = p.unitDepth;
+  bag.min("exterior", "paving", ox + 0.2, H - 0.05, -1.85, totalW - 0.4, 0.1, 1.85, "balcony");
+  bag.min("exterior", "steel-dark", ox + 0.15, H, -2.72, totalW - 0.3, 1.02, 0.05, "rail-n");
+  bag.min("exterior", "steel-dark", ox + 0.15, H, -0.95, totalW - 0.3, 1.02, 0.05, "rail-n");
+  for (let x = ox + 0.4; x < ox + totalW - 0.3; x += 0.12) {
+    bag.min("exterior", "steel-dark", x, H + 0.06, -2.7, 0.022, 0.9, 0.022, "rail-n");
+    bag.min("exterior", "steel-dark", x, H + 0.06, -0.97, 0.022, 0.9, 0.022, "rail-n");
+  }
+  for (let i = 0; i <= p.units; i++) {
+    const x = ox + i * W;
+    bag.min("exterior", "mill-white", x - 0.08, 0, -2.15, 0.16, H, 0.16, "porch");
+    bag.min("exterior", "mill-white", x - 0.08, 0, -1.15, 0.16, H, 0.16, "porch");
+  }
+  for (let i = 0; i < p.units; i++) {
+    const x0 = ox + i * W;
+    bag.min("site", "paving", x0 + 0.25, 0.02, -2.15, W - 0.5, 0.1, 2.15, "porch", i);
+    bag.min("site", "paving", x0 + 0.35, 0.04, D + 0.05, W - 0.7, 0.12, 3.2, "patio", i);
+    bag.min("site", "paving", x0 + 0.55, 0.02, D + 3.15, 1.1, 0.16, 0.32, "stair-tread", i);
+  }
+  const stairAt = [1, 3];
+  for (const i of stairAt) {
+    if (i >= p.units) continue;
+    const x = ox + i * W - 0.55;
+    const n = 12;
+    const rise = H / n;
+    const run = 0.28;
+    const zBalcony = -1.75;
+    const z0 = zBalcony - n * run;
+    bag.min("exterior", "steel-dark", x - 0.05, 0, z0, 0.06, H, n * run + 0.25, "stringer");
+    bag.min("exterior", "steel-dark", x + 1.2, 0, z0, 0.06, H, n * run + 0.25, "stringer");
+    for (let t = 0; t < n; t++) {
+      bag.min("exterior", "paving", x, t * rise, z0 + t * run, 1.22, 0.055, run + 0.03, "stair-tread");
+      bag.min("exterior", "steel-dark", x, t * rise, z0 + t * run + run * 0.7, 1.22, rise, 0.04, "stair-riser");
+      bag.min("exterior", "steel-dark", x - 0.06, t * rise + 0.85, z0 + t * run, 0.04, 0.9, 0.04, "rail");
+      bag.min("exterior", "steel-dark", x + 1.22, t * rise + 0.85, z0 + t * run, 0.04, 0.9, 0.04, "rail");
+    }
+    bag.min("exterior", "steel-dark", x - 0.07, 0.88, z0, 0.04, 0.05, n * run, "rail");
+    bag.min("exterior", "steel-dark", x + 1.22, 0.88, z0, 0.04, 0.05, n * run, "rail");
+  }
 }
 
 export function buildBuilding(p: BuildingProgram): BuildResult {
@@ -901,9 +1163,11 @@ export function buildBuilding(p: BuildingProgram): BuildResult {
         wallZ(bag, "envelope", "housewrap", x1 + OSB + WRB / 2, 0, D, y0, y1, WRB, [], "wrb", i);
       }
 
-      wallX(bag, "exterior", "brick-red", frontClad, x0, x1, y0, Math.min(y1, y0 === 0 ? plinth : y0), CLAD, front, "plinth", i);
+      if (!vinylGable(p)) {
+        wallX(bag, "exterior", "brick-red", frontClad, x0, x1, y0, Math.min(y1, y0 === 0 ? plinth : y0), CLAD, front, "plinth", i);
+      }
       if (y0 === 0) {
-        wallX(bag, "exterior", face, frontClad, x0, x1, plinth, y1, CLAD, front, "cladding", i);
+        wallX(bag, "exterior", face, frontClad, x0, x1, vinylGable(p) ? y0 : plinth, y1, CLAD, front, "cladding", i);
       } else {
         wallX(bag, "exterior", face, frontClad, x0, x1, y0, y1, CLAD, front, "cladding", i);
       }
@@ -950,6 +1214,7 @@ export function buildBuilding(p: BuildingProgram): BuildResult {
   }
 
   buildRoof(bag, p, ox, totalW);
+  buildVinylStreet(bag, p, ox, totalW);
 
   let minX = Infinity,
     minY = Infinity,

@@ -14,6 +14,7 @@ export type Proc =
   | "copper"
   | "batt"
   | "wrap"
+  | "siding"
   | "shingle"
   | "membrane"
   | "fabric"
@@ -152,6 +153,18 @@ export const CATALOG: Record<string, Finish> = {
     metalness: 0,
     opacity: 1,
     tileM: 0.72,
+  },
+  "vinyl-gray": {
+    id: "vinyl-gray",
+    hex: "#7C838A",
+    name: "Vinyl clapboard — pewter",
+    family: "envelope",
+    proc: "siding",
+    roughness: 0.58,
+    metalness: 0.02,
+    opacity: 1,
+    tileM: 0.42,
+    note: "Double 4–5 in exposure, white trim",
   },
   "panel-fiber": {
     id: "panel-fiber",
@@ -589,14 +602,14 @@ export const CATALOG: Record<string, Finish> = {
   },
   grass: {
     id: "grass",
-    hex: "#4A6B3F",
+    hex: "#4A7A32",
     name: "Turf",
     family: "site",
     proc: "grass",
     roughness: 0.95,
     metalness: 0,
     opacity: 1,
-    tileM: 2.4,
+    tileM: 1.15,
   },
   foliage: {
     id: "foliage",
@@ -706,6 +719,7 @@ export const SWAP_GROUPS: Record<SwapGroupId, { label: string; ids: string[] }> 
       "brick-buff",
       "brick-white",
       "panel-fiber",
+      "vinyl-gray",
       "panel-zinc",
     ],
   },
@@ -775,9 +789,10 @@ export function finishOf(id: string): Finish {
   return CATALOG[id] ?? CATALOG["timber-spf"]!;
 }
 
-export function facadeMatId(facade: "stucco" | "brick" | "panel"): string {
+export function facadeMatId(facade: "stucco" | "brick" | "panel" | "siding"): string {
   if (facade === "brick") return "brick-red";
   if (facade === "panel") return "panel-fiber";
+  if (facade === "siding") return "vinyl-gray";
   return "stucco-warm";
 }
 

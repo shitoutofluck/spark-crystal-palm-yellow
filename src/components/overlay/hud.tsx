@@ -16,6 +16,7 @@ import { formatHex, parseUserHex, typeHex } from "@/lib/bim/hash";
 import { kindMeta } from "@/lib/bim/kinds";
 import { EXAMPLE_BRIEFS } from "@/lib/bim/parse-brief";
 import { PHASE_NOTES } from "@/lib/bim/phases";
+import type { QcGate } from "@/lib/bim/qc";
 import {
   LAYER_PRESETS,
   resolveBox,
@@ -196,8 +197,82 @@ function LayersPanel({ onClose }: { onClose?: () => void }) {
             ? "Live vantage — only nearby pieces draw. [ ] steps · L live"
             : `Working ${LAYER_META[BUILD_SEQUENCE[stepIndex]].phase} ${LAYER_META[BUILD_SEQUENCE[stepIndex]].label} only`}
         </p>
+        <QcStamp />
       </div>
     </aside>
+  );
+}
+
+function Light({ gate, label }: { gate: QcGate; label: string }) {
+  return (
+    <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wide text-paper">
+      <span
+        className={cn(
+          "size-2 rounded-full",
+          gate === "pass" ? "bg-emerald-400" : gate === "warn" ? "bg-amber-400" : "bg-rose-500",
+        )}
+      />
+      {label} {gate}
+    </span>
+  );
+}
+
+function QcHeaderLights() {
+  const qc = useBim((s) => s.qc);
+  return (
+    <p className="mt-2 flex flex-wrap gap-3">
+      <Light gate={qc.committee} label="Committee" />
+      <Light gate={qc.calcs} label="Calcs" />
+    </p>
+  );
+}
+
+function QcStamp() {
+  const qc = useBim((s) => s.qc);
+  const workMode = useBim((s) => s.workMode);
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="rounded-md bg-ink-subtle px-2 py-2">
+      <button type="button" className="flex w-full flex-wrap items-center gap-2 text-left" onClick={() => setOpen((v) => !v)}>
+        <Light gate={qc.committee} label="Committee" />
+        <Light gate={qc.calcs} label="Calcs" />
+        {!qc.mustFailHeld ? <span className="font-mono text-[10px] text-rose-400">must-fail broken</span> : null}
+      </button>
+      <p className="mt-1 text-[10px] text-paper-muted">{qc.stamp}</p>
+      {workMode === "live" && qc.committee !== "pass" ? (
+        <p className="mt-1 font-mono text-[10px] text-amber-300">Live shot is not a shop-drawing stamp</p>
+      ) : null}
+      {open ? (
+        <ul className="mt-2 max-h-44 space-y-1 overflow-auto">
+          {qc.rows.map((r) => (
+            <li key={r.id} className="border-t border-line/60 pt-1">
+              <p className="font-mono text-[10px] text-paper">
+                <span
+                  className={
+                    r.gate === "pass" ? "text-emerald-400" : r.gate === "warn" ? "text-amber-300" : "text-rose-400"
+                  }
+                >
+                  {r.gate}
+                </span>{" "}
+                {r.id}
+                {r.mustFail ? " · MUST-FAIL" : ""}
+              </p>
+              <p className="text-[10px] text-paper-muted">{r.title}</p>
+              <p className="font-mono text-[10px] text-steel">{r.citation}</p>
+              <p className="text-[10px] text-paper-muted">{r.detail}</p>
+              {r.util != null ? (
+                <p className="font-mono text-[10px] text-paper-muted">
+                  util {r.util.toFixed(2)}
+                  {r.fos != null && Number.isFinite(r.fos) ? ` · FoS ${r.fos.toFixed(2)}` : ""}
+                </p>
+              ) : null}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="mt-1 font-mono text-[10px] text-steel">Tap stamp for RTM</p>
+      )}
+    </div>
   );
 }
 
@@ -821,6 +896,7 @@ export function Hud() {
             {" · "}
             <span className="tabular-nums">{boxes.toLocaleString()} pcs</span>
           </p>
+          <QcHeaderLights />
         </div>
         <div className="flex flex-wrap items-center justify-end gap-2">
           <div className="hidden rounded-xl bg-ink-elevated/95 p-1 shadow-[var(--shadow-border)] sm:flex">

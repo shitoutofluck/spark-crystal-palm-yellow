@@ -220,15 +220,46 @@ function draw(proc: Proc, hex: string): { albedo: THREE.CanvasTexture; normal: T
             h: 0.62 + n * 0.1,
           };
         }
-        case "grass": {
-          const n = fbm(x * 0.04, y * 0.04, 4);
-          const blade = vnoise(x * 0.9, y * 0.15);
-          const t = n * 0.55 + blade * 0.45;
+        case "siding": {
+          const exp = 28;
+          const row = Math.floor(y / exp);
+          const ly = y % exp;
+          const n = fbm(x * 0.015, row * 0.4, 3);
+          const lap = ly < 3;
+          const dirt = vnoise(x * 0.04, y * 0.08);
+          if (lap) {
+            return {
+              r: cr * 0.62 + dirt * 8,
+              g: cg * 0.62 + dirt * 8,
+              b: cb * 0.64 + dirt * 6,
+              h: 0.22,
+            };
+          }
+          const shade = 0.88 + n * 0.18 + (ly / exp) * 0.08;
           return {
-            r: mix(cr * 0.55, cr * 1.25, t),
-            g: mix(cg * 0.7, cg * 1.2, t),
-            b: mix(cb * 0.5, cb * 1.1, t),
-            h: 0.3 + blade * 0.5,
+            r: cr * shade,
+            g: cg * shade,
+            b: cb * shade * 1.02,
+            h: 0.45 + (1 - ly / exp) * 0.25,
+          };
+        }
+        case "grass": {
+          const n = fbm(x * 0.018, y * 0.018, 6);
+          const clump = fbm(x * 0.07, y * 0.07, 5);
+          const blade = vnoise(x * 4.8, y * 0.22);
+          const blade2 = vnoise(x * 1.4 + 19, y * 5.6);
+          const thatch = vnoise(x * 0.31, y * 0.29);
+          const dry = vnoise(x * 0.02, y * 0.024);
+          const t = n * 0.22 + blade * 0.42 + clump * 0.2 + blade2 * 0.16;
+          if (dry > 0.88) {
+            return { r: mix(118, 168, blade), g: mix(122, 148, blade), b: mix(42, 68, blade), h: 0.28 };
+          }
+          const lush = 0.55 + thatch * 0.45;
+          return {
+            r: mix(18, 62, t * 0.7) * lush,
+            g: mix(68, 178, t) * (0.85 + lush * 0.2),
+            b: mix(12, 48, t * 0.65) * lush,
+            h: 0.18 + blade * 0.82,
           };
         }
         case "soil": {
