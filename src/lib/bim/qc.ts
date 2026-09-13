@@ -1,6 +1,8 @@
 import type { BoxSpec, BuildingProgram } from "./types";
+import { runRoofLoop, type RoofLoopReport } from "./roof-loop";
+import { verifyRoof } from "./roof-verify";
 
-export const QC_REV = 6;
+export const QC_REV = 9;
 
 export type QcGate = "pass" | "warn" | "fail";
 export type QcRail = "committee" | "calcs";
@@ -25,6 +27,7 @@ export type QcReport = {
   mustFailHeld: boolean;
   rows: QcRow[];
   stamp: string;
+  roof: RoofLoopReport;
 };
 
 function worst(a: QcGate, b: QcGate): QcGate {
@@ -231,6 +234,30 @@ function committee(p: BuildingProgram, boxes: BoxSpec[]): QcRow[] {
       gate: ofLayer(boxes, "exterior").length === 0 || wrb > 0 ? "pass" : "fail",
       detail: "Street camera may hide fasteners; it may not hide missing wrap",
     }),
+    row({
+      id: "COM-EAVE",
+      rail: "committee",
+      title: "Eave stack: drip, sub-fascia, fascia, soffit, gutter",
+      citation: "IRC R905.2.8.5 drip at eaves under underlayment; R903.4 leaders off the stem",
+      gate:
+        ofKind(boxes, "drip-edge").length > 0 &&
+        ofKind(boxes, "sub-fascia").length > 0 &&
+        ofKind(boxes, "gutter").length > 0
+          ? "pass"
+          : "fail",
+      detail: `${ofKind(boxes, "drip-edge").length} drip · ${ofKind(boxes, "sub-fascia").length} sub-fascia · ${ofKind(boxes, "cornice").length} cornice · ${ofKind(boxes, "gutter").length} gutter`,
+    }),
+    ...verifyRoof(p, boxes).map((r) =>
+      row({
+        id: r.id,
+        rail: "committee",
+        title: r.title,
+        citation: r.citation,
+        gate: r.gate,
+        detail: r.detail,
+        mustFail: r.mustFail,
+      }),
+    ),
   ];
   return rows;
 }
@@ -362,5 +389,5 @@ export function verifyBuilding(p: BuildingProgram, boxes: BoxSpec[]): QcReport {
         : committeeG !== "pass"
           ? "Coordination incomplete — do not stamp shop drawings"
           : "Coords green · calcs not adequate";
-  return { committee: committeeG, calcs: calcsG, mustFailHeld: held, rows, stamp };
+  return { committee: committeeG, calcs: calcsG, mustFailHeld: held, rows, stamp, roof: runRoofLoop(p, boxes) };
 }

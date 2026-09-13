@@ -243,7 +243,31 @@ function QcStamp() {
         <p className="mt-1 font-mono text-[10px] text-amber-300">Live shot is not a shop-drawing stamp</p>
       ) : null}
       {open ? (
-        <ul className="mt-2 max-h-44 space-y-1 overflow-auto">
+        <div className="mt-2 max-h-64 space-y-2 overflow-auto">
+          <div className="grid grid-cols-2 gap-1">
+            <figure>
+              <img src="/roof-section/anatomy-cutaway.jpg" alt="Roof cutaway section" className="h-20 w-full rounded object-cover" />
+              <figcaption className="mt-0.5 font-mono text-[9px] text-steel">Evidence · cutaway</figcaption>
+            </figure>
+            <figure>
+              <img src="/roof-section/eave-soffit.jpg" alt="Eave soffit fascia drip section" className="h-20 w-full rounded object-cover" />
+              <figcaption className="mt-0.5 font-mono text-[9px] text-steel">Evidence · eave</figcaption>
+            </figure>
+            <figure>
+              <img src="/roof-section/anatomy.jpg" alt="Roof anatomy exploded" className="h-20 w-full rounded object-cover" />
+              <figcaption className="mt-0.5 font-mono text-[9px] text-steel">Evidence · layers</figcaption>
+            </figure>
+            <figure>
+              <img src="/roof-section/eave-drip.jpg" alt="Eave drip fascia gutter section" className="h-20 w-full rounded object-cover" />
+              <figcaption className="mt-0.5 font-mono text-[9px] text-steel">Evidence · drip</figcaption>
+            </figure>
+          </div>
+          {qc.roof?.repairs?.length ? (
+            <p className="font-mono text-[10px] text-amber-300">Roof loop: {qc.roof.repairs.join(" · ")}</p>
+          ) : (
+            <p className="font-mono text-[10px] text-emerald-400">Roof loop: bible sequence present</p>
+          )}
+        <ul className="space-y-1">
           {qc.rows.map((r) => (
             <li key={r.id} className="border-t border-line/60 pt-1">
               <p className="font-mono text-[10px] text-paper">
@@ -269,6 +293,7 @@ function QcStamp() {
             </li>
           ))}
         </ul>
+        </div>
       ) : (
         <p className="mt-1 font-mono text-[10px] text-steel">Tap stamp for RTM</p>
       )}
@@ -821,6 +846,7 @@ const VIEWS: { id: ViewPreset; label: string }[] = [
   { id: "street", label: "Street" },
   { id: "eye", label: "Eye" },
   { id: "iso", label: "Iso" },
+  { id: "eave", label: "Eave" },
   { id: "top", label: "Plan" },
 ];
 const STYLES: { id: RenderStyle; label: string }[] = [

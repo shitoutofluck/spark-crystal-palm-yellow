@@ -111,6 +111,9 @@ function FitCamera() {
       } else if (view === "iso") {
         camera.position.set(cx + span * 0.55, roof + 4, minz - 8);
         target.set(cx, roof * 0.35, 2);
+      } else if (view === "eave") {
+        camera.position.set(cx - span * 0.12, roof * 0.82, minz - 1.6);
+        target.set(cx - span * 0.18, roof * 0.72, minz + 0.9);
       } else {
         camera.position.set(cx + span * 0.42, roof * 0.38 + 2.4, minz - 6);
         target.set(cx, 2.15, 1.4);
@@ -156,10 +159,37 @@ function InteriorLights() {
   return <group>{nodes}</group>;
 }
 
+function wedgeGeometry() {
+  const g = new THREE.BufferGeometry();
+  const x = 0.5;
+  const yb = -0.5;
+  const yt = 0.5;
+  const zb = -0.5;
+  const zf = 0.5;
+  const p: number[] = [];
+  const quad = (a: number[], b: number[], c: number[], d: number[]) => {
+    p.push(...a, ...b, ...c, ...a, ...c, ...d);
+  };
+  const tri = (a: number[], b: number[], c: number[]) => {
+    p.push(...a, ...b, ...c);
+  };
+  const r = (xx: number, y: number, z: number) => [xx, y, z];
+  tri(r(x, yb, zb), r(x, yb, zf), r(x, yt, 0));
+  tri(r(-x, yb, zf), r(-x, yb, zb), r(-x, yt, 0));
+  quad(r(x, yb, zb), r(-x, yb, zb), r(-x, yb, zf), r(x, yb, zf));
+  quad(r(x, yb, zb), r(x, yt, 0), r(-x, yt, 0), r(-x, yb, zb));
+  quad(r(x, yb, zf), r(-x, yb, zf), r(-x, yt, 0), r(x, yt, 0));
+  g.setAttribute("position", new THREE.Float32BufferAttribute(p, 3));
+  g.computeVertexNormals();
+  return g;
+}
+
 function GeomPrim({ geom }: { geom: Geom }) {
+  const wedge = useMemo(() => wedgeGeometry(), []);
   if (geom === "cyl") return <cylinderGeometry args={[0.5, 0.5, 1, 12]} />;
   if (geom === "ico") return <icosahedronGeometry args={[0.5, 1]} />;
   if (geom === "sphere") return <sphereGeometry args={[0.5, 16, 12]} />;
+  if (geom === "wedge") return <primitive object={wedge} attach="geometry" />;
   return <boxGeometry args={[1, 1, 1]} />;
 }
 

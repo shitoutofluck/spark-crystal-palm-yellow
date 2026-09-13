@@ -73,7 +73,7 @@ export const LAYER_PRESETS: { id: string; label: string; layers: Record<LayerId,
   },
 ];
 
-export type ViewPreset = "street" | "eye" | "iso" | "top";
+export type ViewPreset = "street" | "eye" | "iso" | "top" | "eave";
 export type OverrideScope = "piece" | "kind" | "layer";
 export type GizmoMode = "translate" | "rotate" | "scale";
 export type PieceXform = {

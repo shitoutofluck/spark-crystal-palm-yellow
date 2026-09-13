@@ -1,0 +1,176 @@
+Two different questions, on purpose. Most CAD tools (and most software teams) smash them into one “tests passed” light. This stack does not.
+
+**Committee / verify:** *does the physical model connect and come together?*  
+**Calcs / QA matrix:** *does the math survive the load case?*
+
+Geometry green and calc green can disagree. That is the product.
+
+---
+
+## 1. What the machine actually is
+
+It is not SolidWorks and it is not “prompt → mesh.” It is a **harness**: a closed loop that is only allowed to emit an assembly if a kernel can tessellate it and a verifier can score it.
+
+The artifact is an **IR** (intermediate representation), same job LLVM IR or a compiler AST does for code:
+
+- **Parts** — named bodies with a material and a **feature tree** (box, tube, lathe, prism-with-holes, hex, wedge…). Features have `add` or `cut`. Cuts are real holes, not painted circles.
+- **Library solids** — ISO bolts/nuts/washers, bored plates, DH links. Proven CAD, not one-shot blobs.
+- **Mates** — fastened / concentric / axis / coincident. The graph of “this touches that.”
+- **Placements** — where each part sits in world frame (mm, degrees).
+- **Joints** — revolute/prismatic with limits, axis, origin, and a `moves` list (who rides the joint).
+- **Ports** — first-class interfaces: bolt-circle, shaft, rail, bay, optical, trunk. Diameter, count, frame. This is how two modules are allowed to claim they connect.
+- **Modules** — pedestal, mast, gimbal, EO, bay, interior. Subcomponents first, then committee.
+
+The LLM is not allowed to invent new solids after the plan. It may **only patch driving dimensions** if the kernel is still red. That is the reinforcement rule.
+
+---
+
+## 2. The loop (how a prompt becomes green)
+
+Harness phases, in order:
+
+| Phase | Job |
+|---|---|
+| **planning** | Pick the smallest catalog template that finishes the named part (WARD, stair, clip, fastener…). Parse numbers from the prompt. Clamp illegal values (rise vs IRC, joint limits). |
+| **modeling** | Incremental: **library → shape → place**. Instantiate ISO/library features, build the tree, run FK for posed joints, write mates. |
+| **verifying** | Shape + fit + **committee** (interfaces, bay, motion sweep). |
+| **correcting** | Kernel repair: change params, rebuild, verify again. Max small number of loops, then stop with the report. No silent “make it green.” |
+| **green / failed** | Pin the report. Export STL/JSON only if you want the artifact; green is a property of the report, not of the file. |
+
+Inside modeling, the feature log uses: `library | shape | place | check | repair`.
+
+That is the physical analogue of **red → green → refactor**, except the “compiler” is a tessellator and the “typechecker” is the verifier.
+
+---
+
+## 3. Committee — “it comes together”
+
+This is the step you asked about for **connection**.
+
+`verifyAssembly` is the outer QC of **geometry**:
+
+- part count, live features
+- mates closed (no dangling IDs)
+- mesh has no NaNs, volume > 0
+- floor contact, missing bores (a nut without a hole is a fail)
+- ISO washer/nut engagement
+- intended vs illegal interference (pins in holes are allowed; barrel through mast is not)
+
+Then **committee** runs only if there are modules or joints — i.e. a compound, not a single bolt:
+
+1. **Module checks** — every declared module still has its parts; the tree wasn’t dropped.
+2. **Interface checks** — ports actually match: bolt circle count/diameter, shaft in a bore, trunk into the bay. This is “do the flanges meet,” not “are the meshes pretty.”
+3. **Interior checks** — compute/battery keep-in volume. Mechatronics has to *fit in the box*, not float in world space.
+4. **Mass screen** — volume × density. Not a scale.
+5. **FOV** — optical port cone sampled against the mast AABB. A sentry that stares at its own tube is red.
+6. **Motion sweep** — pose the joint grid (extend, pan, tilt, door), measure clash volume. Legal envelope must be green. **Over-tilt is a must-fail**: if slamming the barrel into the mast does *not* clash, the envelope is lying and that row is red. The test that must fail is as important as the test that must pass.
+
+Kinematics: rest pose is stored separately (`restPlacements`). Display pose is FK (Rodrigues rotation on the joint axis, applied to topological descendants). AABB was too dumb for a long barrel vs a tube — that false-positive was replaced with **axis-vs-tube** clearance. That is the difference between “boxes overlap” and “the mechanism actually hits.”
+
+Committee is **integration**. It does not care if the mast yields at 40 m/s wind.
+
+---
+
+## 4. Calcs — “math for QC”
+
+Separate rail, separate light.
+
+Same assembly in, **load case** applied (1g, 3g, ASCE wind 25/40, hot/solar, cold-crank, vibe). Each KPI is:
+
+demand / capacity → **utilization** → **FoS** → gate → pass/warn/fail
+
+with the **formula, code citation, and inputs** on the row so an engineer can audit it. Click the row, see Hibbeler, AISC J3, ASCE 7-22 §26.10, ISO 16750-2, IPC-2221, Darcy, Miles, MIL-810 514.
+
+Domains:
+
+- **Structure** — `σ = My/I`, Euler `Pcr`, L/200 deflection, M12 interaction
+- **Wind** — `qz = 0.613 Kz Kzt Kd Ke V²`, vortex `fs = St V/D`
+- **Electrical** — 24 V drop, PSU 80% derate, IPC ampacity, 16 V crank
+- **Thermal** — lumped `T = Tamb + P Rθ`, AM1.5 solar
+- **Fluid** — Darcy–Weisbach in the trunk
+- **Vibe** — Miles 1σ, 40 g 11 ms as static screen
+
+**16 requirements** (REQ-M/W/E/T/F/V/Q) trace to KPIs. Calc sheet dumps COVERED/GAP. That is a requirements traceability matrix, not a vibe.
+
+**Stress matrix** is a MIL-810-style *sequence*, not a pile of asserts: inspection → 514 vibe → 501/505 thermal → 502+crank → survival wind → 516 shock → over-tilt must-fail → FEM-vs-Roark kernel QA.
+
+The calculator QA’s *itself*: 6 Hermitian beam elements, dense Gauss-Jordan, must match Roark `PL³/3EI` within 5%. If that row is red, you do not trust any other number. That is metrology for the tool.
+
+I did not put OpenFOAM or CalculiX in the browser. Closed-form + 1D FEM cross-check is honest. Fake ANSYS is not.
+
+---
+
+## 5. How it was made to work (the actual engineering, not the pitch)
+
+The first version was one-shot templates unioned into a mesh. Shapes were garbage: no holes, hex radius wrong (`s/2` instead of `s/√3`), V-groove added instead of cut, robot FK ad-hoc so the arm was a blob.
+
+What fixed it, in order:
+
+1. **Stop generating shape from prose.** Proven library (ISO 4017/4032/7089 tables, lathe profiles, tubes, prism-with-holes). The modeler *instantiates*, it does not sculpt.
+2. **Cuts are first-class.** Tessellator has to survive polygons with holes (ear-clip + radial fallback). A nut without a bore fails a named check, not a vibe.
+3. **Incremental recipes**, not a dump. Library → shape → place → check → repair. You can see which step lied.
+4. **Verifier pinned next to the kernel.** Same process, same units (mm/N). Export is downstream of green.
+5. **Repair may change numbers, not topology.** Rise clamped to IRC. Joints clamped to limits. Grok does not get to invent a seventh axis.
+6. **Compounds are modules + ports + joints**, then committee. Subcomponent first is not a slogan: if the pedestal bolt circle is wrong, the mast committee is noise.
+7. **Motion is rest pose + FK**, not “slide the mesh.” Sweep the legal envelope; keep a slam pose that *must* go red.
+8. **Calcs are a second compiler.** Committee does not compute FoS. FoS does not claim the barrel cleared the mast.
+9. **Must-fail tests.** Over-tilt, FEM-vs-Roark. A suite with no negative control will pass a hollow checker.
+10. **Citations on every KPI.** If you cannot name the code, it is not a calc.
+
+The reinforcement mechanism is: **score → named fail → constrained repair → re-score**. Not RLHF on pretty pictures.
+
+---
+
+## 6. Architect’s equivalent in software
+
+A building architect has two books that are not interchangeable:
+
+- **Shop drawings / coordination** — does the steel, duct, and conduit actually meet at the penthouse without occupying the same space.
+- **Structural calcs** — does the beam take the load with a legal FoS.
+
+Software has the same split and constantly pretends it doesn’t.
+
+| Mechanical (this harness) | Software architect equivalent |
+|---|---|
+| IR / feature tree | AST, module graph, protobuf/Avro schema |
+| Library solids (ISO) | Standard library, blessed primitives, inner-source platform kits |
+| Ports | API contracts: OpenAPI, gRPC, typed interfaces |
+| Mates | Dependency graph, injection wiring, “this service may call that” |
+| Joints + FK | Protocol state machines, sagas, session lifetime |
+| **Committee** | **Integration + contract tests + architecture fitness functions** |
+| Motion sweep | End-to-end against the real graph; chaos on the legal envelope |
+| Over-tilt must-fail | Negative test: if auth-off still 200s, the gate is lying |
+| Missing bores | Type error / nullability: the hole you claimed is not there |
+| **Calcs / KPIs** | **Quality attributes with numbers: latency SLO, error budget, p99, cost/req, cyclomatic, load-test utilization** |
+| FoS / utilization | Capacity vs demand (load test vs SLO). 80% PSU = 80% CPU/mem budget |
+| Requirements trace | RTM: REQ → test → telemetry. Doors/Jama/OpenSpec, not a wiki |
+| MIL-810 sequence | Qualification campaign: unit → contract → integration → soak → DR |
+| Produce/check/correct | CI quality gate. Red build does not ship. LLM may patch config, not rewrite topology |
+| Kernel owns solids | Compiler/runtime owns semantics; the chatbot does not |
+| Green ≠ FoS | Tests green ≠ production will hold. You still need the budget |
+
+The named software-architecture idea this *is*:
+
+**Architecture fitness functions** (Ford / Parsons, *Building Evolutionary Architectures*): automated tests that **protect a quality attribute** of the system, not a feature. “No cycle in the module graph,” “p99 < 200 ms,” “this port still matches.” Committee is a fitness function on **structure and interfaces**. Calcs are fitness functions on **mechanics, power, thermal, vibe**.
+
+Under that:
+
+- **Contract testing** (Pact, schema registries) = port/interface checks.
+- **Typechecker** = missing bores / dangling mates.
+- **CI gate** = verifier pinned to the kernel.
+- **Error budget / SLO** = FoS and utilization.
+- **Traceability matrix** = REQ-E-01 → voltage-drop KPI.
+- **Design by contract** = joints have limits; illegal pose is not “undefined,” it is a failed check.
+
+What it is **not**: “we have 80% unit test coverage.” Coverage is the analogue of counting features. Committee asks whether the *system* still fits. Calcs ask whether the *budget* still holds.
+
+---
+
+## 7. The one-line version an architect would write on a drawing stamp
+
+**Coordination complete ≠ structurally adequate.**
+
+Committee: the model is a machine, the ports meet, the motion envelope is honest.  
+Calcs: the numbers, with named codes, under named load cases, with a kernel that can fail its own math.
+
+Software: **the services still compose, and the quality attributes still have margin.** If you only have one of those lights, you do not have an architecture review. You have a demo.

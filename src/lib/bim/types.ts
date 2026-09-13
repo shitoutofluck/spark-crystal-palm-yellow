@@ -20,7 +20,7 @@ export type LayerId = (typeof LAYER_IDS)[number];
 
 export type RoofType = "flat" | "shed" | "gable";
 export type FacadeType = "stucco" | "brick" | "panel" | "siding";
-export type Geom = "box" | "cyl" | "ico" | "sphere";
+export type Geom = "box" | "cyl" | "ico" | "sphere" | "wedge";
 
 export type BuildingProgram = {
   id: string;

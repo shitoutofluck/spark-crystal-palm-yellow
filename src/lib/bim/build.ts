@@ -1,5 +1,6 @@
 import { facadeMatId, finishOf, roofMatId } from "./catalog";
 import { hexId } from "./hash";
+import { buildPitchedGable } from "./roof";
 import type { BoxSpec, BuildingProgram, BuildResult, Geom, LayerId } from "./types";
 
 const STUD = 0.038;
@@ -965,76 +966,7 @@ function buildRoof(bag: Bag, p: BuildingProgram, ox: number, totalW: number) {
   const face = facadeMatId(p.facade);
   const roof = roofMatId(p.roof);
   if (p.roof === "gable") {
-    const over = 0.55;
-    const run = D / 2 + over;
-    const rise = vinylGable(p) ? run * 0.48 : run * 0.36;
-    const eaveY = top + 0.04;
-    const ridgeY = top + rise;
-    const ridgeZ = D / 2;
-    const frontEaveZ = -over;
-    const rearEaveZ = D + over;
-    const courses = 18;
-
-    bag.min("framing", "osb-716", ox - 0.12, top, -0.05, totalW + 0.24, 0.02, D + 0.1, "ceiling-deck");
-    bag.min("framing", "timber-spf", ox - 0.08, ridgeY - 0.09, ridgeZ - 0.045, totalW + 0.16, 0.184, 0.09, "ridge");
-
-    const courseSlope = (eaveZ: number, tag: string) => {
-      for (let c = 0; c < courses; c++) {
-        const t0 = c / courses;
-        const t1 = (c + 1) / courses;
-        const y = eaveY + t0 * (ridgeY - eaveY);
-        const z0 = eaveZ + t0 * (ridgeZ - eaveZ);
-        const z1 = eaveZ + t1 * (ridgeZ - eaveZ);
-        const zMin = Math.min(z0, z1) - 0.04;
-        const zMax = Math.max(z0, z1) + 0.02;
-        bag.min("envelope", "osb-716", ox - 0.28, y - 0.018, zMin, totalW + 0.56, 0.016, zMax - zMin, "roof-deck");
-        bag.min("exterior", roof, ox - 0.38, y, zMin - 0.01, totalW + 0.76, 0.034, zMax - zMin + 0.05, tag);
-      }
-    };
-    courseSlope(frontEaveZ, "shingle-course");
-    courseSlope(rearEaveZ, "shingle-course");
-    bag.min("exterior", roof, ox - 0.42, ridgeY + 0.01, ridgeZ - 0.14, totalW + 0.84, 0.055, 0.28, "ridge-cap");
-    bag.min("envelope", "membrane-charcoal", ox - 0.3, eaveY + 0.01, frontEaveZ - 0.02, totalW + 0.6, 0.008, run * 0.22, "ice-barrier");
-
-    for (let c = 0; c < courses; c++) {
-      const t0 = c / courses;
-      const y = top + t0 * rise;
-      const h = rise / courses + 0.02;
-      const half = (1 - t0) * run + 0.04;
-      bag.min("exterior", face, ox - 0.2, y, ridgeZ - half, 0.16, h, half * 2, "gable-end");
-      bag.min("exterior", face, ox + totalW + 0.04, y, ridgeZ - half, 0.16, h, half * 2, "gable-end");
-    }
-
-    bag.min("exterior", "frame-charcoal", ox - 0.42, eaveY - 0.1, frontEaveZ - 0.06, totalW + 0.84, 0.18, 0.04, "fascia");
-    bag.min("exterior", "frame-charcoal", ox - 0.42, eaveY - 0.1, rearEaveZ, totalW + 0.84, 0.18, 0.04, "fascia");
-    bag.min("exterior", "mill-white", ox - 0.22, top - 0.04, frontEaveZ + 0.08, totalW + 0.44, 0.025, 0.42, "soffit");
-    bag.min("exterior", "steel-galv", ox - 0.44, eaveY - 0.16, frontEaveZ - 0.1, totalW + 0.88, 0.08, 0.11, "gutter");
-    bag.min("exterior", "steel-galv", ox - 0.22, 0.1, frontEaveZ - 0.05, 0.06, eaveY - 0.18, 0.06, "downspout", undefined, {
-      geom: "cyl",
-    });
-    bag.min("exterior", "steel-galv", ox + totalW + 0.16, 0.1, frontEaveZ - 0.05, 0.06, eaveY - 0.18, 0.06, "downspout", undefined, {
-      geom: "cyl",
-    });
-
-    if (vinylGable(p)) {
-      const W = p.unitWidth;
-      const gCourses = 8;
-      const gRise = 1.55;
-      const gRun = 1.7;
-      for (let i = 0; i < p.units; i++) {
-        const cx = ox + i * W + W / 2;
-        const gz = -0.62;
-        for (let c = 0; c < gCourses; c++) {
-          const t0 = c / gCourses;
-          const y = eaveY + t0 * gRise;
-          const half = (1 - t0) * gRun;
-          bag.min("exterior", roof, cx - half, y, gz - 0.18, half * 2, 0.03, 0.42, "gablet-shingle");
-          bag.min("exterior", face, cx - 0.07, y, gz, 0.14, gRise / gCourses + 0.02, 0.1, "gablet");
-        }
-        bag.min("exterior", "mill-white", cx - gRun - 0.05, eaveY, gz - 0.1, 0.07, gRise + 0.08, 0.07, "gablet-trim");
-        bag.min("exterior", "mill-white", cx + gRun, eaveY, gz - 0.1, 0.07, gRise + 0.08, 0.07, "gablet-trim");
-      }
-    }
+    buildPitchedGable(bag, p, ox, totalW);
     return;
   }
   if (p.roof === "shed") {
