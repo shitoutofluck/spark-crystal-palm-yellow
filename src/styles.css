@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0c0d0f;
+  --color-ink-elevated: #141518;
+  --color-ink-subtle: #1b1d21;
+  --color-paper: #e8e4dc;
+  --color-paper-muted: #b4afa6;
+  --color-steel: #8a9aa8;
+  --color-timber: #6b5344;
+  --color-line: color-mix(in oklab, #e8e4dc 12%, transparent);
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", monospace;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.375rem;
+  --tracking-mark: 0.28em;
+}
+
+:root {
+  --shadow-border: 0 0 0 1px rgba(232, 228, 220, 0.1);
+  --shadow-border-hover: 0 0 0 1px rgba(232, 228, 220, 0.18);
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html,
+  body,
+  #app {
+    min-height: 100dvh;
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.lw-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 1.5rem;
+  background: transparent;
+}
+.lw-range:focus {
+  outline: none;
+}
+.lw-range::-webkit-slider-runnable-track {
+  height: 2px;
+  background: color-mix(in oklab, var(--color-paper) 18%, transparent);
+}
+.lw-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  margin-top: -6px;
+  border-radius: 999px;
+  background: var(--color-paper);
+  box-shadow: 0 0 0 4px var(--color-ink-elevated);
+}
+.lw-range::-moz-range-track {
+  height: 2px;
+  background: color-mix(in oklab, var(--color-paper) 18%, transparent);
+}
+.lw-range::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--color-paper);
+}

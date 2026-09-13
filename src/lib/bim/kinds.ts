@@ -1,0 +1,169 @@
+/** Construction-bible labels for every generated kind — the MecAgent-style feature tree. */
+
+export type KindMeta = {
+  label: string;
+  spec: string;
+  ifc: string;
+  note?: string;
+};
+
+export const KIND_META: Record<string, KindMeta> = {
+  stud: { label: "2×4 stud", spec: "38 × 89 mm SPF · 406 mm o.c.", ifc: "IfcMember", note: "Field studs skip openings" },
+  king: { label: "King stud", spec: "Full-height 2×4 beside opening", ifc: "IfcMember" },
+  jack: { label: "Jack / trimmer", spec: "Supports header to plate", ifc: "IfcMember" },
+  header: { label: "Header", spec: "2×10 assembled, sits on jacks", ifc: "IfcBeam" },
+  sill: { label: "Rough sill", spec: "2×4 under window, on cripples", ifc: "IfcMember" },
+  cripple: { label: "Cripple stud", spec: "Below sill / above header", ifc: "IfcMember" },
+  plate: { label: "Plate", spec: "Single bottom or top plate", ifc: "IfcMember" },
+  "double-plate": { label: "Double top plate", spec: "Overlapped at corners / parties", ifc: "IfcMember" },
+  "fire-block": { label: "Fire blocking", spec: "Solid 2× at 1.22 m", ifc: "IfcMember" },
+  "rim-joist": { label: "Rim joist", spec: "Closes I-joist floor package", ifc: "IfcMember" },
+  "i-flange": { label: "I-joist flange", spec: "63 × 38 mm SPF flanges", ifc: "IfcBeam" },
+  "i-web": { label: "I-joist web", spec: "OSB web, never notch underside", ifc: "IfcBeam" },
+  blocking: { label: "Joist blocking", spec: "Mid-span 2× between joists", ifc: "IfcMember" },
+  stringer: { label: "Stair stringer", spec: "2×12 cut stringer", ifc: "IfcMember" },
+  "hold-down": { label: "Hold-down", spec: "Corner strap / HD at plate", ifc: "IfcMechanicalFastener" },
+  ridge: { label: "Ridge board", spec: "Gable ridge", ifc: "IfcBeam" },
+
+  sheathing: { label: "OSB 7/16 sheathing", spec: "8d 6 in edge / 12 in field", ifc: "IfcCovering" },
+  wrb: { label: "WRB housewrap", spec: "Shingled laps over sheathing", ifc: "IfcCovering" },
+  "floor-deck": { label: "Subfloor deck", spec: "OSB on I-joists", ifc: "IfcCovering" },
+  "ceiling-deck": { label: "Ceiling deck", spec: "OSB under roof package", ifc: "IfcCovering" },
+  "roof-deck": { label: "Roof deck", spec: "OSB roof sheathing", ifc: "IfcCovering" },
+  party: { label: "Party wall", spec: "Shared unit wall", ifc: "IfcWall" },
+  "ice-barrier": { label: "Ice & water", spec: "Eave membrane (cold climate)", ifc: "IfcCovering" },
+
+  frame: { label: "Window / door frame", spec: "Flanged frame, 55 mm", ifc: "IfcWindow" },
+  glass: { label: "IGU glass", spec: "Insulated glazing unit", ifc: "IfcWindow" },
+  "door-glass": { label: "Door glazing", spec: "Lite in leaf", ifc: "IfcDoor" },
+  mullion: { label: "Mullion", spec: "Vertical bar in wide opening", ifc: "IfcWindow" },
+  transom: { label: "Transom bar", spec: "Horizontal at mid-lite", ifc: "IfcWindow" },
+  leaf: { label: "Door leaf", spec: "Inswing / outswing slab", ifc: "IfcDoor" },
+  "pan-flash": { label: "Pan flashing", spec: "Sill pan under flange", ifc: "IfcCovering" },
+  "head-flash": { label: "Head flashing", spec: "Over flange, under WRB head", ifc: "IfcCovering" },
+
+  batt: { label: "Cavity batt R-13", spec: "Fills 2×4, no gaps at kings", ifc: "IfcCovering" },
+
+  cladding: { label: "Cladding", spec: "Finish skin over WRB", ifc: "IfcCovering" },
+  plinth: { label: "Brick plinth", spec: "Grade course, 6 in clear", ifc: "IfcCovering" },
+  "end-clad": { label: "End cladding", spec: "Gable / party end skin", ifc: "IfcCovering" },
+  "gable-front": { label: "Front gable", spec: "Pitched end wall", ifc: "IfcWall" },
+  "gable-rear": { label: "Rear gable", spec: "Pitched end wall", ifc: "IfcWall" },
+  "slope-a": { label: "Roof slope A", spec: "Asphalt / membrane slope", ifc: "IfcRoof" },
+  "slope-b": { label: "Roof slope B", spec: "Asphalt / membrane slope", ifc: "IfcRoof" },
+  fascia: { label: "Fascia", spec: "Eave trim", ifc: "IfcCovering" },
+  membrane: { label: "Roof membrane", spec: "TPO / cap sheet", ifc: "IfcCovering" },
+  "high-parapet": { label: "High parapet", spec: "Shed high side", ifc: "IfcWall" },
+  "parapet-n": { label: "North parapet", spec: "Flat-roof upstand", ifc: "IfcWall" },
+  "parapet-s": { label: "South parapet", spec: "Flat-roof upstand", ifc: "IfcWall" },
+  "parapet-e": { label: "East parapet", spec: "Flat-roof upstand", ifc: "IfcWall" },
+  "parapet-w": { label: "West parapet", spec: "Flat-roof upstand", ifc: "IfcWall" },
+  "rail-n": { label: "Terrace rail N", spec: "Steel + glass guard", ifc: "IfcRailing" },
+  "rail-s": { label: "Terrace rail S", spec: "Steel + glass guard", ifc: "IfcRailing" },
+  "rail-glass": { label: "Guard glass", spec: "Laminated infill", ifc: "IfcRailing" },
+  gutter: { label: "Gutter", spec: "After siding, not into footing drain", ifc: "IfcPipeSegment" },
+  downspout: { label: "Downspout", spec: "Leader off the footing", ifc: "IfcPipeSegment" },
+
+  riser: { label: "HVAC riser", spec: "Vertical trunk in wet wall", ifc: "IfcDuctSegment" },
+  trunk: { label: "Supply trunk", spec: "In joist bay / dropped", ifc: "IfcDuctSegment" },
+  branch: { label: "Branch duct", spec: "Off trunk to rooms", ifc: "IfcDuctSegment" },
+  boot: { label: "Boot", spec: "Takeoff to register", ifc: "IfcDuctFitting" },
+  register: { label: "Register", spec: "Supply grille rough", ifc: "IfcAirTerminal" },
+
+  panel: { label: "Service panel", spec: "Entry wall, labeled circuits", ifc: "IfcElectricalPanel" },
+  "home-run": { label: "Home-run", spec: "EMT / NM to panel", ifc: "IfcCableCarrierSegment" },
+  ring: { label: "Device ring", spec: "48 in receptacle circuit", ifc: "IfcCableSegment" },
+  device: { label: "Device box", spec: "12 in / 48 in AFF", ifc: "IfcOutlet" },
+  "can-light": { label: "Can light rough", spec: "IC housing at ceiling", ifc: "IfcLightFixture" },
+
+  "soil-stack": { label: "Soil stack", spec: "3–4 in DWV, wet wall", ifc: "IfcPipeSegment" },
+  "hw-kit": { label: "PEX hot — kitchen", spec: "Red PEX to sink / cook", ifc: "IfcPipeSegment" },
+  "cw-kit": { label: "PEX cold — kitchen", spec: "Blue PEX to sink", ifc: "IfcPipeSegment" },
+  "hw-bath": { label: "PEX hot — bath", spec: "Red PEX to bath group", ifc: "IfcPipeSegment" },
+  "cw-bath": { label: "PEX cold — bath", spec: "Blue PEX to bath group", ifc: "IfcPipeSegment" },
+  "wc-waste": { label: "WC waste", spec: "3 in to stack", ifc: "IfcPipeSegment" },
+
+  gypsum: { label: "Gypsum board", spec: "12.7 mm hang after insulation", ifc: "IfcCovering" },
+  "party-gyp": { label: "Party gypsum", spec: "Each side of party wall", ifc: "IfcCovering" },
+  "hall-wall": { label: "Hall partition", spec: "Interior 100 mm", ifc: "IfcWall" },
+  "wc-wall": { label: "WC partition", spec: "Powder room enclosure", ifc: "IfcWall" },
+  "wc-door-wall": { label: "WC door wall", spec: "Opening for interior door", ifc: "IfcWall" },
+  "bed-split": { label: "Bedroom split", spec: "Upper-floor partition", ifc: "IfcWall" },
+  "bath-wall": { label: "Bath partition", spec: "Wet-room wall", ifc: "IfcWall" },
+  "door-interior": { label: "Interior door", spec: "Hollow-core / mill", ifc: "IfcDoor" },
+  tread: { label: "Stair tread", spec: "254 mm run oak", ifc: "IfcStairFlight" },
+  rail: { label: "Stair rail", spec: "Steel guard at well", ifc: "IfcRailing" },
+  sofa: { label: "Sofa", spec: "FF&E seating", ifc: "IfcFurnishingElement" },
+  table: { label: "Table", spec: "FF&E", ifc: "IfcFurnishingElement" },
+  "bed-a": { label: "Bed A", spec: "Upper bedroom", ifc: "IfcFurnishingElement" },
+  "bed-b": { label: "Bed B", spec: "Upper bedroom", ifc: "IfcFurnishingElement" },
+  wardrobe: { label: "Wardrobe", spec: "Built-in millwork", ifc: "IfcFurnishingElement" },
+  "base-cab": { label: "Base cabinet", spec: "Kitchen millwork", ifc: "IfcFurnishingElement" },
+  "upper-cab": { label: "Upper cabinet", spec: "Kitchen millwork", ifc: "IfcFurnishingElement" },
+  island: { label: "Island", spec: "Kitchen millwork", ifc: "IfcFurnishingElement" },
+  fridge: { label: "Fridge", spec: "Appliance rough opening", ifc: "IfcFurnishingElement" },
+  sink: { label: "Sink", spec: "Kitchen sink", ifc: "IfcSanitaryTerminal" },
+  cooktop: { label: "Cooktop", spec: "Drop-in range", ifc: "IfcFurnishingElement" },
+  hood: { label: "Hood", spec: "Range hood", ifc: "IfcFurnishingElement" },
+  toilet: { label: "WC", spec: "Powder toilet", ifc: "IfcSanitaryTerminal" },
+  "toilet-up": { label: "WC upper", spec: "Bath toilet", ifc: "IfcSanitaryTerminal" },
+  "wc-vanity": { label: "Powder vanity", spec: "Wall-hung mill", ifc: "IfcFurnishingElement" },
+  vanity: { label: "Bath vanity", spec: "Upper bath mill", ifc: "IfcFurnishingElement" },
+  tub: { label: "Tub", spec: "Soaker / built-in", ifc: "IfcSanitaryTerminal" },
+  "shower-glass": { label: "Shower glass", spec: "Fixed panel", ifc: "IfcCovering" },
+  "wc-pan": { label: "Powder floor tile", spec: "Porcelain pan", ifc: "IfcCovering" },
+  "bath-tile": { label: "Bath floor tile", spec: "Porcelain", ifc: "IfcCovering" },
+
+  floor: { label: "Finish floor", spec: "Rift oak / specified", ifc: "IfcCovering" },
+  "kitchen-tile": { label: "Kitchen tile", spec: "Wet-zone floor", ifc: "IfcCovering" },
+  counter: { label: "Counter", spec: "Quartz 40 mm", ifc: "IfcCovering" },
+  "island-top": { label: "Island top", spec: "Quartz 40 mm", ifc: "IfcCovering" },
+  casing: { label: "Casing", spec: "18 mm mill around openings", ifc: "IfcCovering" },
+  baseboard: { label: "Baseboard", spec: "80 mm mill", ifc: "IfcCovering" },
+  decking: { label: "Roof decking", spec: "Terrace walking surface", ifc: "IfcCovering" },
+
+  lawn: { label: "Lawn", spec: "Finish grade turf", ifc: "IfcSite" },
+  street: { label: "Street", spec: "Asphalt ROW", ifc: "IfcRoad" },
+  sidewalk: { label: "Sidewalk", spec: "Concrete walk", ifc: "IfcPavement" },
+  curb: { label: "Curb", spec: "Street edge", ifc: "IfcPavement" },
+  stoop: { label: "Stoop", spec: "Entry pad", ifc: "IfcSlab" },
+  planter: { label: "Planter bed", spec: "Front soil", ifc: "IfcSite" },
+  hedge: { label: "Front hedge", spec: "Softscape", ifc: "IfcGeographicElement" },
+  patio: { label: "Rear patio", spec: "Paving", ifc: "IfcSlab" },
+  "rear-hedge": { label: "Rear hedge", spec: "Property-line planting", ifc: "IfcGeographicElement" },
+  fence: { label: "Fence", spec: "Rear boundary", ifc: "IfcRailing" },
+  "tree-trunk": { label: "Tree trunk", spec: "Softscape", ifc: "IfcGeographicElement" },
+  canopy: { label: "Tree canopy", spec: "Softscape", ifc: "IfcGeographicElement" },
+
+  "cut-w": { label: "West cut", spec: "Excavation batter", ifc: "IfcEarthworksCut" },
+  "cut-e": { label: "East cut", spec: "Excavation batter", ifc: "IfcEarthworksCut" },
+  "cut-n": { label: "North cut", spec: "Excavation batter", ifc: "IfcEarthworksCut" },
+  "cut-s": { label: "South cut", spec: "Excavation batter", ifc: "IfcEarthworksCut" },
+  subgrade: { label: "Subgrade", spec: "Proof-rolled bottom", ifc: "IfcEarthworksCut" },
+  batter: { label: "Batter board", spec: "3–4 ft outside, 6-8-10", ifc: "IfcElementAssembly" },
+  "string-line": { label: "String line", spec: "Layout line on batter", ifc: "IfcAnnotation" },
+
+  slab: { label: "SOG slab", spec: "CIP, frost-depth system", ifc: "IfcSlab" },
+  "footing-front": { label: "Front footing", spec: "Strip below 30 in frost", ifc: "IfcFooting" },
+  "footing-rear": { label: "Rear footing", spec: "Strip below 30 in frost", ifc: "IfcFooting" },
+  "footing-party": { label: "Party footing", spec: "Strip at unit line", ifc: "IfcFooting" },
+  waterproof: { label: "Dampproofing", spec: "On stem, before backfill", ifc: "IfcCovering" },
+  "sill-plate": { label: "PT sill plate", spec: "Treated, anchored 8 in above grade", ifc: "IfcMember" },
+  anchor: { label: "Anchor bolt", spec: "Sill to stem", ifc: "IfcMechanicalFastener" },
+
+  "gravel-bed": { label: "Gravel bed", spec: "100 mm clean coarse", ifc: "IfcCovering" },
+  poly: { label: "6-mil poly", spec: "12 in laps, sealed to wall", ifc: "IfcCovering" },
+  radon: { label: "Radon stub", spec: "3–4 in PVC in gravel", ifc: "IfcPipeSegment" },
+  "underslab-waste": { label: "Underslab waste", spec: "In before pour", ifc: "IfcPipeSegment" },
+};
+
+export function kindMeta(kind: string): KindMeta {
+  const hit = KIND_META[kind];
+  if (hit) return hit;
+  const label = kind.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+  return { label, spec: kind, ifc: "IfcBuildingElementProxy" };
+}
+
+export function formatMm(w: number, h: number, d: number): string {
+  return `${Math.round(w * 1000)} × ${Math.round(h * 1000)} × ${Math.round(d * 1000)} mm`;
+}

@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8081/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Layerworks",
+      "hasCanvas": false,
+      "bodyTextLen": 1361,
+      "bodyTextHash": "2d8949a20d5e72ae6bfa6b172c43cb9b3a6b3bfa4d37813c00bc39709ecdfd4f",
+      "bodyTextPrefix": "LAYERWORKS Modern Terraced Houses 3 units · 2 storeys · 6.0×10.4",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Layerworks",
+      "hasCanvas": false,
+      "bodyTextLen": 224,
+      "bodyTextHash": "7c26a4e1d6316b10340fcd6db7c27df6b7fe411c8353153441557a74f81cdd39",
+      "bodyTextPrefix": "LAYERWORKS Modern Terraced Houses 3 units · 2 storeys · 6.0×10.4",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-built.json"
+}
