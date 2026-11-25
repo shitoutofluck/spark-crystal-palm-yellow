@@ -2,7 +2,7 @@ import * as THREE from "three";
 import type { Proc } from "./catalog";
 
 const SIZE = 512;
-const cache = new Map<string, { albedo: THREE.CanvasTexture; normal: THREE.CanvasTexture }>();
+const cache = new Map<string, { albedo: THREE.CanvasTexture; normal: THREE.CanvasTexture; roughness: THREE.CanvasTexture; ao: THREE.CanvasTexture }>();
 
 function hash2(x: number, y: number): number {
   const s = Math.sin(x * 127.1 + y * 311.7) * 43758.5453;
@@ -102,6 +102,32 @@ function normalFromHeight(height: Float32Array, strength = 4): HTMLCanvasElement
   return c;
 }
 
+function roughnessAo(height: Float32Array, aimg: ImageData): { roughness: HTMLCanvasElement; ao: HTMLCanvasElement } {
+  const rc = document.createElement("canvas");
+  rc.width = rc.height = SIZE;
+  const ac = document.createElement("canvas");
+  ac.width = ac.height = SIZE;
+  const rctx = rc.getContext("2d")!;
+  const actx = ac.getContext("2d")!;
+  const rimg = rctx.createImageData(SIZE, SIZE);
+  const aout = actx.createImageData(SIZE, SIZE);
+  const d = aimg.data;
+  for (let i = 0; i < SIZE * SIZE; i++) {
+    const o = i * 4;
+    const lum = (d[o]! * 0.299 + d[o + 1]! * 0.587 + d[o + 2]! * 0.114) / 255;
+    const h = height[i]!;
+    const rough = clamp((0.22 + (1 - h) * 0.55 + (1 - lum) * 0.22) * 255);
+    const ao = clamp((0.42 + h * 0.5 + lum * 0.12) * 255);
+    rimg.data[o] = rimg.data[o + 1] = rimg.data[o + 2] = rough;
+    rimg.data[o + 3] = 255;
+    aout.data[o] = aout.data[o + 1] = aout.data[o + 2] = ao;
+    aout.data[o + 3] = 255;
+  }
+  rctx.putImageData(rimg, 0, 0);
+  actx.putImageData(aout, 0, 0);
+  return { roughness: rc, ao: ac };
+}
+
 function tex(canvas: HTMLCanvasElement, srgb: boolean): THREE.CanvasTexture {
   const t = new THREE.CanvasTexture(canvas);
   t.colorSpace = srgb ? THREE.SRGBColorSpace : THREE.NoColorSpace;
@@ -114,7 +140,7 @@ function tex(canvas: HTMLCanvasElement, srgb: boolean): THREE.CanvasTexture {
   return t;
 }
 
-function draw(proc: Proc, hex: string): { albedo: THREE.CanvasTexture; normal: THREE.CanvasTexture } {
+function draw(proc: Proc, hex: string): { albedo: THREE.CanvasTexture; normal: THREE.CanvasTexture; roughness: THREE.CanvasTexture; ao: THREE.CanvasTexture } {
   const [cr, cg, cb] = rgb(hex);
   const { albedo, actx, aimg, height } = makeCanvases();
 
@@ -399,12 +425,21 @@ function draw(proc: Proc, hex: string): { albedo: THREE.CanvasTexture; normal: T
 
   actx.putImageData(aimg, 0, 0);
   const ncanvas = normalFromHeight(height, proc === "brick" || proc === "gravel" || proc === "osb" ? 6.5 : 3.6);
-  return { albedo: tex(albedo, true), normal: tex(ncanvas, false) };
+  const extra = roughnessAo(height, aimg);
+  return {
+    albedo: tex(albedo, true),
+    normal: tex(ncanvas, false),
+    roughness: tex(extra.roughness, false),
+    ao: tex(extra.ao, false),
+  };
 }
 
 const SKIP = new Set<Proc>(["glass", "solid"]);
 
-export function mapsFor(proc: Proc, hex: string): { albedo: THREE.CanvasTexture; normal: THREE.CanvasTexture } | null {
+export function mapsFor(
+  proc: Proc,
+  hex: string,
+): { albedo: THREE.CanvasTexture; normal: THREE.CanvasTexture; roughness: THREE.CanvasTexture; ao: THREE.CanvasTexture } | null {
   if (typeof document === "undefined") return null;
   if (SKIP.has(proc)) return null;
   const key = `${proc}|${hex.toUpperCase()}`;

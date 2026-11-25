@@ -109,6 +109,22 @@ function slopeStack(
   }
 
   slopeStrip(bag, "envelope", "osb-716", xDeck, wDeck, eaveY, eaveZ, ridgeY, ridgeZ, 0, len, 0.016, 0, "roof-deck");
+  const midS = len * 0.45;
+  for (let x = ox + 0.2; x < ox + totalW - 0.05; x += 0.406) {
+    const t = midS / Math.max(len, 1e-6);
+    bag.add(
+      "envelope",
+      "steel-galv",
+      x + 0.2,
+      eaveY + P.rise * t + P.ny * 0.01,
+      eaveZ + P.dz * t + P.nz * 0.01,
+      0.05,
+      0.01,
+      0.04,
+      "h-clip",
+      { rx: P.rx },
+    );
+  }
 
   const iceLen = Math.min(ICE_RUN, len * 0.28);
   slopeStrip(bag, "envelope", "membrane-charcoal", xDeck, wDeck, eaveY, eaveZ, ridgeY, ridgeZ, 0, iceLen, 0.004, 0.012, "ice-barrier");
@@ -195,7 +211,14 @@ export function buildPitchedGable(bag: RoofBag, p: BuildingProgram, ox: number, 
   const rearEaveZ = D + over;
 
   bag.min("framing", "osb-716", ox - 0.12, top, -0.05, totalW + 0.24, 0.02, D + 0.1, "ceiling-deck");
-  bag.min("framing", "timber-spf", ox - 0.08, ridgeY - 0.09, ridgeZ - 0.045, totalW + 0.16, 0.184, 0.09, "ridge");
+  for (let x = ox + 0.05; x < ox + totalW - 0.02; x += 0.406) {
+    bag.min("framing", "timber-spf", x, top, 0.04, 0.038, 0.184, D - 0.08, "ceiling-joist");
+  }
+  bag.min("framing", "timber-spf", ox - 0.08, ridgeY - 0.118, ridgeZ - 0.045, totalW + 0.16, 0.235, 0.09, "ridge");
+  const collarY = eaveY + rise * 0.62;
+  for (let x = ox + 0.05; x < ox + totalW - 0.02; x += 0.406 * 3) {
+    bag.min("framing", "timber-spf", x, collarY, ridgeZ - 0.7, 0.038, 0.089, 1.4, "collar-tie");
+  }
 
   slopeStack(bag, p, ox, totalW, eaveY, frontEaveZ, ridgeY, ridgeZ, roof);
   slopeStack(bag, p, ox, totalW, eaveY, rearEaveZ, ridgeY, ridgeZ, roof);

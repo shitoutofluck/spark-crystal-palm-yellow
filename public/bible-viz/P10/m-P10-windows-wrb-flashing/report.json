@@ -1,0 +1,24 @@
+{
+  "phase": "P10",
+  "method": "m-P10-windows-wrb-flashing",
+  "practice": "Windows / WRB / flashings (SFR)",
+  "source": "CMHC Ch13–15 Fig 130 / 125 / 132; AF&PA Type 15 felt",
+  "counts": {
+    "wrb": 124,
+    "pan-flash": 40,
+    "end-dam": 80,
+    "corner-membrane": 80,
+    "head-flash": 40,
+    "shim": 160,
+    "frame": 160,
+    "glass": 32,
+    "leaf": 8
+  },
+  "fasteners_skipped": ["jamb screws", "staples", "counterflash nails"],
+  "honest_gaps": [
+    "Fig 130 A1 sloped sub-sill is not a separate mesh (pan sits at sill)",
+    "Spray foam / backer rod / interior sealant not meshed (process / P16)",
+    "FM hasty sash is not this habit",
+    "Brand housewrap not invented — CLASS only"
+  ]
+}

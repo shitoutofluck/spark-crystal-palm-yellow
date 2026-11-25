@@ -1,0 +1,23 @@
+{
+  "phase": "P06",
+  "method": "m-P06-underslab-prep",
+  "practice": "Underslab prep — plumbing, gravel, poly (SFR)",
+  "source": "ORNL FLOOR SLAB / 6-mil 12-in laps; CMHC Ch7 sewer first; HUD §4.6",
+  "counts": {
+    "underslab-waste": 4,
+    "trench-backfill": 4,
+    "gravel-bed": 1,
+    "poly": 1,
+    "poly-lap": 4,
+    "caulk-bead": 6,
+    "radon": 1
+  },
+  "fasteners_skipped": [],
+  "alts_not_invented": ["m-P06-termite-soil-treat", "gap-P06-fontana-utah-split"],
+  "honest_gaps": [
+    "4 in (ORNL) vs 2–3 in (HUD) gravel — both printed, confirm AHJ. Model is 120 mm (~4.7 in).",
+    "Pipe sizes not in sources — CLASS only, 75 mm stand-in",
+    "Wood-out is a process, no stakes left in the pour",
+    "Termite spray not invented"
+  ]
+}

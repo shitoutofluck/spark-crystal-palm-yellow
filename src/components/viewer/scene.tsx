@@ -1,14 +1,17 @@
-import { ContactShadows, Environment, Html, OrbitControls, Sky, SoftShadows, TransformControls } from "@react-three/drei";
+import { ContactShadows, Environment, Html, OrbitControls, Sky, TransformControls } from "@react-three/drei";
 import { Canvas, useFrame, useThree, type ThreeEvent } from "@react-three/fiber";
 import { Bloom, EffectComposer, N8AO, SMAA, Vignette } from "@react-three/postprocessing";
 import { Component, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import * as THREE from "three";
+import { RectAreaLightUniformsLib } from "three/addons/lights/RectAreaLightUniformsLib.js";
 import { batchBoxes, type Batch } from "@/lib/bim/build";
-import { detectLiteGpu, setLiteGpu } from "@/lib/bim/gpu";
+import { clearMaterialCache, materialFor } from "@/lib/bim/triplanar";
+import { detectLiteGpu, gpuReport, liteGpu, onGpuMode, setLiteGpu } from "@/lib/bim/gpu";
 import { formatMm, kindMeta } from "@/lib/bim/kinds";
 import { layerIsOn, resolveBoxes, useBim } from "@/lib/bim/store";
-import { materialFor } from "@/lib/bim/triplanar";
+import { clearMaterialCache, materialFor } from "@/lib/bim/triplanar";
 import { BUILD_SEQUENCE, LAYER_IDS, LAYER_META, type Geom } from "@/lib/bim/types";
+import { ENGINE, fitShadowCamera, type EngineStyle } from "@/lib/bim/engine";
 import { CustomLayer } from "./custom";
 
 const WHITE = new THREE.Color("#ffffff");
@@ -28,6 +31,36 @@ class FxGuard extends Component<{ children: ReactNode }, { dead: boolean }> {
   render() {
     return this.state.dead ? null : this.props.children;
   }
+}
+
+function GpuSanity() {
+  const { gl, invalidate } = useThree();
+  useEffect(() => {
+    if (!gpuReport.forced || gpuReport.lite) return;
+    const id = window.setTimeout(() => {
+      invalidate();
+      try {
+        const ctx = gl.getContext();
+        if (!ctx) return;
+        const w = Math.min(64, ctx.drawingBufferWidth);
+        const h = Math.min(64, ctx.drawingBufferHeight);
+        const buf = new Uint8Array(w * h * 4);
+        ctx.readPixels(0, 0, w, h, ctx.RGBA, ctx.UNSIGNED_BYTE, buf);
+        let sum = 0;
+        for (let i = 0; i < buf.length; i += 4) sum += buf[i]! + buf[i + 1]! + buf[i + 2]!;
+        const mean = sum / (w * h * 3);
+        if (mean < 12) {
+          gpuReport.err = `full PBR compiled but this GPU shaded black (mean ${mean.toFixed(1)}). Reverted to LITE.`;
+          setLiteGpu(true);
+          clearMaterialCache();
+        }
+      } catch (e) {
+        gpuReport.err = e instanceof Error ? e.message : String(e);
+      }
+    }, 1200);
+    return () => window.clearTimeout(id);
+  }, [gl, invalidate]);
+  return null;
 }
 
 function SequenceDriver() {
@@ -136,22 +169,35 @@ function FitCamera() {
 
 function InteriorLights() {
   const program = useBim((s) => s.program);
-  const style = useBim((s) => s.renderStyle);
-  const intensity = style === "dusk" ? 9.2 : style === "overcast" ? 3.6 : 5.8;
+  const style = useBim((s) => s.renderStyle) as EngineStyle;
+  const intensity = ENGINE.interior[style];
+  const nits = ENGINE.windowNits[style];
   const nodes = [];
   const totalW = program.units * program.unitWidth;
   const ox = -totalW / 2;
   for (let i = 0; i < program.units; i++) {
     const x = ox + (i + 0.55) * program.unitWidth;
     for (let s = 0; s < program.storeys; s++) {
+      const y = s * program.storeyHeight + 2.05;
       nodes.push(
         <pointLight
-          key={`${i}-${s}`}
-          position={[x, s * program.storeyHeight + 2.05, program.unitDepth * 0.42]}
+          key={`p-${i}-${s}`}
+          position={[x, y, program.unitDepth * 0.42]}
           intensity={intensity}
-          distance={12}
+          distance={11}
           decay={2}
-          color={style === "dusk" ? "#ffd4a8" : "#f4ead2"}
+          color={style === "dusk" ? "#ffd4a8" : "#f7eedc"}
+        />,
+      );
+      nodes.push(
+        <rectAreaLight
+          key={`w-${i}-${s}`}
+          position={[ox + (i + 0.5) * program.unitWidth, s * program.storeyHeight + 1.55, -0.12]}
+          width={1.55}
+          height={1.35}
+          intensity={nits}
+          color={style === "dusk" ? "#ffb070" : "#fff4e0"}
+          rotation={[-0.04, Math.PI, 0]}
         />,
       );
     }
@@ -583,68 +629,68 @@ function Building({ plane }: { plane: THREE.Plane }) {
 
 function Lights() {
   const { gl, scene } = useThree();
-  const style = useBim((s) => s.renderStyle);
+  const style = useBim((s) => s.renderStyle) as EngineStyle;
+  const bounds = useBim((s) => s.result.bounds);
   const lite = detectLiteGpu(gl);
+  const sunRef = useRef<THREE.DirectionalLight>(null);
 
   useLayoutEffect(() => {
     gl.localClippingEnabled = true;
-    gl.toneMapping = THREE.ACESFilmicToneMapping;
-    gl.toneMappingExposure = style === "dusk" ? 1.05 : style === "overcast" ? 1.22 : lite ? 1.28 : 1.16;
+    gl.toneMapping = ENGINE.toneMapping;
+    gl.toneMappingExposure = lite ? ENGINE.exposure[style] * 1.08 : ENGINE.exposure[style];
     gl.shadowMap.enabled = true;
-    gl.shadowMap.type = THREE.PCFShadowMap;
+    gl.shadowMap.type = THREE.PCFSoftShadowMap;
     gl.outputColorSpace = THREE.SRGBColorSpace;
-    const bg = style === "dusk" ? "#1a1418" : style === "overcast" ? "#9aa3aa" : "#6d7a84";
-    scene.fog = new THREE.Fog(bg, 28, 95);
+    const bg = ENGINE.fogColor[style];
+    scene.fog = new THREE.Fog(bg, ENGINE.fogNear, ENGINE.fogFar);
     scene.background = new THREE.Color(bg);
     return () => {
       scene.fog = null;
     };
-  }, [gl, scene, style]);
+  }, [gl, scene, style, lite]);
 
-  const sun =
-    style === "dusk"
-      ? { pos: [32, 7, 10] as const, intensity: 2.15, color: "#f0a060" }
-      : style === "overcast"
-        ? { pos: [6, 42, 8] as const, intensity: 0.55, color: "#d8e0e8" }
-        : { pos: [18, 22, 10] as const, intensity: lite ? 1.35 : 2.85, color: "#fff4e4" };
+  useLayoutEffect(() => {
+    if (sunRef.current) fitShadowCamera(sunRef.current, bounds.min, bounds.max);
+  }, [bounds, style]);
+
+  const sun = ENGINE.sun[style];
+  const bounce = ENGINE.bounce[style];
+  const hemi = ENGINE.hemi[style];
+  const mapSize = lite ? ENGINE.shadowMapSize.lite : ENGINE.shadowMapSize.full;
 
   return (
     <>
-      <hemisphereLight
-        args={
-          style === "dusk"
-            ? ["#8a6a88", "#2a221c", 0.55]
-            : ["#c5d0d8", "#3a322b", style === "overcast" ? 1.15 : 0.62]
-        }
-      />
-      <ambientLight intensity={style === "overcast" ? 0.62 : lite ? 0.55 : 0.32} />
+      <hemisphereLight args={[hemi[0], hemi[1], hemi[2]]} />
+      <ambientLight intensity={lite ? ENGINE.ambient[style] + 0.28 : ENGINE.ambient[style]} />
       <directionalLight
+        ref={sunRef}
         position={[...sun.pos]}
-        intensity={sun.intensity}
+        intensity={lite ? sun.intensity * 0.55 : sun.intensity}
         color={sun.color}
         castShadow
-        shadow-mapSize={[1024, 1024]}
-        shadow-bias={-0.00022}
-        shadow-normalBias={0.03}
-        shadow-camera-near={2}
-        shadow-camera-far={90}
-        shadow-camera-left={-32}
-        shadow-camera-right={32}
-        shadow-camera-top={32}
-        shadow-camera-bottom={-32}
+        shadow-mapSize={[mapSize, mapSize]}
+        shadow-bias={ENGINE.shadowBias}
+        shadow-normalBias={ENGINE.shadowNormalBias}
+        shadow-radius={lite ? 1 : 2.4}
       />
-      <directionalLight position={[-18, 12, -14]} intensity={style === "dusk" ? 0.22 : 0.55} color="#8a9aa8" />
-      <directionalLight position={[4, 2.2, 14]} intensity={0.28} color="#e8e4dc" />
+      <directionalLight position={[...bounce.pos]} intensity={bounce.intensity} color={bounce.color} />
+      <directionalLight position={[3, 1.8, 12]} intensity={style === "dusk" ? 0.16 : 0.22} color="#e4ddd2" />
       {lite ? null : (
-        <Environment preset={style === "dusk" ? "sunset" : style === "overcast" ? "warehouse" : "city"} environmentIntensity={style === "studio" ? 0.72 : 0.62} />
+        <Environment
+          preset={style === "dusk" ? "sunset" : style === "overcast" ? "warehouse" : "city"}
+          background={false}
+          environmentIntensity={ENGINE.ibl[style]}
+          frames={1}
+        />
       )}
       {style !== "studio" || lite ? (
         <Sky
           sunPosition={style === "dusk" ? [20, 1.6, -6] : [6, 14, 8]}
-          turbidity={style === "dusk" ? 8 : 6}
-          rayleigh={style === "dusk" ? 2.6 : 0.55}
-          mieCoefficient={0.005}
-          mieDirectionalG={0.8}
+          turbidity={style === "dusk" ? 8 : 4.2}
+          rayleigh={style === "dusk" ? 2.4 : 0.42}
+          mieCoefficient={0.004}
+          mieDirectionalG={0.78}
+          inclination={style === "dusk" ? 0.48 : 0.44}
         />
       ) : null}
     </>
@@ -659,9 +705,9 @@ function Post() {
   const mobile = typeof window !== "undefined" && window.innerWidth < 720;
   return (
     <EffectComposer multisampling={0} enableNormalPass={false} stencilBuffer={false} autoClear>
-      {mobile ? null : <N8AO aoRadius={0.45} intensity={1.15} distanceFalloff={1.1} />}
-      <Bloom luminanceThreshold={1.15} intensity={0.14} mipmapBlur />
-      <Vignette offset={0.32} darkness={0.38} />
+      {mobile ? null : <N8AO aoRadius={ENGINE.ao.radius} intensity={ENGINE.ao.intensity} distanceFalloff={1.05} />}
+      {ENGINE.bloom ? <Bloom luminanceThreshold={1.35} intensity={0.08} mipmapBlur /> : null}
+      <Vignette offset={ENGINE.vignette.offset} darkness={ENGINE.vignette.darkness} />
       <SMAA />
     </EffectComposer>
   );
@@ -675,6 +721,7 @@ export function BuildingCanvas() {
   const dragging = useBim((s) => s.gizmoDragging);
   const placeMode = useBim((s) => s.placeMode);
   const [gpu, setGpu] = useState<"unknown" | "lite" | "full">("unknown");
+  useEffect(() => onGpuMode(() => setGpu(liteGpu ? "lite" : "full")), []);
   const plane = useMemo(() => new THREE.Plane(new THREE.Vector3(0, -1, 0), 80), []);
   const maxY = result.bounds.max[1];
   const minY = result.bounds.min[1];
@@ -685,7 +732,7 @@ export function BuildingCanvas() {
     <div className="absolute inset-0 bg-ink touch-none">
       <Canvas
         shadows
-        dpr={lite ? [1, 1] : [1, 1.5]}
+        dpr={lite ? [1, 1] : [1, 2]}
         gl={{
           antialias: lite,
           alpha: false,
@@ -695,15 +742,46 @@ export function BuildingCanvas() {
           failIfMajorPerformanceCaveat: false,
         }}
         camera={{ position: [18, 10, -16], fov: 38, near: 0.12, far: 240 }}
-        onCreated={({ gl }) => {
-          gl.setClearColor("#0c0d0f", 1);
+        onCreated={({ gl, scene, camera }) => {
+          RectAreaLightUniformsLib.init();
+          gl.setClearColor("#6d7a84", 1);
           gl.localClippingEnabled = true;
-          gl.shadowMap.type = THREE.PCFShadowMap;
+          gl.toneMapping = ENGINE.toneMapping;
+          gl.outputColorSpace = THREE.SRGBColorSpace;
+          gl.shadowMap.enabled = true;
+          gl.shadowMap.type = THREE.PCFSoftShadowMap;
           const canvas = gl.domElement;
           canvas.addEventListener("webglcontextlost", (e) => e.preventDefault(), false);
           const liteNow = gpuIsLite(gl);
           setLiteGpu(liteNow);
+          clearMaterialCache();
+          if (!liteNow) {
+            const t0 = performance.now();
+            try {
+              const probe = new THREE.Mesh(
+                new THREE.SphereGeometry(0.4, 24, 16),
+                new THREE.MeshPhysicalMaterial({ color: "#c9b49a", roughness: 0.32, metalness: 0.08, clearcoat: 0.25 }),
+              );
+              const sc = new THREE.Scene();
+              sc.add(probe);
+              sc.add(new THREE.DirectionalLight("#ffffff", 3));
+              gl.compile(sc, camera);
+              gpuReport.compileOk = true;
+              gpuReport.compileMs = Math.round(performance.now() - t0);
+              gpuReport.err = null;
+              probe.geometry.dispose();
+              (probe.material as THREE.Material).dispose();
+            } catch (e) {
+              gpuReport.compileOk = false;
+              gpuReport.compileMs = Math.round(performance.now() - t0);
+              gpuReport.err = e instanceof Error ? e.message : String(e);
+            }
+          }
+          if (typeof window !== "undefined") {
+            (window as unknown as { __lwGpu: typeof gpuReport }).__lwGpu = gpuReport;
+          }
           setGpu(liteNow ? "lite" : "full");
+          void scene;
         }}
         onPointerMissed={(event) => {
           if (useBim.getState().gizmoDragging) return;
@@ -713,13 +791,9 @@ export function BuildingCanvas() {
           selectCustom(null);
         }}
       >
-        {gpu === "full" ? (
-          <FxGuard>
-            <SoftShadows size={18} samples={8} focus={0.45} />
-          </FxGuard>
-        ) : null}
         <Lights />
         <InteriorLights />
+        <GpuSanity />
         <SequenceDriver />
         <NudgeKeys />
         <OrbitControls
@@ -732,7 +806,6 @@ export function BuildingCanvas() {
           maxDistance={90}
           target={[0, 2.4, -2]}
         />
-        <FitCamera />
         <FitCamera />
         <Building plane={plane} />
         {gpu === "full" ? (

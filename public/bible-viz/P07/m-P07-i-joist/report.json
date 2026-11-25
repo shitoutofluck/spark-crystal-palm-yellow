@@ -1,0 +1,26 @@
+{
+  "phase": "P07",
+  "method": "m-P07-i-joist",
+  "practice": "I-joist floor structure (SFR)",
+  "this_model": "L2 I-joist package on L1 plates. L1 is SOG — c-P07-no-joists-on-sog held. Not a Fontana first-floor joist package.",
+  "source": "PJI Guide p 3 Notes 1–13; HUD §5.4 Table 5.5; AF&PA Platform Frame",
+  "counts": {
+    "i-web": 120,
+    "i-flange": 240,
+    "rim-joist": 16,
+    "blocking": 8,
+    "squash-block": 8,
+    "i-joist-brace": 16,
+    "web-stiffener": 240,
+    "floor-deck": 8,
+    "sill-gasket": 2,
+    "hanger": 720
+  },
+  "fasteners_skipped": ["hangers 720", "hanger nails", "subfloor nails 6/12", "sill anchors"],
+  "honest_gaps": [
+    "Glue-for-catalog-spans is a process (APA AFG-01) — no adhesive mesh invented",
+    "No girder — I-joists span wall-to-wall on this plan",
+    "Web holes not cut (never flange; tabled holes only — none required on this span)",
+    "ESR sheet on site is a process"
+  ]
+}

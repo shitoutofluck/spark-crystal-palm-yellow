@@ -1,0 +1,23 @@
+{
+  "phase": "P11",
+  "methods": ["m-P11-siding-over-wrb", "m-P11-asphalt-shingles-finish"],
+  "also_fixed": "P10 WRB/flashing made readable (thicker wrap, green housewrap, L-pans, L-heads, laps, returns)",
+  "counts": {
+    "wrb": 124,
+    "wrb-lap": 160,
+    "wrb-return": 80,
+    "pan-flash": 80,
+    "head-flash": 80,
+    "end-dam": 80,
+    "siding-course": 1000,
+    "corner-board": 16,
+    "shingle-course": 122,
+    "starter": 2
+  },
+  "fasteners_skipped": ["siding nails 1-1/2 in above lap", "four roofing nails per strip"],
+  "honest_gaps": [
+    "Rainscreen strapping is coastal CMHC — not Utah/Fontana habit",
+    "Stucco / veneer / EIFS are named alts, not this habit",
+    "No valley on this gable — valley nail exclusion n/a"
+  ]
+}

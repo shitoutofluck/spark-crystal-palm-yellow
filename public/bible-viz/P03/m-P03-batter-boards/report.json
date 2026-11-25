@@ -1,0 +1,21 @@
+{
+  "phase": "P03",
+  "method": "m-P03-batter-boards",
+  "practice": "Layout / batter boards (SFR)",
+  "source": "FM 5-426 Ch4; CMHC Ch6 labeled Canadian",
+  "counts": {
+    "stake": 4,
+    "batter-post": 12,
+    "batter": 8,
+    "string-line": 8,
+    "gap-toilet": 1
+  },
+  "fasteners_skipped": ["8d nails securing string to boards"],
+  "honest_gaps": [
+    "gap-P03-temp-toilet — yellow cage only, no toilet Method",
+    "gap-crew-counts",
+    "6-8-10 / diagonal proof not drawn as dimension ticks",
+    "P03 and P04 share the excavation layer — hole is visible with layout",
+    "separate saw-kerf marks for foundation and footing lines not modeled (building + excavation strings only)"
+  ]
+}

@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Hud } from "@/components/overlay/hud";
 import { ViewerHost } from "@/components/viewer/host";
-import { KlayDoor } from "@/klay/door";
 
 export const Route = createFileRoute("/")({ component: Home });
 
@@ -10,7 +9,6 @@ function Home() {
     <main className="relative h-dvh overflow-hidden bg-ink text-paper">
       <ViewerHost />
       <Hud />
-      <KlayDoor />
     </main>
   );
 }

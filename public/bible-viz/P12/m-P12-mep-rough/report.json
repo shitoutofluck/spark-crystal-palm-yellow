@@ -1,0 +1,31 @@
+{
+  "phase": "P12",
+  "method": "m-P12-mep-rough",
+  "source": "CMHC Ch2 Fig 2; Ch19; Ch20",
+  "counts": {
+    "soil-stack": 4,
+    "vent": 4,
+    "tub-waste": 4,
+    "wc-waste": 4,
+    "hw-kit": 4,
+    "cw-kit": 4,
+    "tub": 8,
+    "panel": 4,
+    "device": 32,
+    "smoke-box": 8,
+    "three-way": 8,
+    "riser": 4,
+    "trunk": 8,
+    "furnace": 4,
+    "combustion-air": 4,
+    "boot": 24
+  },
+  "fasteners_skipped": ["device screws", "hanger strap", "pipe straps"],
+  "honest_gaps": [
+    "No invented pipe diameter schedule — CLASS only",
+    "Fixtures/plates after paint are P16",
+    "Joist-notch hold is a process (no cut meshes on I-joists)",
+    "US device height is a Gap; CMHC 1.4 m used as Canadian sample",
+    "Isolate screenshots this pass are weak — refine after the spine is filed"
+  ]
+}

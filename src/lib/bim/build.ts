@@ -9,7 +9,7 @@ const OC = 0.406;
 const OSB = 0.011;
 const GYP = 0.013;
 const CLAD = 0.028;
-const WRB = 0.007;
+const WRB = 0.018;
 const HEADER = 0.235;
 const IJOIST = 0.302;
 const FROST = 0.76;
@@ -153,6 +153,24 @@ function wallZ(
   }
 }
 
+function sidingX(
+  bag: Bag,
+  z: number,
+  x0: number,
+  x1: number,
+  y0: number,
+  y1: number,
+  holes: Hole[],
+  face: string,
+  unit?: number,
+) {
+  const exp = 0.165;
+  const lap = 0.03;
+  for (let y = y0; y < y1 - 0.008; y += exp) {
+    wallX(bag, "exterior", face, z, x0, x1, y, Math.min(y1, y + exp + lap), 0.011, holes, "siding-course", unit);
+  }
+}
+
 function inHole(x: number, holes: Hole[], y0: number, y1: number) {
   return holes.some((h) => x > h.x && x < h.x + h.w && y0 < h.y + h.h && y1 > h.y);
 }
@@ -183,7 +201,11 @@ function framingX(
     const jackH = h.y + h.h - (y0 + STUD);
     bag.min("framing", "timber-spf", h.x, y0 + STUD, z, STUD, Math.max(0.05, jackH), CAVITY, "jack", unit);
     bag.min("framing", "timber-spf", h.x + h.w - STUD, y0 + STUD, z, STUD, Math.max(0.05, jackH), CAVITY, "jack", unit);
-    bag.min("framing", "timber-spf", h.x - STUD, h.y + h.h, z, h.w + 2 * STUD, HEADER, CAVITY, "header", unit);
+    const plyT = STUD;
+    const spacerT = 0.0127;
+    bag.min("framing", "timber-spf", h.x - STUD, h.y + h.h, z, h.w + 2 * STUD, HEADER, plyT, "header", unit);
+    bag.min("framing", "osb-716", h.x - STUD, h.y + h.h, z + plyT, h.w + 2 * STUD, HEADER, spacerT, "header-spacer", unit);
+    bag.min("framing", "timber-spf", h.x - STUD, h.y + h.h, z + plyT + spacerT, h.w + 2 * STUD, HEADER, plyT, "header", unit);
     if (h.kind === "window") {
       bag.min("framing", "timber-spf", h.x, h.y - STUD, z, h.w, STUD, CAVITY, "sill", unit);
       for (let x = h.x + OC * 0.5; x < h.x + h.w - 0.04; x += OC) {
@@ -200,6 +222,27 @@ function framingX(
     if (nearOpening(x, holes, STUD * 1.6)) continue;
     bag.min("framing", "timber-spf", x - STUD / 2, y0 + STUD, z, STUD, y1 - y0 - 3 * STUD, CAVITY, "stud", unit);
   }
+  bag.min("framing", "timber-spf", x0, y0 + STUD, z, STUD, y1 - y0 - 3 * STUD, CAVITY, "corner-post", unit);
+  bag.min("framing", "timber-spf", x1 - STUD, y0 + STUD, z, STUD, y1 - y0 - 3 * STUD, CAVITY, "corner-post", unit);
+}
+
+function wallBrace(bag: Bag, x: number, y0: number, y1: number, zFace: number, sign: number, unit?: number) {
+  const rise = y1 - y0;
+  const run = rise * 0.65;
+  const len = Math.hypot(rise, run);
+  bag.add(
+    "framing",
+    "timber-spf",
+    x,
+    y0 + rise / 2,
+    zFace + sign * (run / 2),
+    0.038,
+    0.089,
+    len,
+    "wall-brace",
+    unit,
+    { rx: sign * Math.atan2(rise, run) },
+  );
 }
 
 function framingZ(bag: Bag, xC: number, z0: number, z1: number, y0: number, y1: number, unit?: number) {
@@ -271,12 +314,12 @@ function openingsX(
     bag.min(
       "openings",
       "steel-galv",
-      h.x - 0.03,
-      h.y - 0.02,
-      zFace - 0.05,
-      h.w + 0.06,
-      0.018,
-      0.08,
+      h.x - 0.04,
+      h.y - 0.028,
+      zFace - 0.09,
+      h.w + 0.08,
+      0.028,
+      0.14,
       "pan-flash",
       unit,
     );
@@ -284,14 +327,48 @@ function openingsX(
       "openings",
       "steel-galv",
       h.x - 0.04,
-      h.y + h.h,
-      zFace - 0.055,
+      h.y,
+      zFace - 0.02,
       h.w + 0.08,
-      0.02,
-      0.09,
+      0.055,
+      0.012,
+      "pan-flash",
+      unit,
+    );
+    bag.min(
+      "openings",
+      "steel-galv",
+      h.x - 0.05,
+      h.y + h.h,
+      zFace - 0.1,
+      h.w + 0.1,
+      0.028,
+      0.16,
       "head-flash",
       unit,
     );
+    bag.min(
+      "openings",
+      "steel-galv",
+      h.x - 0.05,
+      h.y + h.h - 0.04,
+      zFace - 0.11,
+      h.w + 0.1,
+      0.055,
+      0.014,
+      "head-flash",
+      unit,
+    );
+    bag.min("openings", "steel-galv", h.x - 0.04, h.y - 0.028, zFace - 0.09, 0.022, 0.07, 0.14, "end-dam", unit);
+    bag.min("openings", "steel-galv", h.x + h.w + 0.018, h.y - 0.028, zFace - 0.09, 0.022, 0.07, 0.14, "end-dam", unit);
+    bag.min("openings", "membrane-charcoal", h.x - 0.05, h.y - 0.04, zFace - 0.07, 0.14, 0.14, 0.008, "corner-membrane", unit);
+    bag.min("openings", "membrane-charcoal", h.x + h.w - 0.09, h.y - 0.04, zFace - 0.07, 0.14, 0.14, 0.008, "corner-membrane", unit);
+    bag.min("envelope", "housewrap", h.x - 0.02, h.y, zFace - 0.03, 0.02, h.h, 0.08, "wrb-return", unit);
+    bag.min("envelope", "housewrap", h.x + h.w, h.y, zFace - 0.03, 0.02, h.h, 0.08, "wrb-return", unit);
+    bag.min("openings", "timber-spf", h.x - 0.012, h.y + h.h * 0.22, zFace + inward * 0.015, 0.01, 0.07, 0.04, "shim", unit);
+    bag.min("openings", "timber-spf", h.x + h.w + 0.002, h.y + h.h * 0.22, zFace + inward * 0.015, 0.01, 0.07, 0.04, "shim", unit);
+    bag.min("openings", "timber-spf", h.x - 0.012, h.y + h.h * 0.72, zFace + inward * 0.015, 0.01, 0.07, 0.04, "shim", unit);
+    bag.min("openings", "timber-spf", h.x + h.w + 0.002, h.y + h.h * 0.72, zFace + inward * 0.015, 0.01, 0.07, 0.04, "shim", unit);
     if (h.kind === "window") {
       bag.min(
         "openings",
@@ -481,43 +558,124 @@ function buildSite(bag: Bag, p: BuildingProgram, ox: number, totalW: number) {
   }
 }
 
+function buildLayout(bag: Bag, p: BuildingProgram, ox: number, totalW: number) {
+  /** P03 — FM 5-426 Ch4. Stakes first. Boards 3–4 ft outside. Strings across. Toilet is a GAP. */
+  const D = p.unitDepth;
+  const off = 1.15;
+  const postH = 0.95;
+  const post = 0.089;
+  const boardT = 0.019;
+  const boardW = 0.14;
+  const stake = 0.038;
+  const stakeH = 0.7;
+  const lineY = postH - 0.012;
+  const arm = 0.9;
+
+  for (const [x, z] of [
+    [ox, 0],
+    [ox + totalW, 0],
+    [ox, D],
+    [ox + totalW, D],
+  ] as [number, number][]) {
+    bag.add("excavation", "timber-spf", x, stakeH / 2, z, stake, stakeH, stake, "stake");
+  }
+
+  const corners = [
+    { cx: ox - off, cz: -off, sx: 1, sz: 1 },
+    { cx: ox + totalW + off, cz: -off, sx: -1, sz: 1 },
+    { cx: ox - off, cz: D + off, sx: 1, sz: -1 },
+    { cx: ox + totalW + off, cz: D + off, sx: -1, sz: -1 },
+  ];
+  for (const c of corners) {
+    bag.add("excavation", "timber-spf", c.cx, postH / 2, c.cz, post, postH, post, "batter-post");
+    bag.add("excavation", "timber-spf", c.cx + c.sx * arm, postH / 2, c.cz, post, postH, post, "batter-post");
+    bag.add("excavation", "timber-spf", c.cx, postH / 2, c.cz + c.sz * arm, post, postH, post, "batter-post");
+    const xw = arm + 0.35;
+    const zw = arm + 0.35;
+    bag.min("excavation", "timber-spf", Math.min(c.cx, c.cx + c.sx * (arm + 0.15)) - 0.02, postH - boardT, c.cz - boardW / 2, xw, boardT, boardW, "batter");
+    bag.min("excavation", "timber-spf", c.cx - boardW / 2, postH - boardT, Math.min(c.cz, c.cz + c.sz * (arm + 0.15)) - 0.02, boardW, boardT, zw, "batter");
+  }
+
+  bag.min("excavation", "steel-galv", ox - off, lineY, -0.004, totalW + 2 * off, 0.01, 0.01, "string-line");
+  bag.min("excavation", "steel-galv", ox - off, lineY, D - 0.004, totalW + 2 * off, 0.01, 0.01, "string-line");
+  bag.min("excavation", "steel-galv", ox - 0.004, lineY, -off, 0.01, 0.01, D + 2 * off, "string-line");
+  bag.min("excavation", "steel-galv", ox + totalW - 0.004, lineY, -off, 0.01, 0.01, D + 2 * off, "string-line");
+  const ex = off + 0.38;
+  bag.min("excavation", "steel-galv", ox - ex, lineY, -ex - 0.004, totalW + 2 * ex, 0.01, 0.01, "string-line");
+  bag.min("excavation", "steel-galv", ox - ex, lineY, D + ex - 0.004, totalW + 2 * ex, 0.01, 0.01, "string-line");
+  bag.min("excavation", "steel-galv", ox - ex - 0.004, lineY, -ex, 0.01, 0.01, D + 2 * ex, "string-line");
+  bag.min("excavation", "steel-galv", ox + totalW + ex - 0.004, lineY, -ex, 0.01, 0.01, D + 2 * ex, "string-line");
+
+  bag.add("excavation", "gap-mark", ox + totalW + 3.4, 0.65, D * 0.45, 0.95, 1.3, 0.95, "gap-toilet");
+}
+
 function buildExcavation(bag: Bag, p: BuildingProgram, ox: number, totalW: number) {
   const D = p.unitDepth;
   const depth = FROST + 0.12;
-  bag.min("excavation", "soil", ox - 1.4, -depth, -1.4, 0.55, depth - 0.02, D + 2.8, "cut-w");
-  bag.min("excavation", "soil", ox + totalW + 0.85, -depth, -1.4, 0.55, depth - 0.02, D + 2.8, "cut-e");
-  bag.min("excavation", "soil", ox - 1.4, -depth, -1.4, totalW + 2.8, depth - 0.02, 0.55, "cut-n");
-  bag.min("excavation", "soil", ox - 1.4, -depth, D + 0.85, totalW + 2.8, depth - 0.02, 0.55, "cut-s");
-  bag.min("excavation", "soil", ox - 0.9, -depth, -0.9, totalW + 1.8, 0.08, D + 1.8, "subgrade");
-  const corners: [number, number][] = [
-    [ox - 1.15, -1.15],
-    [ox + totalW + 1.15, -1.15],
-    [ox - 1.15, D + 1.15],
-    [ox + totalW + 1.15, D + 1.15],
-  ];
-  for (const [cx, cz] of corners) {
-    bag.min("excavation", "timber-spf", cx - 0.7, 0, cz - 0.04, 1.4, 0.9, 0.04, "batter");
-    bag.min("excavation", "timber-spf", cx - 0.04, 0, cz - 0.7, 0.04, 0.9, 1.4, "batter");
-    bag.min("excavation", "steel-galv", cx - 0.7, 0.86, cz - 0.01, 1.4, 0.012, 0.012, "string-line");
-    bag.min("excavation", "steel-galv", cx - 0.01, 0.86, cz - 0.7, 0.012, 0.012, 1.4, "string-line");
-  }
+  const work = 1.15;
+  bag.min("excavation", "soil", ox - work - 0.45, -depth, -work, 0.5, depth - 0.02, D + 2 * work, "cut-w");
+  bag.min("excavation", "soil", ox + totalW + work - 0.05, -depth, -work, 0.5, depth - 0.02, D + 2 * work, "cut-e");
+  bag.min("excavation", "soil", ox - work, -depth, -work - 0.45, totalW + 2 * work, depth - 0.02, 0.5, "cut-n");
+  bag.min("excavation", "soil", ox - work, -depth, D + work - 0.05, totalW + 2 * work, depth - 0.02, 0.5, "cut-s");
+  bag.min("excavation", "soil", ox - work + 0.2, -depth, -work + 0.2, totalW + 2 * work - 0.4, 0.08, D + 2 * work - 0.4, "subgrade");
+  bag.min("excavation", "soil", ox - work + 0.25, -depth + 0.05, -work + 0.25, totalW + 2 * work - 0.5, 0.02, D + 2 * work - 0.5, "hole-basement");
+
+  const run = 0.85;
+  bag.min("excavation", "soil", ox - work - run, -depth * 0.45, -work - run, totalW + 2 * work + 2 * run, depth * 0.45, run, "back-slope");
+  bag.min("excavation", "soil", ox - work - run, -depth * 0.45, D + work, totalW + 2 * work + 2 * run, depth * 0.45, run, "back-slope");
+  bag.min("excavation", "soil", ox - work - run, -depth * 0.45, -work, run, depth * 0.45, D + 2 * work, "back-slope");
+  bag.min("excavation", "soil", ox + totalW + work, -depth * 0.45, -work, run, depth * 0.45, D + 2 * work, "back-slope");
+
+  const markT = 0.04;
+  bag.min("excavation", "paint-fluoro", ox - work - run, -0.01, -work - run, totalW + 2 * (work + run), markT, markT, "paint-limit");
+  bag.min("excavation", "paint-fluoro", ox - work - run, -0.01, D + work + run, totalW + 2 * (work + run), markT, markT, "paint-limit");
+  bag.min("excavation", "paint-fluoro", ox - work - run, -0.01, -work - run, markT, markT, D + 2 * (work + run), "paint-limit");
+  bag.min("excavation", "paint-fluoro", ox + totalW + work + run, -0.01, -work - run, markT, markT, D + 2 * (work + run), "paint-limit");
+
+  bag.add("excavation", "soil", ox + totalW + 4.6, 0.55, D * 0.22, 3.2, 1.1, 2.4, "spoil-pile", { geom: "ico" });
+  bag.add("excavation", "soil", ox + totalW + 5.4, 0.28, D * 0.22 + 1.1, 1.8, 0.55, 1.5, "spoil-pile", { geom: "ico" });
+
+  bag.min("excavation", "soil", ox - 2.4, -0.1, -2.2, totalW + 4.8, 0.1, 0.7, "rough-grade");
+  bag.min("excavation", "soil", ox - 2.4, -0.1, D + 1.5, totalW + 4.8, 0.1, 0.7, "rough-grade");
+
+  bag.min("excavation", "gravel", ox - 0.2, -0.06, D + 2.1, 1.6, 0.08, 1.1, "compacted-fill");
+  bag.min("excavation", "gravel", ox + totalW - 1.4, -0.06, -2.0, 1.6, 0.08, 1.1, "compacted-fill");
+
+  buildLayout(bag, p, ox, totalW);
 }
 
 function buildFoundation(bag: Bag, p: BuildingProgram, ox: number, totalW: number) {
   const D = p.unitDepth;
   const fy = -FROST;
-  bag.min("foundation", "concrete-cip", ox - 0.25, -0.16, -0.25, totalW + 0.5, 0.16, D + 0.5, "slab");
-  bag.min("foundation", "concrete-cip", ox - 0.42, fy, -0.42, totalW + 0.84, 0.38, 0.5, "footing-front");
-  bag.min("foundation", "concrete-cip", ox - 0.42, fy, D - 0.08, totalW + 0.84, 0.38, 0.5, "footing-rear");
-  bag.min("foundation", "dampproof", ox - 0.28, fy + 0.38, -0.22, totalW + 0.56, 0.55, 0.02, "waterproof");
-  bag.min("foundation", "dampproof", ox - 0.28, fy + 0.38, D + 0.2, totalW + 0.56, 0.55, 0.02, "waterproof");
+  const stemTop = -0.16;
+  const footH = 0.38;
+  const stemY = fy + footH;
+  const stemH = stemTop - stemY;
+  bag.min("foundation", "concrete-cip", ox - 0.25, stemTop, -0.25, totalW + 0.5, 0.16, D + 0.5, "slab");
+  bag.min("foundation", "concrete-cip", ox - 0.42, fy, -0.42, totalW + 0.84, footH, 0.5, "footing-front");
+  bag.min("foundation", "concrete-cip", ox - 0.42, fy, D - 0.08, totalW + 0.84, footH, 0.5, "footing-rear");
+  bag.min("foundation", "concrete-cip", ox - 0.22, stemY, -0.2, totalW + 0.44, stemH, 0.2, "stem");
+  bag.min("foundation", "concrete-cip", ox - 0.22, stemY, D - 0.0, totalW + 0.44, stemH, 0.2, "stem");
+  bag.min("foundation", "dampproof", ox - 0.24, stemY, -0.22, totalW + 0.48, stemH + 0.08, 0.02, "waterproof");
+  bag.min("foundation", "dampproof", ox - 0.24, stemY, D + 0.18, totalW + 0.48, stemH + 0.08, 0.02, "waterproof");
+  bag.min("foundation", "osb-716", ox - 0.26, stemY, -0.24, totalW + 0.52, stemH, 0.012, "protection-board");
+  bag.min("foundation", "osb-716", ox - 0.26, stemY, D + 0.2, totalW + 0.52, stemH, 0.012, "protection-board");
+  bag.min("foundation", "batt-pink", ox - 0.3, stemY, -0.28, totalW + 0.6, stemH, 0.04, "edge-foam");
+  bag.min("foundation", "batt-pink", ox - 0.3, stemY, D + 0.22, totalW + 0.6, stemH, 0.04, "edge-foam");
   for (let i = 0; i <= p.units; i++) {
     const x = ox + i * p.unitWidth;
-    bag.min("foundation", "concrete-cip", x - 0.24, fy, -0.2, 0.48, 0.38, D + 0.4, "footing-party");
+    bag.min("foundation", "concrete-cip", x - 0.24, fy, -0.2, 0.48, footH, D + 0.4, "footing-party");
+    bag.min("foundation", "concrete-cip", x - 0.1, stemY, -0.05, 0.2, stemH, D + 0.1, "stem");
   }
   bag.min("foundation", "timber-treated", ox - 0.12, 0, -0.04, totalW + 0.24, STUD, CAVITY, "sill-plate");
   bag.min("foundation", "timber-treated", ox - 0.12, 0, D - CAVITY + 0.04, totalW + 0.24, STUD, CAVITY, "sill-plate");
+  bag.min("foundation", "batt-pink", ox - 0.12, -0.006, -0.04, totalW + 0.24, 0.006, CAVITY, "sill-gasket");
+  bag.min("foundation", "batt-pink", ox - 0.12, -0.006, D - CAVITY + 0.04, totalW + 0.24, 0.006, CAVITY, "sill-gasket");
+  bag.min("foundation", "poly-6mil", ox - 0.24, stemTop - 0.008, -0.22, totalW + 0.48, 0.008, 0.04, "isolation-joint");
+  bag.min("foundation", "poly-6mil", ox - 0.24, stemTop - 0.008, D + 0.18, totalW + 0.48, 0.008, 0.04, "isolation-joint");
+  bag.min("foundation", "steel-galv", ox - 0.12, -0.08, -0.12, totalW + 0.24, 0.004, D + 0.24, "wwf");
   bag.min("foundation", "gravel", ox - 0.55, fy, -0.78, totalW + 1.1, 0.16, 0.38, "drain-gravel");
+  bag.min("foundation", "poly-6mil", ox - 0.58, fy + 0.14, -0.82, totalW + 1.16, 0.004, 0.46, "filter-fabric");
   bag.add(
     "foundation",
     "pvc-dwv",
@@ -583,22 +741,35 @@ function buildUnderslab(bag: Bag, p: BuildingProgram, ox: number, totalW: number
   const D = p.unitDepth;
   bag.min("underslab", "gravel", ox - 0.18, -0.28, -0.18, totalW + 0.36, 0.12, D + 0.36, "gravel-bed");
   bag.min("underslab", "poly-6mil", ox - 0.2, -0.165, -0.2, totalW + 0.4, 0.008, D + 0.4, "poly");
+  bag.min("underslab", "poly-6mil", ox - 0.2, -0.158, -0.2, 0.3, 0.006, D + 0.4, "poly-lap");
+  bag.min("underslab", "poly-6mil", ox + totalW - 0.1, -0.158, -0.2, 0.3, 0.006, D + 0.4, "poly-lap");
+  bag.min("underslab", "poly-6mil", ox - 0.2, -0.158, -0.2, totalW + 0.4, 0.006, 0.3, "poly-lap");
+  bag.min("underslab", "poly-6mil", ox - 0.2, -0.158, D + 0.1, totalW + 0.4, 0.006, 0.3, "poly-lap");
+  bag.min("underslab", "dampproof", ox - 0.22, -0.16, -0.22, totalW + 0.44, 0.012, 0.03, "caulk-bead");
+  bag.min("underslab", "dampproof", ox - 0.22, -0.16, D + 0.19, totalW + 0.44, 0.012, 0.03, "caulk-bead");
   const rx = ox + totalW * 0.35;
   const rz = D * 0.45;
   bag.min("underslab", "pvc-dwv", rx, -0.22, rz, 0.1, 0.55, 0.1, "radon", undefined, { geom: "cyl" });
-  bag.add(
-    "underslab",
-    "pvc-dwv",
-    ox + 1.4 + 0.0375,
-    -0.24 + 0.0375,
-    4.6 + 0.8,
-    0.075,
-    1.6,
-    0.075,
-    "underslab-waste",
-    undefined,
-    { geom: "cyl", rx: Math.PI / 2 },
-  );
+  for (let i = 0; i < p.units; i++) {
+    const x0 = ox + i * p.unitWidth;
+    const wx = x0 + 0.45;
+    const wz = 5.55;
+    bag.min("underslab", "gravel", wx - 0.2, -0.3, 1.2, 0.4, 0.1, wz - 1.0, "trench-backfill", i);
+    bag.add(
+      "underslab",
+      "pvc-dwv",
+      wx,
+      -0.24,
+      (1.2 + wz) / 2,
+      0.075,
+      0.075,
+      wz - 1.0,
+      "underslab-waste",
+      i,
+      { geom: "cyl", rx: Math.PI / 2 },
+    );
+    bag.add("underslab", "dampproof", wx, -0.17, wz, 0.12, 0.03, 0.12, "caulk-bead", i, { geom: "cyl" });
+  }
 }
 
 function iJoists(bag: Bag, x0: number, x1: number, yTop: number, z0: number, z1: number, unit?: number) {
@@ -615,8 +786,15 @@ function iJoists(bag: Bag, x0: number, x1: number, yTop: number, z0: number, z1:
     bag.min("framing", "timber-spf", x - fw / 2, yb + IJOIST - fl, z0 + STUD, fw, fl, span - 2 * STUD, "i-flange", unit);
     hangerU(bag, x, yb, z0 + STUD + 0.01, 1, unit);
     hangerU(bag, x, yb, z1 - STUD - 0.01, -1, unit);
+    bag.min("framing", "osb-716", x - 0.04, yb + fl, z0 + STUD, 0.08, IJOIST - 2 * fl, 0.1, "web-stiffener", unit);
+    bag.min("framing", "osb-716", x - 0.04, yb + fl, z1 - STUD - 0.1, 0.08, IJOIST - 2 * fl, 0.1, "web-stiffener", unit);
   }
   bag.min("framing", "timber-spf", x0 + 0.15, yb, (z0 + z1) / 2 - 0.02, x1 - x0 - 0.3, IJOIST - 0.02, 0.038, "blocking", unit);
+  bag.min("framing", "timber-spf", x0 + 0.2, yb, (z0 + z1) / 2 - 0.09, 0.089, IJOIST, 0.14, "squash-block", unit);
+  bag.min("framing", "timber-spf", x0 + 0.18, yTop - 0.02, z0 + 0.3, x1 - x0 - 0.36, 0.019, 0.089, "i-joist-brace", unit);
+  if (span > 2.6) {
+    bag.min("framing", "timber-spf", x0 + 0.18, yTop - 0.02, z0 + span * 0.5, x1 - x0 - 0.36, 0.019, 0.089, "i-joist-brace", unit);
+  }
 }
 
 function hangerU(bag: Bag, x: number, y: number, z: number, sign: number, unit?: number) {
@@ -958,6 +1136,23 @@ function buildMep(bag: Bag, p: BuildingProgram, x0: number, unit: number) {
     geom: "cyl",
     rx: Math.PI / 2,
   });
+  bag.min("plumbing", "copper", stackX, floors * H - 0.05, stackZ, 0.09, 0.7, 0.09, "vent", unit, { geom: "cyl" });
+  bag.add("plumbing", "copper", stackX - 0.55, 0.12 + 0.03, 5.7, 0.05, 1.1, 0.05, "tub-waste", unit, {
+    geom: "cyl",
+    rx: Math.PI / 2,
+  });
+  bag.min("hvac", "steel-galv", riserX - 0.15, 0.08, riserZ - 0.12, 0.7, 0.9, 0.55, "furnace", unit);
+  bag.min("hvac", "steel-galv", x0 + 0.12, 0.42, riserZ, 0.16, 0.16, 0.14, "combustion-air", unit);
+  for (let s = 0; s < floors; s++) {
+    bag.min("electrical", "device-blk", x0 + W * 0.48, s * H + H - 0.05, D * 0.38, 0.15, 0.04, 0.15, "smoke-box", unit, {
+      geom: "cyl",
+    });
+  }
+  bag.min("electrical", "device-blk", x0 + 1.42, 1.35, 0.72, 0.08, 0.12, 0.04, "three-way", unit);
+  bag.min("electrical", "device-blk", x0 + 1.42, H + 1.35, 0.72 + 16 * 0.254, 0.08, 0.12, 0.04, "three-way", unit);
+  for (let k = 0; k < 4; k++) {
+    bag.min("plumbing", "steel-galv", stackX - 0.04, 0.9 + k * 0.7, stackZ - 0.07, 0.14, 0.08, 0.004, "protect-plate", unit);
+  }
 }
 
 function buildRoof(bag: Bag, p: BuildingProgram, ox: number, totalW: number) {
@@ -1078,6 +1273,11 @@ export function buildBuilding(p: BuildingProgram): BuildResult {
       const { front, rear } = unitHoles(p, s, x0);
       framingX(bag, frontFrame, x0, x1, y0, y1, front, i);
       framingX(bag, rearFrame, x0, x1, y0, y1, rear, i);
+      if (s === 0) {
+        wallBrace(bag, x0 + W * 0.28, y0, y1, 0, -1, i);
+        wallBrace(bag, x0 + W * 0.72, y0, y1, 0, -1, i);
+        wallBrace(bag, x0 + W * 0.5, y0, y1, D, 1, i);
+      }
       if (i === 0) framingZ(bag, x0 + CAVITY / 2, 0, D, y0, y1, i);
       if (i < p.units - 1) framingZ(bag, x1, 0, D, y0, y1, i);
       if (i === p.units - 1) framingZ(bag, x1 - CAVITY / 2, 0, D, y0, y1, i);
@@ -1086,6 +1286,10 @@ export function buildBuilding(p: BuildingProgram): BuildResult {
       wallX(bag, "envelope", "osb-716", rearSheath, x0, x1, y0, y1, OSB, rear, "sheathing", i);
       wallX(bag, "envelope", "housewrap", frontWrb, x0, x1, y0, y1, WRB, front, "wrb", i);
       wallX(bag, "envelope", "housewrap", rearWrb, x0, x1, y0, y1, WRB, rear, "wrb", i);
+      for (let y = y0 + 0.12; y < y1 - 0.08; y += 0.91) {
+        wallX(bag, "envelope", "housewrap", frontWrb - 0.006, x0, x1, y, Math.min(y1, y + 0.12), WRB + 0.006, front, "wrb-lap", i);
+        wallX(bag, "envelope", "housewrap", rearWrb + 0.006, x0, x1, y, Math.min(y1, y + 0.12), WRB + 0.006, rear, "wrb-lap", i);
+      }
       if (i === 0) {
         wallZ(bag, "envelope", "osb-716", x0 - OSB / 2, 0, D, y0, y1, OSB, [], "sheathing", i);
         wallZ(bag, "envelope", "housewrap", x0 - OSB - WRB / 2, 0, D, y0, y1, WRB, [], "wrb", i);
@@ -1099,11 +1303,13 @@ export function buildBuilding(p: BuildingProgram): BuildResult {
         wallX(bag, "exterior", "brick-red", frontClad, x0, x1, y0, Math.min(y1, y0 === 0 ? plinth : y0), CLAD, front, "plinth", i);
       }
       if (y0 === 0) {
-        wallX(bag, "exterior", face, frontClad, x0, x1, vinylGable(p) ? y0 : plinth, y1, CLAD, front, "cladding", i);
+        sidingX(bag, frontClad, x0, x1, vinylGable(p) ? y0 : plinth, y1, front, face, i);
       } else {
-        wallX(bag, "exterior", face, frontClad, x0, x1, y0, y1, CLAD, front, "cladding", i);
+        sidingX(bag, frontClad, x0, x1, y0, y1, front, face, i);
       }
-      wallX(bag, "exterior", face, rearClad, x0, x1, y0, y1, CLAD, rear, "cladding", i);
+      sidingX(bag, rearClad, x0, x1, y0, y1, rear, face, i);
+      bag.min("exterior", "mill-white", x0 - 0.04, y0 === 0 ? (vinylGable(p) ? 0.15 : plinth) : y0, -0.07, 0.09, y1 - (y0 === 0 ? (vinylGable(p) ? 0.15 : plinth) : y0), 0.09, "corner-board", i);
+      bag.min("exterior", "mill-white", x1 - 0.05, y0 === 0 ? (vinylGable(p) ? 0.15 : plinth) : y0, -0.07, 0.09, y1 - (y0 === 0 ? (vinylGable(p) ? 0.15 : plinth) : y0), 0.09, "corner-board", i);
       if (i === 0) {
         wallZ(bag, "exterior", y0 === 0 ? "brick-red" : face, x0 - OSB - WRB - CLAD / 2, 0, D, y0, y0 === 0 ? plinth : y1, CLAD, [], "end-clad", i);
         if (y0 === 0) wallZ(bag, "exterior", face, x0 - OSB - WRB - CLAD / 2, 0, D, plinth, y1, CLAD, [], "end-clad", i);

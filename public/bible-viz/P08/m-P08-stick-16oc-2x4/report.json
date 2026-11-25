@@ -1,0 +1,28 @@
+{
+  "phase": "P08",
+  "method": "m-P08-stick-16oc-2x4",
+  "practice": "Stick-frame walls (SFR) — 2x4 @ 16 in o.c., sit-on-jack header",
+  "source": "Glencoe ch16 §16.1–16.3; AF&PA Exterior Wall Framing; APA E30X",
+  "counts": {
+    "stud": 424,
+    "king": 80,
+    "jack": 80,
+    "header": 80,
+    "header-spacer": 40,
+    "sill": 32,
+    "cripple": 192,
+    "plate": 52,
+    "double-plate": 26,
+    "corner-post": 32,
+    "wall-brace": 12,
+    "sheathing": 124,
+    "fire-block": 26
+  },
+  "fasteners_skipped": ["16d plate nails", "10d king-to-trimmer", "8d cripple toenails", "sheathing 6/12"],
+  "honest_gaps": [
+    "Door sole is the continuous bottom plate — not kerfed (beat 7 after raise not applied)",
+    "Interior room partitions not fully stick-framed from the floor plan (party walls exist)",
+    "Square-by-diagonals is a process, not a mesh",
+    "24 in 2x6 is the documented ALT — not this habit"
+  ]
+}

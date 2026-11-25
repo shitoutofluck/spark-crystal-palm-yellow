@@ -1,0 +1,29 @@
+{
+  "phase": "P04",
+  "method": "m-P04-full-excavation",
+  "practice": "Excavation / grading / site drainage (SFR)",
+  "market_habit": "logan-wasatch full basement hole",
+  "this_model": "frost-depth strip + SOG workspace (0.88 m). Not an 8-ft basement. Alt-adjacent to m-P04-trench-footing / frost strip.",
+  "source": "ORNL SITEWORK + FOOTINGS; CMHC Ch6 labeled Canadian",
+  "counts": {
+    "subgrade": 1,
+    "hole-basement": 1,
+    "cut-w": 1,
+    "cut-e": 1,
+    "cut-n": 1,
+    "cut-s": 1,
+    "back-slope": 4,
+    "spoil-pile": 2,
+    "paint-limit": 4,
+    "rough-grade": 2,
+    "compacted-fill": 2
+  },
+  "not_this_phase": ["footing drain P05", "granular under slab P06", "8d / fasteners"],
+  "honest_gaps": [
+    "Logan habit is a basement hole; this study is frost-depth strip + SOG — type mismatch, not silently converted",
+    "CMHC back-slope trigger is >1.2 m; this hole is 0.88 m — banks shown anyway",
+    "CMHC 24–28 in workspace not copied as US habit; workspace is ~1.15 m (FM as required)",
+    "Proctor compaction % not in sources — gap, do not invent 95%",
+    "P03 layout still shares this layer"
+  ]
+}

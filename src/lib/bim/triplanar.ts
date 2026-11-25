@@ -38,6 +38,8 @@ varying vec3 vWp;
 varying vec3 vWn;
 uniform sampler2D uAlbedo;
 uniform sampler2D uNorm;
+uniform sampler2D uRough;
+uniform sampler2D uAo;
 uniform float uTile;
 uniform float uHasTex;
 uniform float uNormStr;
@@ -56,9 +58,27 @@ const TRIPLANAR = /* glsl */ `
   vec3 cy = texture2D(uAlbedo, uvY).rgb;
   vec3 cz = texture2D(uAlbedo, uvZ).rgb;
   vec3 texC = cx * bl.x + cy * bl.y + cz * bl.z;
-  float lum = dot(texC, vec3(0.299, 0.587, 0.114));
+  float rx = texture2D(uRough, uvX).r;
+  float ry = texture2D(uRough, uvY).r;
+  float rz = texture2D(uRough, uvZ).r;
+  float roughS = rx * bl.x + ry * bl.y + rz * bl.z;
   diffuseColor.rgb *= mix(vec3(1.0), texC, uHasTex);
-  roughnessFactor = mix(roughnessFactor, clamp(roughnessFactor * (0.78 + (1.0 - lum) * 0.45), 0.04, 1.0), uHasTex);
+  roughnessFactor = mix(roughnessFactor, clamp(roughS, 0.04, 1.0), uHasTex);
+}
+`;
+
+const TRIPLANAR_AO = /* glsl */ `
+if (uHasTex > 0.5) {
+  vec3 wn = normalize(vWn);
+  vec3 bl = pow(abs(wn), vec3(4.0));
+  bl /= (bl.x + bl.y + bl.z + 1e-5);
+  float s = uTile;
+  float ax = texture2D(uAo, vWp.zy * s).r;
+  float ay = texture2D(uAo, vWp.xz * s).r;
+  float az = texture2D(uAo, vWp.xy * s).r;
+  float aoS = ax * bl.x + ay * bl.y + az * bl.z;
+  reflectedLight.indirectDiffuse *= aoS;
+  reflectedLight.indirectSpecular *= mix(1.0, aoS, 0.65);
 }
 `;
 
@@ -83,6 +103,8 @@ if (uHasTex > 0.5) {
 function compile(shader: THREE.WebGLProgramParametersWithUniforms, maps: ReturnType<typeof mapsFor>, tileM: number, str: number) {
   shader.uniforms.uAlbedo = { value: maps?.albedo ?? whiteTex() };
   shader.uniforms.uNorm = { value: maps?.normal ?? whiteTex() };
+  shader.uniforms.uRough = { value: maps?.roughness ?? whiteTex() };
+  shader.uniforms.uAo = { value: maps?.ao ?? whiteTex() };
   shader.uniforms.uTile = { value: 1 / Math.max(0.15, tileM) };
   shader.uniforms.uHasTex = { value: maps ? 1 : 0 };
   shader.uniforms.uNormStr = { value: str };
@@ -96,6 +118,10 @@ function compile(shader: THREE.WebGLProgramParametersWithUniforms, maps: ReturnT
   shader.fragmentShader = shader.fragmentShader.replace(
     "#include <normal_fragment_maps>",
     `#include <normal_fragment_maps>\n${TRIPLANAR_NORMAL}`,
+  );
+  shader.fragmentShader = shader.fragmentShader.replace(
+    "#include <aomap_fragment>",
+    `#include <aomap_fragment>\n${TRIPLANAR_AO}`,
   );
 }
 
@@ -143,7 +169,10 @@ export function acquireMaterial(
       transparent: true,
       opacity: 1,
       depthWrite: false,
-      envMapIntensity: 1.55,
+      envMapIntensity: 1.85,
+      transmission: 0.94,
+      thickness: 0.022,
+      ior: 1.52,
       side: THREE.DoubleSide,
       clippingPlanes: [plane],
       clipShadows: true,
@@ -163,11 +192,14 @@ export function acquireMaterial(
     color: maps ? "#ffffff" : finish.hex,
     roughness: finish.roughness,
     metalness: finish.metalness,
-    clearcoat: isWood ? 0.32 : isMetal ? 0.18 : finish.proc === "tile" ? 0.22 : 0,
-    clearcoatRoughness: isWood ? 0.4 : 0.5,
-    sheen: isWood ? 0.08 : 0,
+    clearcoat: isWood ? 0.38 : isMetal ? 0.22 : finish.proc === "tile" ? 0.28 : finish.proc === "concrete" ? 0.08 : 0,
+    clearcoatRoughness: isWood ? 0.36 : 0.48,
+    sheen: isWood ? 0.14 : 0,
     sheenColor: isWood ? new THREE.Color("#d4c4a8") : undefined,
-    envMapIntensity: isMetal ? 1.65 : isWood ? 0.78 : 0.62,
+    sheenRoughness: 0.45,
+    envMapIntensity: isMetal ? 1.7 : isWood ? 1.05 : finish.proc === "wrap" ? 0.7 : 0.95,
+    anisotropy: isMetal ? 0.28 : 0,
+    specularIntensity: isMetal ? 1 : 0.85,
     transparent,
     opacity: finish.opacity,
     depthWrite: !transparent,
@@ -177,13 +209,19 @@ export function acquireMaterial(
     polygonOffset: true,
     polygonOffsetFactor: 1,
     polygonOffsetUnits: 1,
+    dithering: true,
   });
-  mat.customProgramCacheKey = () => "lw-triplanar-v5";
+  mat.customProgramCacheKey = () => "lw-triplanar-v6";
   const tile = finish.tileM;
   const str = finish.proc === "brick" || finish.proc === "osb" || finish.proc === "gravel" || finish.proc === "wood" ? 0.92 : 0.68;
   mat.onBeforeCompile = (shader) => compile(shader, maps, tile, str);
   matCache.set(key, mat);
   return mat;
+}
+
+export function clearMaterialCache() {
+  for (const m of matCache.values()) m.dispose();
+  matCache.clear();
 }
 
 export function materialFor(matId: string, plane: THREE.Plane, tintHex?: string): THREE.MeshStandardMaterial | THREE.MeshPhysicalMaterial | THREE.MeshLambertMaterial | THREE.MeshBasicMaterial {

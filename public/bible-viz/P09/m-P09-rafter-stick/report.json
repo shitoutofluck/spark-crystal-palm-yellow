@@ -1,0 +1,28 @@
+{
+  "phase": "P09",
+  "method": "m-P09-rafter-stick",
+  "volume_habit": "m-P09-roof-truss — this fourplex is the stick-rafter ALT (simple gable, no truss package)",
+  "also": ["m-P09-roof-sheathing", "m-P09-roof-felt"],
+  "source": "AF&PA Roof and Ceiling Framing; CMHC joists-before-rafters; HUD §5.6.4; FM 5-426 felt",
+  "counts": {
+    "ceiling-joist": 65,
+    "rafter": 130,
+    "ridge": 1,
+    "collar-tie": 22,
+    "roof-deck": 2,
+    "h-clip": 128,
+    "ice-barrier": 2,
+    "felt": 16,
+    "drip-edge": 6,
+    "sub-fascia": 2,
+    "shingle-course": 122
+  },
+  "fasteners_skipped": ["8d 6/12 sheathing nails", "rafter-to-plate metal CLASS", "collar 8d/16d"],
+  "honest_gaps": [
+    "Volume habit is trusses — this model is stick rafter because the gable is site-cut",
+    "Shingles exist in the model but belong to P11, not P09 dry-in",
+    "Birdsmouth is the rafter heel at the plate — not a separate mesh",
+    "No hip/valley pack (simple gable)",
+    "Collar AF&PA vs FM — both sourced, AHJ; model uses every 3rd pair"
+  ]
+}

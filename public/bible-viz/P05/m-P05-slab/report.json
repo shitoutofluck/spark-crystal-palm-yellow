@@ -1,0 +1,33 @@
+{
+  "phase": "P05",
+  "method": "m-P05-slab",
+  "practice": "Slab-on-grade foundation (SFR) — frost-depth stem + spread footing",
+  "logan_habit_not_used": "m-P05-basement-cip-cmu — full basement walls. This study stayed on frost-strip + SOG after P04 ok.",
+  "source": "HUD RSDG §4.1/4.6/4.8; ORNL Ch 4; AF&PA Sills",
+  "counts": {
+    "footing-front": 1,
+    "footing-rear": 1,
+    "footing-party": 5,
+    "stem": 7,
+    "slab": 1,
+    "rebar": 3,
+    "sill-plate": 2,
+    "waterproof": 2,
+    "protection-board": 2,
+    "edge-foam": 2,
+    "drain-tile": 1,
+    "drain-gravel": 1,
+    "filter-fabric": 1,
+    "wwf": 1,
+    "isolation-joint": 2,
+    "anchor": 44
+  },
+  "fasteners_skipped": ["1/2 in sill anchors ~6 ft o.c. — 44 on fasteners layer"],
+  "not_this_phase": ["6-mil poly P06", "capillary gravel P06", "P07 joists exist on this model — c-P07-no-joists-on-sog is a Fontana SOG constraint; Logan frost-stem still has a floor package"],
+  "honest_gaps": [
+    "ORNL Ch 4: no subdrain/waterproof if floor above grade — this frost-stem still shows tile + dampproof (Logan wet-footing practice). Call, not hide.",
+    "Termiticide is a process, no spray mesh invented",
+    "Form stakes out of pour — process",
+    "WWF is a plate stand-in, not a 6x6 grid"
+  ]
+}

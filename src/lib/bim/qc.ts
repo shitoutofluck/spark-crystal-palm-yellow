@@ -2,7 +2,7 @@ import type { BoxSpec, BuildingProgram } from "./types";
 import { runRoofLoop, type RoofLoopReport } from "./roof-loop";
 import { verifyRoof } from "./roof-verify";
 
-export const QC_REV = 9;
+export const QC_REV = 20;
 
 export type QcGate = "pass" | "warn" | "fail";
 export type QcRail = "committee" | "calcs";
@@ -127,6 +127,21 @@ function committee(p: BuildingProgram, boxes: BoxSpec[]): QcRow[] {
   const sills = ofKind(boxes, "sill-plate").length;
   const stack = ofKind(boxes, "soil-stack").length;
   const toilets = ofKind(boxes, "toilet").length;
+  const stakes = ofKind(boxes, "stake").length;
+  const batterPosts = ofKind(boxes, "batter-post").length;
+  const batterBoards = ofKind(boxes, "batter").length;
+  const strings = ofKind(boxes, "string-line").length;
+  const gapToilet = ofKind(boxes, "gap-toilet").length;
+  const spoil = ofKind(boxes, "spoil-pile").length;
+  const slopes = ofKind(boxes, "back-slope").length;
+  const paints = ofKind(boxes, "paint-limit").length;
+  const subgradeN = ofKind(boxes, "subgrade").length;
+  const stems = ofKind(boxes, "stem").length;
+  const slabs = ofKind(boxes, "slab").length;
+  const wwfN = ofKind(boxes, "wwf").length;
+  const gravelBed = ofKind(boxes, "gravel-bed").length;
+  const polyN = ofKind(boxes, "poly").length;
+  const wasteN = ofKind(boxes, "underslab-waste").length;
   const sinks = ofKind(boxes, "sink").length;
   const beds = ofKind(boxes, "bed-a").length + ofKind(boxes, "bed-b").length;
   const l0Doors = boxes.filter((b) => b.kind === "leaf" && b.y < p.storeyHeight * 0.5).length;
@@ -142,6 +157,178 @@ function committee(p: BuildingProgram, boxes: BoxSpec[]): QcRow[] {
       citation: "Kernel — finite dims, V > 0",
       gate: finite(boxes) && boxes.length > 0 ? "pass" : "fail",
       detail: finite(boxes) ? `${boxes.length} solids, no NaNs` : "NaN or empty mesh",
+    }),
+    row({
+      id: "COM-P03-STAKES",
+      rail: "committee",
+      title: "P03 corner stakes",
+      citation: "FM 5-426 Ch4 — drive stakes at each corner before boards",
+      gate: stakes >= 4 ? "pass" : "fail",
+      detail: `${stakes} 2×2 corner stakes (need 4)`,
+    }),
+    row({
+      id: "COM-P03-BATTER",
+      rail: "committee",
+      title: "P03 batter boards 3–4 ft outside",
+      citation: "FM 5-426 Fig 4-3 — 4×4 posts + 1×6 boards",
+      gate: batterPosts >= 8 && batterBoards >= 8 ? "pass" : "fail",
+      detail: `${batterPosts} posts · ${batterBoards} boards`,
+    }),
+    row({
+      id: "COM-P03-STRING",
+      rail: "committee",
+      title: "P03 string lines",
+      citation: "FM 5-426 — lines from board to board; building + excavation",
+      gate: strings >= 4 ? "pass" : "fail",
+      detail: `${strings} string runs`,
+    }),
+    row({
+      id: "COM-P03-NO-TOILET",
+      rail: "committee",
+      title: "P03 temp toilet is a Gap",
+      citation: "bible gap-P03-temp-toilet — yellow cage, do not invent a toilet",
+      gate: gapToilet >= 1 && ofKind(boxes, "toilet").filter((b) => b.layer === "excavation").length === 0 ? "pass" : "fail",
+      detail: `${gapToilet} GAP cages · excavation toilets ${ofKind(boxes, "toilet").filter((b) => b.layer === "excavation").length}`,
+    }),
+    row({
+      id: "COM-P04-HOLE",
+      rail: "committee",
+      title: "P04 hole / subgrade",
+      citation: "ORNL FOOTINGS — undisturbed subgrade; inspect before pour",
+      gate: subgradeN >= 1 ? "pass" : "fail",
+      detail: `${subgradeN} subgrade pads · depth frost+0.12`,
+    }),
+    row({
+      id: "COM-P04-SPOIL",
+      rail: "committee",
+      title: "P04 spoil site",
+      citation: "ORNL SITEWORK — define spoil site",
+      gate: spoil >= 1 ? "pass" : "fail",
+      detail: `${spoil} spoil piles`,
+    }),
+    row({
+      id: "COM-P04-PAINT",
+      rail: "committee",
+      title: "P04 excavation limits",
+      citation: "CMHC Ch6 fluorescent paint may mark perimeter — labeled Canadian",
+      gate: paints >= 4 ? "pass" : "warn",
+      detail: `${paints} paint-limit runs`,
+    }),
+    row({
+      id: "COM-P04-SLOPE",
+      rail: "committee",
+      title: "P04 back slope",
+      citation: "CMHC Ch6 back slope if >1.2 m. This hole is frost-depth; banks still shown.",
+      gate: slopes >= 4 ? "pass" : "warn",
+      detail: `${slopes} banked faces · hole 0.88 m < 1.2 m trigger`,
+    }),
+    row({
+      id: "COM-P05-STEM",
+      rail: "committee",
+      title: "P05 stem + frost footing + slab",
+      citation: "HUD §4.1 stem-wall + spread footing; frost bottom (HUD §4.8)",
+      gate: stems >= 2 && ofKind(boxes, "footing-front").length >= 1 && slabs >= 1 ? "pass" : "fail",
+      detail: `${stems} stems · ${ofKind(boxes, "footing-front").length} front ftgs · ${slabs} slabs`,
+    }),
+    row({
+      id: "COM-P05-WWF",
+      rail: "committee",
+      title: "P05 WWF / isolation",
+      citation: "HUD §4.6 WWF if slab >10 ft; isolation at wall",
+      gate: wwfN >= 1 && ofKind(boxes, "isolation-joint").length >= 1 ? "pass" : "warn",
+      detail: `${wwfN} WWF · ${ofKind(boxes, "isolation-joint").length} isolation`,
+    }),
+    row({
+      id: "COM-P06-STACK",
+      rail: "committee",
+      title: "P06 plumbing → gravel → poly",
+      citation: "CMHC Ch7 sewer first; ORNL 4-in gravel + 6-mil 12-in laps",
+      gate: wasteN >= 1 && gravelBed >= 1 && polyN >= 1 ? "pass" : "fail",
+      detail: `${wasteN} waste · ${gravelBed} gravel · ${polyN} poly · ${ofKind(boxes, "radon").length} radon`,
+    }),
+    row({
+      id: "COM-P07-IJOIST",
+      rail: "committee",
+      title: "P07 I-joist package",
+      citation: "PJI: brace before walk; rim + blocking; not on bare concrete",
+      gate:
+        ofKind(boxes, "i-web").length > 8 &&
+        ofKind(boxes, "rim-joist").length >= 2 &&
+        ofKind(boxes, "i-joist-brace").length >= 1 &&
+        ofKind(boxes, "floor-deck").length >= 1
+          ? "pass"
+          : "fail",
+      detail: `${ofKind(boxes, "i-web").length} webs · ${ofKind(boxes, "rim-joist").length} rims · ${ofKind(boxes, "i-joist-brace").length} braces · ${ofKind(boxes, "floor-deck").length} decks`,
+    }),
+    row({
+      id: "COM-P08-PACK",
+      rail: "committee",
+      title: "P08 sit-on-jack + double plate + braces",
+      citation: "Glencoe ch16: header on jacks; door sole uncut; braces until roof+sheathing",
+      gate:
+        ofKind(boxes, "king").length >= 8 &&
+        ofKind(boxes, "header").length >= 8 &&
+        ofKind(boxes, "header-spacer").length >= 4 &&
+        ofKind(boxes, "double-plate").length >= 4 &&
+        ofKind(boxes, "wall-brace").length >= 4
+          ? "pass"
+          : "fail",
+      detail: `${ofKind(boxes, "king").length} kings · ${ofKind(boxes, "header").length} header plies · ${ofKind(boxes, "header-spacer").length} spacers · ${ofKind(boxes, "wall-brace").length} braces`,
+    }),
+    row({
+      id: "COM-P09-RAFTER",
+      rail: "committee",
+      title: "P09 ceiling joists + rafters + deck",
+      citation: "AF&PA / CMHC: joists before rafters; HUD 6/12 deck; FM felt",
+      gate:
+        ofKind(boxes, "ceiling-joist").length >= 4 &&
+        ofKind(boxes, "rafter").length >= 8 &&
+        ofKind(boxes, "ridge").length >= 1 &&
+        ofKind(boxes, "roof-deck").length >= 2
+          ? "pass"
+          : "fail",
+      detail: `${ofKind(boxes, "ceiling-joist").length} joists · ${ofKind(boxes, "rafter").length} rafters · ${ofKind(boxes, "collar-tie").length} collars · ${ofKind(boxes, "roof-deck").length} decks`,
+    }),
+    row({
+      id: "COM-P10-PAN",
+      rail: "committee",
+      title: "P10 pan before window, head after, end dams",
+      citation: "CMHC Fig 130 order; Fig 125 end dam",
+      gate:
+        ofKind(boxes, "wrb").length >= 4 &&
+        ofKind(boxes, "pan-flash").length >= 8 &&
+        ofKind(boxes, "end-dam").length >= 8 &&
+        ofKind(boxes, "head-flash").length >= 8
+          ? "pass"
+          : "fail",
+      detail: `${ofKind(boxes, "wrb").length} WRB · ${ofKind(boxes, "pan-flash").length} pans · ${ofKind(boxes, "end-dam").length} dams · ${ofKind(boxes, "head-flash").length} heads`,
+    }),
+    row({
+      id: "COM-P11-CLAD",
+      rail: "committee",
+      title: "P11 lap siding over WRB + shingles",
+      citation: "AF&PA Fig 68 siding over Type 15; CMHC Ch12 shingles",
+      gate:
+        ofKind(boxes, "siding-course").length >= 20 &&
+        ofKind(boxes, "wrb").length >= 4 &&
+        ofKind(boxes, "shingle-course").length >= 20
+          ? "pass"
+          : "fail",
+      detail: `${ofKind(boxes, "siding-course").length} siding · ${ofKind(boxes, "corner-board").length} corners · ${ofKind(boxes, "shingle-course").length} shingles`,
+    }),
+    row({
+      id: "COM-P12-ROUGH",
+      rail: "committee",
+      title: "P12 rough before insulation: DWV + boxes + ducts + tub",
+      citation: "CMHC Ch2/Ch19/Ch20 — inspect before insulation",
+      gate:
+        ofKind(boxes, "soil-stack").length >= 1 &&
+        ofKind(boxes, "panel").length >= 1 &&
+        ofKind(boxes, "riser").length >= 1 &&
+        ofKind(boxes, "tub").length >= 1
+          ? "pass"
+          : "fail",
+      detail: `${ofKind(boxes, "soil-stack").length} stacks · ${ofKind(boxes, "device").length} boxes · ${ofKind(boxes, "riser").length} risers · ${ofKind(boxes, "tub").length} tubs`,
     }),
     row({
       id: "COM-KING",

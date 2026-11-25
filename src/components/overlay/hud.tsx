@@ -16,6 +16,8 @@ import { formatHex, parseUserHex, typeHex } from "@/lib/bim/hash";
 import { kindMeta } from "@/lib/bim/kinds";
 import { EXAMPLE_BRIEFS } from "@/lib/bim/parse-brief";
 import { PHASE_NOTES } from "@/lib/bim/phases";
+import { ENGINE_REV } from "@/lib/bim/engine";
+import { gpuReport } from "@/lib/bim/gpu";
 import type { QcGate } from "@/lib/bim/qc";
 import {
   LAYER_PRESETS,
@@ -892,6 +894,24 @@ function GizmoBar() {
   );
 }
 
+function GpuStamp() {
+  const [label, setLabel] = useState("GPU …");
+  useEffect(() => {
+    const tick = () => {
+      const g = gpuReport;
+      setLabel(
+        `${g.lite ? "GPU LITE" : "GPU FULL"}${g.forced ? " (forced)" : ""}${
+          g.compileOk === true ? " · PBR ok" : g.compileOk === false ? " · PBR fail" : ""
+        }`,
+      );
+    };
+    tick();
+    const id = window.setInterval(tick, 500);
+    return () => window.clearInterval(id);
+  }, []);
+  return <span className="text-steel">{label}</span>;
+}
+
 export function Hud() {
   const [open, setOpen] = useState<"layers" | "spec" | null>(null);
   const program = useBim((s) => s.program);
@@ -921,6 +941,10 @@ export function Hud() {
             {via === "model" ? " · from brief" : via === "fallback" ? " · parsed brief" : " · study"}
             {" · "}
             <span className="tabular-nums">{boxes.toLocaleString()} pcs</span>
+            {" · "}
+            <span className="text-steel">engine {ENGINE_REV}</span>
+            {" · "}
+            <GpuStamp />
           </p>
           <QcHeaderLights />
         </div>
